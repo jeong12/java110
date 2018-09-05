@@ -1,40 +1,12 @@
 package bitcamp.java110.cms.control;
 import java.util.Scanner;
-import bitcamp.java110.cms.domain.Member; //알려주는 것(링크정보)! compile할 때는 사라짐. 
+
+import bitcamp.java110.dao.StudentList;
+import bitcamp.java110.domain.Student;
 
 public class StudentController {
 
     public static Scanner keyIn;
-
-    static class Student extends Member{
-        protected String school;
-        protected boolean working;
-        protected String tel;
-
-        public String getSchool() {
-            return school;
-        }
-        public void setSchool(String school) {
-            this.school = school;
-        }
-        public boolean isWorking() {
-            return working;
-        }
-        public void setWorking(boolean working) {
-            this.working = working;
-        }
-        public String getTel() {
-            return tel;
-        }
-        public void setTel(String tel) {
-            this.tel = tel;
-        }    
-    }  
-
-    static Student [] students = new Student[5];
-    static int studentIndex =0;
-
-
 
     public static void serviceStudentMenu() {
         while(true) {
@@ -58,19 +30,7 @@ public class StudentController {
             }
         }
     }
-    private static void printStudents() {
-        int count=0;
-        for(Student s : students) {
-            if(count++ == studentIndex)
-                break;
-            else {
-                System.out.printf("%d: %s, %s, %s, %s, %b, %s\n",
-                        count-1, s.getName(), 
-                        s.getEmail(), s.getPassword(), s.getSchool()
-                        ,s.isWorking(), s.getTel());
-            }
-        }
-    }
+
     private static void inputStudents() {
         while(true) {
             Student m = new Student();
@@ -87,12 +47,7 @@ public class StudentController {
             System.out.print("tel? ");
             m.setTel(keyIn.nextLine());
 
-            if(studentIndex == students.length) {
-                increaseStorage();
-            }
-
-            students[studentIndex++] = m;
-            /*index++; 이걸 안쓰려면 위에 방법처럼 [index ++]*/
+            StudentList.add(m);
 
             System.out.println("continue?(Y/n) ");
             String answer = keyIn.nextLine();
@@ -101,26 +56,27 @@ public class StudentController {
         } 
 
     }
-    private static void increaseStorage() {
-        Student[] newList=new Student[students.length+3];
-        for(int i=0;i<students.length;i++) {
-            newList[i]=students[i];
+
+    private static void printStudents() {
+        for(int i=0; i<StudentList.size();i++) {
+            Student s=StudentList.get(i);
+            System.out.printf("%d: %s, %s, %s, %s, %b, %s\n",
+                    i, s.getName(), 
+                    s.getEmail(), s.getPassword(), s.getSchool()
+                    ,s.isWorking(), s.getTel());
         }
-        students=newList;
     }
+
 
     private static void deleteStudent() {
         System.out.print("input number to delete  ");
         int no=Integer.parseInt(keyIn.nextLine());
 
-        if(no<0 || no>=studentIndex) {
+        if(no<0 || no>=StudentList.size()) {
             System.out.println("unvailed number");
             return;
         }
-        for(int i=no;i<studentIndex-1;i++) {
-            students[i]=students[i+1];
-        }
-        studentIndex--;
+        StudentList.remove(no);
         System.out.println("delete success!");
     }
 
@@ -128,34 +84,35 @@ public class StudentController {
         System.out.print("input number to show  ");
         int no=Integer.parseInt(keyIn.nextLine());
 
-        if(no<0 || no>=studentIndex) {
+        if(no<0 || no>=StudentList.size()) {
             System.out.println("unvailed number");
             return;
         }
-        System.out.println("name: " + students[no].getName());
-        System.out.println("email: " + students[no].getEmail());
-        System.out.println("password: " + students[no].getPassword());
-        System.out.println("tel: "+ students[no].getTel());
-        System.out.println("working: "+ students[no].isWorking());
-        System.out.println("school: " + students[no].getSchool());
+        Student student = StudentList.get(no);
+        System.out.println("name: " + student.getName());
+        System.out.println("email: " + student.getEmail());
+        System.out.println("password: " + student.getPassword());
+        System.out.println("tel: "+ student.getTel());
+        System.out.println("working: "+ student.isWorking());
+        System.out.println("school: " + student.getSchool());
     }
 
     static {
         Student s=new Student();
         s.setName("a");
-        students[studentIndex++]=s;
+        StudentList.add(s);
         s=new Student();
         s.setName("b");
-        students[studentIndex++]=s;
+        StudentList.add(s);
         s=new Student();
         s.setName("c");
-        students[studentIndex++]=s;
+        StudentList.add(s);
         s=new Student();
         s.setName("d");
-        students[studentIndex++]=s;
+        StudentList.add(s);
         s=new Student();
         s.setName("e");
-        students[studentIndex++]=s;
+        StudentList.add(s);
 
 
 
