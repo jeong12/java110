@@ -1,8 +1,10 @@
+package bitcamp.java110.cms.control;
 import java.util.Scanner;
+import bitcamp.java110.cms.domain.Member; //알려주는 것(링크정보)! compile할 때는 사라짐. 
 
 public class StudentController {
 
-    static Scanner keyIn;
+    public static Scanner keyIn;
 
     static class Student extends Member{
         protected String school;
@@ -34,7 +36,7 @@ public class StudentController {
 
 
 
-    static void serviceStudentMenu() {
+   public static void serviceStudentMenu() {
         while(true) {
             System.out.print("student menu> ");
             String command=keyIn.nextLine();
@@ -52,7 +54,7 @@ public class StudentController {
             }
         }
     }
-    static void printStudents() {
+   private static void printStudents() {
         int count=0;
         for(Student s : students) {
             if(count++ == studentIndex)
@@ -64,7 +66,7 @@ public class StudentController {
             }
         }
     }
-    static void inputStudents() {
+   private static void inputStudents() {
         while(true) {
             Student m = new Student();
             System.out.print("name? ");
