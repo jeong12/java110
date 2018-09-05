@@ -30,8 +30,32 @@ public class App {
         }
     }
 
-      
-    static Member [] members = new Member[100];
+    static class Student extends Member{
+        protected String school;
+        protected boolean working;
+        protected String tel;
+        
+        public String getSchool() {
+            return school;
+        }
+        public void setSchool(String school) {
+            this.school = school;
+        }
+        public boolean isWorking() {
+            return working;
+        }
+        public void setWorking(boolean working) {
+            this.working = working;
+        }
+        public String getTel() {
+            return tel;
+        }
+        public void setTel(String tel) {
+            this.tel = tel;
+        }    
+    }  
+        
+    static Student [] students = new Student[100];
     static int index =0;
 
     static Scanner keyIn = new Scanner(System.in);
@@ -56,10 +80,10 @@ public class App {
             System.out.print("student menu> ");
             String command=keyIn.nextLine();
             if(command.equals("list")) {
-                printMembers();
+                printStudents();
             }
             else if(command.equals("add")) {
-                inputMembers();
+                inputStudents();
             }
             else if(command.equals("quit")) {
                 break;
@@ -94,26 +118,38 @@ public class App {
         }   
     }
 
-    static void printMembers() {
-        for(int i=0; i<index; i++) {
-            System.out.printf("%s, %s, %s\n",members[i].getName(), 
-                    members[i].getEmial(), members[i].getPassword());
+    static void printStudents() {
+        int count=0;
+        for(Student s : students) {
+            if(count++ == index)
+                break;
+            else {
+            System.out.printf("%s, %s, %s, %s, %b, %s\n",s.getName(), 
+                    s.getEmial(), s.getPassword(), s.getSchool()
+                    ,s.isWorking(), s.getTel());
             //위치 이동할 때, alt 누르고 방향기로 위 아래!
             //method 앞에  static 붙이면 classmethod
         }
+        }
     }
 
-    static void inputMembers() {
+    static void inputStudents() {
         while(true) {
-            Member m = new Member();
+            Student m = new Student();
             System.out.print("name? ");
             m.setName(keyIn.nextLine());
             System.out.print("email? ");
             m.setEmial(keyIn.nextLine());
             System.out.print("password? ");
             m.setPassword(keyIn.nextLine());
+            System.out.print("fianl grade? ");
+            m.setSchool(keyIn.nextLine());
+            System.out.print("work now? (true/false)");
+            m.setWorking(Boolean.parseBoolean(keyIn.nextLine()));
+            System.out.print("tel? ");
+            m.setTel(keyIn.nextLine());
 
-            members[index++] = m;
+            students[index++] = m;
             /*index++; 이걸 안쓰려면 위에 방법처럼 [index ++]*/
 
             System.out.println("continue?(Y/n) ");
