@@ -1,41 +1,15 @@
 package bitcamp.java110.cms.control;
 import java.util.Scanner;
 
+import bitcamp.java110.cms.dao.TeacherList;
 import bitcamp.java110.cms.domain.Member;
+import bitcamp.java110.cms.domain.Teacher;
 
 public class TeacherController {
 
-    static Teacher [] teachers = new Teacher[100];
-    static int teacherIndex =0;
     public  static Scanner keyIn;
 
-    static class Teacher extends Member{
-        protected String tel;
-        protected int pay;
-        protected String subjects;
-
-        public String getTel() {
-            return tel;
-        }
-        public void setTel(String tel) {
-            this.tel = tel;
-        }
-        public int getPay() {
-            return pay;
-        }
-        public void setPay(int pay) {
-            this.pay = pay;
-        }
-        public String getSubjects() {
-            return subjects;
-        }
-        public void setSubjects(String subjects) {
-            this.subjects = subjects;
-        }
-    }
-
-
-    public static void serviceTeacherMenu() {
+      public static void serviceTeacherMenu() {
         while(true) {
             System.out.print("teacher menu> ");
             String command=keyIn.nextLine();
@@ -60,21 +34,6 @@ public class TeacherController {
         }
     }
 
-    private static void printTeachers() {
-        int count=0;
-        for(Teacher s : teachers) {
-            if(count++ == teacherIndex)
-                break;
-            else {
-                System.out.printf("%d: %s, %s, %s, %s, %d, [%s]\n",
-                        count-1, s.getName(),s.getEmail(), s.getPassword(), 
-                        s.getTel(),s.getPay(), s.getSubjects());
-                //위치 이동할 때, alt 누르고 방향기로 위 아래!
-                //method 앞에  static 붙이면 classmethod
-            }
-        }
-    }
-
     private static void inputTeachers() {
         while(true) {
             Teacher m = new Teacher();
@@ -91,12 +50,7 @@ public class TeacherController {
             System.out.print("subjects? (ex: java, c, c++) ");
             m.setSubjects(keyIn.nextLine());
 
-            if(teacherIndex == teachers.length) {
-                increaseStorage();
-            }
-            
-            teachers[teacherIndex++] = m;
-            /*index++; 이걸 안쓰려면 위에 방법처럼 [index ++]*/
+            TeacherList.add(m);
 
             System.out.println("continue?(Y/n) ");
             String answer = keyIn.nextLine();
@@ -106,25 +60,21 @@ public class TeacherController {
 
     }
     
-    private static void increaseStorage() {
-        Teacher[] newList=new Teacher[teachers.length+3];
-        for(int i=0;i<teachers.length;i++) {
-            newList[i]=teachers[i];
+   
+    private static void printTeachers() {
+        for(int i=0; i<TeacherList.size();i++) {
+            Teacher teacher=TeacherList.get(i);
+                System.out.printf("%d: %s, %s, %s, %s, %d, [%s]\n",
+                        i, teacher.getName(),teacher.getEmail(), 
+                        teacher.getPassword(),teacher.getTel()
+                        ,teacher.getPay(), teacher.getSubjects());
+            }
         }
-        teachers=newList;
-    }
+    
     private static void deleteTeacher() {
         System.out.print("input number to delete  ");
         int no=Integer.parseInt(keyIn.nextLine());
-
-        if(no<0 || no>=teacherIndex) {
-            System.out.println("unvailed number");
-            return;
-        }
-        for(int i=no;i<teacherIndex-1;i++) {
-            teachers[i]=teachers[i+1];
-        }
-        teacherIndex--;
+        TeacherList.remove(no);
         System.out.println("delete success!");
     }
 
@@ -133,37 +83,30 @@ public class TeacherController {
         System.out.print("input number to show  ");
         int no=Integer.parseInt(keyIn.nextLine());
 
-        if(no<0 || no>=teacherIndex) {
-            System.out.println("unvailed number");
-            return;
-        }
-        System.out.println("name: "+ teachers[no].getName());
-        System.out.println("email: "+ teachers[no].getEmail());
-        System.out.println("password: "+ teachers[no].getPassword());
-        System.out.println("tel: "+ teachers[no].getTel());
-        System.out.println("psy: "+ teachers[no].getPay());
-        System.out.println("subject: "+ teachers[no].getSubjects());
+        Teacher teacher=TeacherList.get(no);
+        System.out.println("name: "+ teacher.getName());
+        System.out.println("email: "+ teacher.getEmail());
+        System.out.println("password: "+ teacher.getPassword());
+        System.out.println("tel: "+ teacher.getTel());
+        System.out.println("psy: "+ teacher.getPay());
+        System.out.println("subject: "+ teacher.getSubjects());
     }
 
     static {
         Teacher s=new Teacher();
         s.setName("a");
-        teachers[teacherIndex++]=s;
+        TeacherList.add(s);
         s=new Teacher();
         s.setName("b");
-        teachers[teacherIndex++]=s;
+        TeacherList.add(s);
         s=new Teacher();
         s.setName("c");
-        teachers[teacherIndex++]=s;
+        TeacherList.add(s);
         s=new Teacher();
         s.setName("d");
-        teachers[teacherIndex++]=s;
+        TeacherList.add(s);
         s=new Teacher();
         s.setName("e");
-        teachers[teacherIndex++]=s;
-
-
-
+        TeacherList.add(s);
     }
-
 }
