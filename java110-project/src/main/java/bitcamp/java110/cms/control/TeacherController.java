@@ -113,7 +113,7 @@ public class TeacherController {
         teachers=newList;
     }
     private static void deleteTeacher() {
-        System.out.print("input number to delete");
+        System.out.print("input number to delete  ");
         int no=Integer.parseInt(keyIn.nextLine());
 
         if(no<0 || no>=teacherIndex) {
@@ -129,19 +129,19 @@ public class TeacherController {
 
     
     private static void detailTeacher() {
-        System.out.print("input number to show");
+        System.out.print("input number to show  ");
         int no=Integer.parseInt(keyIn.nextLine());
 
         if(no<0 || no>=teacherIndex) {
             System.out.println("unvailed number");
             return;
         }
-        System.out.printf("name: %s/n", teachers[no].getName());
-        System.out.printf("email: %s/n", teachers[no].getEmail());
-        System.out.printf("password: %s/n", teachers[no].getPassword());
-        System.out.printf("tel: %s/n", teachers[no].getTel());
-        System.out.printf("psy: %d/n", teachers[no].getPay());
-        System.out.printf("subject: %s/n", teachers[no].getSubjects());
+        System.out.println("name: "+ teachers[no].getName());
+        System.out.println("email: "+ teachers[no].getEmail());
+        System.out.println("password: "+ teachers[no].getPassword());
+        System.out.println("tel: "+ teachers[no].getTel());
+        System.out.println("psy: "+ teachers[no].getPay());
+        System.out.println("subject: "+ teachers[no].getSubjects());
     }
 
     static {

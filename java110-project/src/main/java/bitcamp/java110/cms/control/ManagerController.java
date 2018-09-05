@@ -103,7 +103,7 @@ public class ManagerController {
    }
    
    private static void deleteManager() {
-       System.out.print("input number to delete");
+       System.out.print("input number to delete  ");
        int no=Integer.parseInt(keyIn.nextLine());
 
        if(no<0 || no>=managerIndex) {
@@ -118,18 +118,18 @@ public class ManagerController {
    }
    
    private static void detailManager() {
-       System.out.print("input number to show");
+       System.out.print("input number to show  ");
        int no=Integer.parseInt(keyIn.nextLine());
 
        if(no<0 || no>=managerIndex) {
            System.out.println("unvailed number");
            return;
        }
-       System.out.printf("name: %s/n", Managers[no].getName());
-       System.out.printf("email: %s/n", Managers[no].getEmail());
-       System.out.printf("password: %s/n", Managers[no].getPassword());
-       System.out.printf("tel: %s/n", Managers[no].getTel());
-       System.out.printf("position: %s/n", Managers[no].getPosition());
+       System.out.println("name: "+ Managers[no].getName());
+       System.out.println("email: "+ Managers[no].getEmail());
+       System.out.println("password: "+ Managers[no].getPassword());
+       System.out.println("tel: "+ Managers[no].getTel());
+       System.out.println("position: " + Managers[no].getPosition());
    }
 
    static {

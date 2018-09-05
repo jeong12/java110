@@ -110,7 +110,7 @@ public class StudentController {
     }
 
     private static void deleteStudent() {
-        System.out.print("input number to delete");
+        System.out.print("input number to delete  ");
         int no=Integer.parseInt(keyIn.nextLine());
 
         if(no<0 || no>=studentIndex) {
@@ -125,7 +125,7 @@ public class StudentController {
     }
 
     private static void detailStudent() {
-        System.out.print("input number to show");
+        System.out.print("input number to show  ");
         int no=Integer.parseInt(keyIn.nextLine());
 
         if(no<0 || no>=studentIndex) {
