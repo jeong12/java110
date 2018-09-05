@@ -1,7 +1,7 @@
 package bitcamp.java110.cms.control;
 import java.util.Scanner;
 
-import bitcamp.java110.domain.Member;
+import bitcamp.java110.cms.domain.Member;
 
 public class TeacherController {
 

@@ -1,8 +1,8 @@
 package bitcamp.java110.cms.control;
 import java.util.Scanner;
 
-import bitcamp.java110.dao.StudentList;
-import bitcamp.java110.domain.Student;
+import bitcamp.java110.cms.dao.StudentList;
+import bitcamp.java110.cms.domain.Student;
 
 public class StudentController {
 

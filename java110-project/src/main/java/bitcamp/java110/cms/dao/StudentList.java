@@ -1,6 +1,6 @@
-package bitcamp.java110.dao;
+package bitcamp.java110.cms.dao;
 
-import bitcamp.java110.domain.Student;
+import bitcamp.java110.cms.domain.Student;
 
 public class StudentList {
     
