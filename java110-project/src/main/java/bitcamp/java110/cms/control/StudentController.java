@@ -47,7 +47,7 @@ public class StudentController {
             System.out.print("tel? ");
             m.setTel(keyIn.nextLine());
 
-            StudentList.add(m);
+            StudentList.add(m); //student 자체를 add
 
             System.out.println("continue?(Y/n) ");
             String answer = keyIn.nextLine();
