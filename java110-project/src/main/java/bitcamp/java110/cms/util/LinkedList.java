@@ -17,8 +17,6 @@ public class LinkedList<T> {
         last.next=node;
         last=node;
         length++;
-
-
     }
 
     public T get(int index) {
@@ -34,12 +32,41 @@ public class LinkedList<T> {
     }
 
     public T remove(int index) {
-        return null;
-
+        if(index <0 || index >=length) 
+            return null;
+        length--;
+        
+        Node<T> cursor=first;
+        for(int count=0;count<index;count++) {
+            cursor=cursor.next;
+        }
+        if(cursor==first) {
+            first=first.next;
+            first.prev=null;
+            return cursor.value;
+        }
+        cursor.prev.next=cursor.next;
+        cursor.next.prev=cursor.prev;
+        return cursor.value;
     }
 
-    public void inser(int index, T obj) {
-
+    public void insert(int index, T obj) {
+        if(index <0 || index >=length) 
+            return;
+        length++;
+        Node<T> node=new Node<>();
+        node.value=obj;
+        Node<T> cursor=first;
+        for(int count=0;count<index;count++) {
+            cursor=cursor.next;
+        }
+        // previous node can connect a newnode if previous node exists
+        if(cursor!=first) {
+        cursor.prev.next=node; //previous node points new node
+        node.prev=cursor.prev; //new node points previous node
+        cursor.prev=node; //present node point new node
+        node.next=cursor; //next of new node points present node
+        }
     }
 
     public int size() {
