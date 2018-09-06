@@ -2,15 +2,18 @@ package bitcamp.java110.cms.control;
 import java.util.Scanner;
 
 import bitcamp.java110.cms.domain.Student;
-import bitcamp.java110.cms.util.LinkedList;
+import bitcamp.java110.cms.util.List;
 
 public class StudentController {
     
-    private LinkedList<Student> students= new LinkedList<>();
+    private List<Student> students;
     public Scanner keyIn;
+
     
-    public StudentController(Scanner keyIn) {
+    public StudentController(Scanner keyIn, List<Student> students) {
         this.keyIn = keyIn;
+        this.students=students;
+        init();
     }
     
     public void serviceStudentMenu() {
@@ -102,7 +105,7 @@ public class StudentController {
         System.out.println("school: " + student.getSchool());
     }
 
-     { //instance block. create before constructor cf)static block = create before make class
+     private void init(){ 
         Student s=new Student();
         s.setName("a");
         students.add(s);

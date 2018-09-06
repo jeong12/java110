@@ -1,36 +1,40 @@
 package bitcamp.java110.cms.util;
 
 
-public class ArrayList<T> {
+public class ArrayList<T> implements List<T>{
     
     //개별적으로 관리해야 할 값이라면 인스턴스 변수를 사용
-    private Object [] List = new Object[5];
+    private Object [] list = new Object[5];
     private int index =0;
 
     public void add(T obj) {
-        if(index == List.length) {
+        if(index == list.length) {
             increaseStorage();
         }
-        List[index++] = obj;
+        list[index++] = obj;
 
     }
 
     private void increaseStorage() {
-        Object[] newList=new Object[List.length+3];
-        for(int i=0;i<List.length;i++) {
-            newList[i]=List[i];
+        Object[] newlist=new Object[list.length+3];
+        for(int i=0;i<list.length;i++) {
+            newlist[i]=list[i];
         }
-        List=newList;
+        list=newlist;
     }
     
-    public void remove(int no) {
+    public T remove(int no) {
         if(no<0 || no>=index) {
-            return;
+            return null;
         }
+        
+        @SuppressWarnings("unchecked")
+        T removedobj=(T)list[no];
         for(int i=no;i<index-1;i++) {
-            List[i]=List[i+1];
+            list[i]=list[i+1];
         }
         index--;
+        return removedobj;
     }
     
     public int size() {
@@ -44,7 +48,7 @@ public class ArrayList<T> {
             System.out.println("unvailed number");
             return null;
         }
-        return (T)List[no];
+        return (T)list[no];
     }
 }
     
