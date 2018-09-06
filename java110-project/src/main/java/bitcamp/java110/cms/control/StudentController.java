@@ -5,10 +5,15 @@ import bitcamp.java110.cms.domain.Student;
 import bitcamp.java110.cms.util.ArrayList;
 
 public class StudentController {
-
-    public static Scanner keyIn;
-
-    public static void serviceStudentMenu() {
+    
+    private ArrayList students= new ArrayList();
+    public Scanner keyIn;
+    
+    public StudentController(Scanner keyIn) {
+        this.keyIn = keyIn;
+    }
+    
+    public void serviceStudentMenu() {
         while(true) {
             System.out.print("student menu> ");
             String command=keyIn.nextLine();
@@ -31,7 +36,7 @@ public class StudentController {
         }
     }
 
-    private static void inputStudents() {
+    private void inputStudents() {
         while(true) {
             Student m = new Student();
             System.out.print("name? ");
@@ -47,7 +52,7 @@ public class StudentController {
             System.out.print("tel? ");
             m.setTel(keyIn.nextLine());
 
-            ArrayList.add(m); //student 자체를 add
+            students.add(m); //student 자체를 add
 
             System.out.println("continue?(Y/n) ");
             String answer = keyIn.nextLine();
@@ -57,9 +62,9 @@ public class StudentController {
 
     }
 
-    private static void printStudents() {
-        for(int i=0; i<ArrayList.size();i++) {
-            Student s=(Student)ArrayList.get(i);
+    private void printStudents() {
+        for(int i=0; i<students.size();i++) {
+            Student s=(Student)students.get(i);
             System.out.printf("%d: %s, %s, %s, %s, %b, %s\n",
                     i, s.getName(), 
                     s.getEmail(), s.getPassword(), s.getSchool()
@@ -68,27 +73,27 @@ public class StudentController {
     }
 
 
-    private static void deleteStudent() {
+    private void deleteStudent() {
         System.out.print("input number to delete  ");
         int no=Integer.parseInt(keyIn.nextLine());
 
-        if(no<0 || no>=ArrayList.size()) {
+        if(no<0 || no>=students.size()) {
             System.out.println("unvailed number");
             return;
         }
-        ArrayList.remove(no);
+        students.remove(no);
         System.out.println("delete success!");
     }
 
-    private static void detailStudent() {
+    private void detailStudent() {
         System.out.print("input number to show  ");
         int no=Integer.parseInt(keyIn.nextLine());
 
-        if(no<0 || no>=ArrayList.size()) {
+        if(no<0 || no>=students.size()) {
             System.out.println("unvailed number");
             return;
         }
-        Student student = (Student)ArrayList.get(no);
+        Student student = (Student)students.get(no);
         System.out.println("name: " + student.getName());
         System.out.println("email: " + student.getEmail());
         System.out.println("password: " + student.getPassword());
@@ -97,23 +102,23 @@ public class StudentController {
         System.out.println("school: " + student.getSchool());
     }
 
-    static {
+     { //instance block. create before constructor cf)static block = create before make class
         Student s=new Student();
         s.setName("a");
-        ArrayList.add(s);
+        students.add(s);
         s=new Student();
         s.setName("b");
-        ArrayList.add(s);
+        students.add(s);
         s=new Student();
         s.setName("c");
-        ArrayList.add(s);
+        students.add(s);
         s=new Student();
         s.setName("d");
-        ArrayList.add(s);
+        students.add(s);
         s=new Student();
         s.setName("e");
-        ArrayList.add(s);
+        students.add(s);
 
 
-    }
+    } 
 }

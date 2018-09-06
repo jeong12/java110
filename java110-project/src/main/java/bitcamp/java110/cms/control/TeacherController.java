@@ -6,9 +6,13 @@ import bitcamp.java110.cms.util.ArrayList;
 
 public class TeacherController {
 
-    public  static Scanner keyIn;
+    private ArrayList teachers = new ArrayList(); 
+    public Scanner keyIn;
+    public TeacherController(Scanner keyIn){
+        this.keyIn=keyIn;
+    }
 
-      public static void serviceTeacherMenu() {
+      public void serviceTeacherMenu() {
         while(true) {
             System.out.print("teacher menu> ");
             String command=keyIn.nextLine();
@@ -33,7 +37,7 @@ public class TeacherController {
         }
     }
 
-    private static void inputTeachers() {
+    private void inputTeachers() {
         while(true) {
             Teacher m = new Teacher();
             System.out.print("name? ");
@@ -49,7 +53,7 @@ public class TeacherController {
             System.out.print("subjects? (ex: java, c, c++) ");
             m.setSubjects(keyIn.nextLine());
 
-            ArrayList.add(m);
+            teachers.add(m);
 
             System.out.println("continue?(Y/n) ");
             String answer = keyIn.nextLine();
@@ -60,9 +64,9 @@ public class TeacherController {
     }
     
    
-    private static void printTeachers() {
-        for(int i=0; i<ArrayList.size();i++) {
-            Teacher teacher=(Teacher)ArrayList.get(i);
+    private void printTeachers() {
+        for(int i=0; i<teachers.size();i++) {
+            Teacher teacher=(Teacher)teachers.get(i);
                 System.out.printf("%d: %s, %s, %s, %s, %d, [%s]\n",
                         i, teacher.getName(),teacher.getEmail(), 
                         teacher.getPassword(),teacher.getTel()
@@ -70,19 +74,19 @@ public class TeacherController {
             }
         }
     
-    private static void deleteTeacher() {
+    private void deleteTeacher() {
         System.out.print("input number to delete  ");
         int no=Integer.parseInt(keyIn.nextLine());
-        ArrayList.remove(no);
+        teachers.remove(no);
         System.out.println("delete success!");
     }
 
     
-    private static void detailTeacher() {
+    private void detailTeacher() {
         System.out.print("input number to show  ");
         int no=Integer.parseInt(keyIn.nextLine());
 
-        Teacher teacher=(Teacher)ArrayList.get(no);
+        Teacher teacher=(Teacher)teachers.get(no);
         System.out.println("name: "+ teacher.getName());
         System.out.println("email: "+ teacher.getEmail());
         System.out.println("password: "+ teacher.getPassword());
@@ -91,20 +95,20 @@ public class TeacherController {
         System.out.println("subject: "+ teacher.getSubjects());
     }
 
-    static {
+    {
         Teacher s=new Teacher();
         s.setName("a");
-        ArrayList.add(s);
+        teachers.add(s);
         s=new Teacher();
-        ArrayList.add(s);
+        teachers.add(s);
         s=new Teacher();
         s.setName("c");
-        ArrayList.add(s);
+        teachers.add(s);
         s=new Teacher();
         s.setName("d");
-        ArrayList.add(s);
+        teachers.add(s);
         s=new Teacher();
         s.setName("e");
-        ArrayList.add(s);
+        teachers.add(s);
     }
 }

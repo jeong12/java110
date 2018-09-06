@@ -9,21 +9,25 @@ public class App {
     static Scanner keyIn = new Scanner(System.in);
 
     public static void main(String[] args) {
-
-        StudentController.keyIn=keyIn;
-        TeacherController.keyIn=keyIn; //이렇게 해줘야 system.in을 scanner가 씀
-        ManagerController.keyIn=keyIn;
+        
+        StudentController sc=new StudentController(keyIn);
+        TeacherController tc=new TeacherController(keyIn);
+        ManagerController mc=new ManagerController(keyIn);
+        
+        sc.keyIn=keyIn;
+        tc.keyIn=keyIn; //이렇게 해줘야 system.in을 scanner가 씀
+        mc.keyIn=keyIn;
         
         while(true) {
             String menu=promptMenu();
             if(menu.equals("1")) {
-                StudentController.serviceStudentMenu();
+                sc.serviceStudentMenu();
             }
             else if(menu.equals("2")) {
-                TeacherController.serviceTeacherMenu();
+                tc.serviceTeacherMenu();
             }
             else if(menu.equals("3")) {
-                ManagerController.serviceManagerMenu();
+                mc.serviceManagerMenu();
             }
             else if(menu.equals("0")) {
                 System.out.println("good-bye!");
