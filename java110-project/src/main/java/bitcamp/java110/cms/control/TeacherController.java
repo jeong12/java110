@@ -1,9 +1,8 @@
 package bitcamp.java110.cms.control;
 import java.util.Scanner;
 
-import bitcamp.java110.cms.dao.TeacherList;
-import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.Teacher;
+import bitcamp.java110.cms.util.ArrayList;
 
 public class TeacherController {
 
@@ -50,7 +49,7 @@ public class TeacherController {
             System.out.print("subjects? (ex: java, c, c++) ");
             m.setSubjects(keyIn.nextLine());
 
-            TeacherList.add(m);
+            ArrayList.add(m);
 
             System.out.println("continue?(Y/n) ");
             String answer = keyIn.nextLine();
@@ -62,8 +61,8 @@ public class TeacherController {
     
    
     private static void printTeachers() {
-        for(int i=0; i<TeacherList.size();i++) {
-            Teacher teacher=TeacherList.get(i);
+        for(int i=0; i<ArrayList.size();i++) {
+            Teacher teacher=(Teacher)ArrayList.get(i);
                 System.out.printf("%d: %s, %s, %s, %s, %d, [%s]\n",
                         i, teacher.getName(),teacher.getEmail(), 
                         teacher.getPassword(),teacher.getTel()
@@ -74,7 +73,7 @@ public class TeacherController {
     private static void deleteTeacher() {
         System.out.print("input number to delete  ");
         int no=Integer.parseInt(keyIn.nextLine());
-        TeacherList.remove(no);
+        ArrayList.remove(no);
         System.out.println("delete success!");
     }
 
@@ -83,7 +82,7 @@ public class TeacherController {
         System.out.print("input number to show  ");
         int no=Integer.parseInt(keyIn.nextLine());
 
-        Teacher teacher=TeacherList.get(no);
+        Teacher teacher=(Teacher)ArrayList.get(no);
         System.out.println("name: "+ teacher.getName());
         System.out.println("email: "+ teacher.getEmail());
         System.out.println("password: "+ teacher.getPassword());
@@ -95,18 +94,17 @@ public class TeacherController {
     static {
         Teacher s=new Teacher();
         s.setName("a");
-        TeacherList.add(s);
+        ArrayList.add(s);
         s=new Teacher();
-        s.setName("b");
-        TeacherList.add(s);
+        ArrayList.add(s);
         s=new Teacher();
         s.setName("c");
-        TeacherList.add(s);
+        ArrayList.add(s);
         s=new Teacher();
         s.setName("d");
-        TeacherList.add(s);
+        ArrayList.add(s);
         s=new Teacher();
         s.setName("e");
-        TeacherList.add(s);
+        ArrayList.add(s);
     }
 }

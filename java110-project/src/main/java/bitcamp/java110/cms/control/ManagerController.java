@@ -1,8 +1,7 @@
 package bitcamp.java110.cms.control;
 import java.util.Scanner;
-
-import bitcamp.java110.cms.dao.ManagerList;
 import bitcamp.java110.cms.domain.Manager;
+import bitcamp.java110.cms.util.ArrayList;
 
 public class ManagerController {
 
@@ -49,7 +48,7 @@ public class ManagerController {
             System.out.print("tel? ");
             m.setTel(keyIn.nextLine());
 
-            ManagerList.add(m);
+            ArrayList.add(m);
 
             System.out.println("continue?(Y/n) ");
             String answer = keyIn.nextLine();
@@ -61,8 +60,8 @@ public class ManagerController {
 
 
     private static void printManagers() {
-        for(int i=0; i<ManagerList.size();i++) {
-            Manager manager=ManagerList.get(i);
+        for(int i=0; i<ArrayList.size();i++) {
+            Manager manager=(Manager)ArrayList.get(i);
             System.out.printf("%d: %s, %s, %s, %s\n",i, manager.getName(), 
                     manager.getEmail(), manager.getPassword(), 
                     manager.getPosition(), manager.getTel());
@@ -73,7 +72,7 @@ public class ManagerController {
 private static void deleteManager() {
     System.out.print("input number to delete  ");
     int no=Integer.parseInt(keyIn.nextLine());
-    ManagerList.remove(no);
+    ArrayList.remove(no);
     System.out.println("delete success!");
 }
 
@@ -81,7 +80,7 @@ private static void detailManager() {
     System.out.print("input number to show  ");
     int no=Integer.parseInt(keyIn.nextLine());
 
-    Manager manager=ManagerList.get(no);
+    Manager manager=(Manager)ArrayList.get(no);
     System.out.println("name: "+ manager.getName());
     System.out.println("email: "+ manager.getEmail());
     System.out.println("password: "+ manager.getPassword());
@@ -92,19 +91,19 @@ private static void detailManager() {
 static {
     Manager s=new Manager();
     s.setName("a");
-    ManagerList.add(s);
+    ArrayList.add(s);
     s=new Manager();
     s.setName("b");
-    ManagerList.add(s);
+    ArrayList.add(s);
     s=new Manager();
     s.setName("c");
-    ManagerList.add(s);
+    ArrayList.add(s);
     s=new Manager();
     s.setName("d");
-    ManagerList.add(s);
+    ArrayList.add(s);
     s=new Manager();
     s.setName("e");
-    ManagerList.add(s);
+    ArrayList.add(s);
 
 
 

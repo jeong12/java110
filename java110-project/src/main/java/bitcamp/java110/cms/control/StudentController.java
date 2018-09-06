@@ -1,8 +1,8 @@
 package bitcamp.java110.cms.control;
 import java.util.Scanner;
 
-import bitcamp.java110.cms.dao.StudentList;
 import bitcamp.java110.cms.domain.Student;
+import bitcamp.java110.cms.util.ArrayList;
 
 public class StudentController {
 
@@ -47,7 +47,7 @@ public class StudentController {
             System.out.print("tel? ");
             m.setTel(keyIn.nextLine());
 
-            StudentList.add(m); //student 자체를 add
+            ArrayList.add(m); //student 자체를 add
 
             System.out.println("continue?(Y/n) ");
             String answer = keyIn.nextLine();
@@ -58,8 +58,8 @@ public class StudentController {
     }
 
     private static void printStudents() {
-        for(int i=0; i<StudentList.size();i++) {
-            Student s=StudentList.get(i);
+        for(int i=0; i<ArrayList.size();i++) {
+            Student s=(Student)ArrayList.get(i);
             System.out.printf("%d: %s, %s, %s, %s, %b, %s\n",
                     i, s.getName(), 
                     s.getEmail(), s.getPassword(), s.getSchool()
@@ -72,11 +72,11 @@ public class StudentController {
         System.out.print("input number to delete  ");
         int no=Integer.parseInt(keyIn.nextLine());
 
-        if(no<0 || no>=StudentList.size()) {
+        if(no<0 || no>=ArrayList.size()) {
             System.out.println("unvailed number");
             return;
         }
-        StudentList.remove(no);
+        ArrayList.remove(no);
         System.out.println("delete success!");
     }
 
@@ -84,11 +84,11 @@ public class StudentController {
         System.out.print("input number to show  ");
         int no=Integer.parseInt(keyIn.nextLine());
 
-        if(no<0 || no>=StudentList.size()) {
+        if(no<0 || no>=ArrayList.size()) {
             System.out.println("unvailed number");
             return;
         }
-        Student student = StudentList.get(no);
+        Student student = (Student)ArrayList.get(no);
         System.out.println("name: " + student.getName());
         System.out.println("email: " + student.getEmail());
         System.out.println("password: " + student.getPassword());
@@ -100,20 +100,19 @@ public class StudentController {
     static {
         Student s=new Student();
         s.setName("a");
-        StudentList.add(s);
+        ArrayList.add(s);
         s=new Student();
         s.setName("b");
-        StudentList.add(s);
+        ArrayList.add(s);
         s=new Student();
         s.setName("c");
-        StudentList.add(s);
+        ArrayList.add(s);
         s=new Student();
         s.setName("d");
-        StudentList.add(s);
+        ArrayList.add(s);
         s=new Student();
         s.setName("e");
-        StudentList.add(s);
-
+        ArrayList.add(s);
 
 
     }
