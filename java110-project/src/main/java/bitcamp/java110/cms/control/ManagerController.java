@@ -1,8 +1,8 @@
 package bitcamp.java110.cms.control;
+import java.util.List;
 import java.util.Scanner;
 
 import bitcamp.java110.cms.domain.Manager;
-import bitcamp.java110.cms.util.List;
 
 public class ManagerController {
     
@@ -11,6 +11,7 @@ public class ManagerController {
     public ManagerController(Scanner keyIn, List<Manager> managers){
         this.keyIn=keyIn;
         this.managers=managers;
+        init();
     }
 
     public void serviceManagerMenu() {
@@ -94,7 +95,7 @@ public class ManagerController {
         System.out.println("position: " + manager.getPosition());
     }
 
-     {
+     private void init(){
         Manager s=new Manager();
         s.setName("a");
         managers.add(s);

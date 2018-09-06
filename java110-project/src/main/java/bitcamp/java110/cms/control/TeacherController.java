@@ -1,8 +1,8 @@
 package bitcamp.java110.cms.control;
+import java.util.List;
 import java.util.Scanner;
 
 import bitcamp.java110.cms.domain.Teacher;
-import bitcamp.java110.cms.util.List;
 
 public class TeacherController {
 
@@ -11,6 +11,7 @@ public class TeacherController {
     public TeacherController(Scanner keyIn, List<Teacher> teachers){
         this.keyIn=keyIn;
         this.teachers=teachers;
+        init();
     }
 
       public void serviceTeacherMenu() {
@@ -96,7 +97,7 @@ public class TeacherController {
         System.out.println("subject: "+ teacher.getSubjects());
     }
 
-    {
+    private void init(){
         Teacher s=new Teacher();
         s.setName("a");
         teachers.add(s);
