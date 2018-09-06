@@ -5,7 +5,7 @@ import bitcamp.java110.cms.util.ArrayList;
 
 public class ManagerController {
     
-    private ArrayList managers=new ArrayList();
+    private ArrayList<Manager> managers=new ArrayList<>();
     public Scanner keyIn;
     public ManagerController(Scanner keyIn){
         this.keyIn=keyIn;
@@ -65,7 +65,7 @@ public class ManagerController {
 
     private void printManagers() {
         for(int i=0; i<managers.size();i++) {
-            Manager manager=(Manager)managers.get(i);
+            Manager manager=managers.get(i);
             System.out.printf("%d: %s, %s, %s, %s\n",i, manager.getName(), 
                     manager.getEmail(), manager.getPassword(), 
                     manager.getPosition(), manager.getTel());
@@ -84,7 +84,7 @@ public class ManagerController {
         System.out.print("input number to show  ");
         int no=Integer.parseInt(keyIn.nextLine());
 
-        Manager manager=(Manager)managers.get(no);
+        Manager manager=managers.get(no);
         System.out.println("name: "+ manager.getName());
         System.out.println("email: "+ manager.getEmail());
         System.out.println("password: "+ manager.getPassword());

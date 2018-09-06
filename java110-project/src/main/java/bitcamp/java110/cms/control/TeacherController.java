@@ -6,7 +6,7 @@ import bitcamp.java110.cms.util.ArrayList;
 
 public class TeacherController {
 
-    private ArrayList teachers = new ArrayList(); 
+    private ArrayList<Teacher> teachers = new ArrayList<>(); 
     public Scanner keyIn;
     public TeacherController(Scanner keyIn){
         this.keyIn=keyIn;
@@ -66,7 +66,7 @@ public class TeacherController {
    
     private void printTeachers() {
         for(int i=0; i<teachers.size();i++) {
-            Teacher teacher=(Teacher)teachers.get(i);
+            Teacher teacher=teachers.get(i);
                 System.out.printf("%d: %s, %s, %s, %s, %d, [%s]\n",
                         i, teacher.getName(),teacher.getEmail(), 
                         teacher.getPassword(),teacher.getTel()
@@ -86,7 +86,7 @@ public class TeacherController {
         System.out.print("input number to show  ");
         int no=Integer.parseInt(keyIn.nextLine());
 
-        Teacher teacher=(Teacher)teachers.get(no);
+        Teacher teacher=teachers.get(no);
         System.out.println("name: "+ teacher.getName());
         System.out.println("email: "+ teacher.getEmail());
         System.out.println("password: "+ teacher.getPassword());
