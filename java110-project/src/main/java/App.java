@@ -37,23 +37,7 @@ public class App {
         System.out.println("1. student");
         System.out.println("2. teacher");
         System.out.println("3. manager");
-
-        while(true) {
-            System.out.print("menu number> ");
-
-            String menu=keyIn.nextLine();
-
-            switch(menu) {
-            case "1":
-            case "2":
-            case "3":
-            case "0":
-                return menu; 
-            default:
-                System.out.println("menu number is not vaild ");
-            }
+        return keyIn.nextLine();
         }   
-    }
-
 
 }
