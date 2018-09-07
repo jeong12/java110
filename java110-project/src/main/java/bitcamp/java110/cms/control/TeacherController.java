@@ -4,17 +4,15 @@ import java.util.Scanner;
 
 import bitcamp.java110.cms.domain.Teacher;
 
-public class TeacherController {
+public class TeacherController implements Controller{
 
     private List<Teacher> teachers; 
-    public Scanner keyIn;
-    public TeacherController(Scanner keyIn, List<Teacher> teachers){
-        this.keyIn=keyIn;
+    public TeacherController(List<Teacher> teachers){
         this.teachers=teachers;
         init();
     }
 
-      public void serviceTeacherMenu() {
+      public void service(Scanner keyIn) {
         while(true) {
             System.out.print("teacher menu> ");
             String command=keyIn.nextLine();
@@ -22,13 +20,13 @@ public class TeacherController {
                 printTeachers();
             }
             else if(command.equals("add")) {
-                inputTeachers();
+                inputTeachers(keyIn);
             }
             else if(command.equals("delete")) {
-                deleteTeacher();
+                deleteTeacher(keyIn);
             }
             else if(command.equals("detail")) {
-                detailTeacher();
+                detailTeacher(keyIn);
             }
             else if(command.equals("quit")) {
                 break;
@@ -39,11 +37,12 @@ public class TeacherController {
         }
     }
 
-    private void inputTeachers() {
+    private void inputTeachers(Scanner keyIn) //parameter 
+    {
         while(true) {
             Teacher m = new Teacher();
             System.out.print("name? ");
-            m.setName(keyIn.nextLine());
+            m.setName(keyIn.nextLine()); //argument
             System.out.print("email? ");
             m.setEmail(keyIn.nextLine());
             System.out.print("password? ");
@@ -76,7 +75,7 @@ public class TeacherController {
             }
         }
     
-    private void deleteTeacher() {
+    private void deleteTeacher(Scanner keyIn) {
         System.out.print("input number to delete  ");
         int no=Integer.parseInt(keyIn.nextLine());
         teachers.remove(no);
@@ -84,7 +83,7 @@ public class TeacherController {
     }
 
     
-    private void detailTeacher() {
+    private void detailTeacher(Scanner keyIn) {
         System.out.print("input number to show  ");
         int no=Integer.parseInt(keyIn.nextLine());
 

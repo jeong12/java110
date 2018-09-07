@@ -1,7 +1,9 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+import bitcamp.java110.cms.control.Controller;
 import bitcamp.java110.cms.control.ManagerController;
 import bitcamp.java110.cms.control.StudentController;
 import bitcamp.java110.cms.control.TeacherController;
@@ -14,29 +16,31 @@ public class App {
     static Scanner keyIn = new Scanner(System.in);
 
     public static void main(String[] args) {
-        
-        StudentController sc=new StudentController(keyIn, new LinkedList<Student>());
-        TeacherController tc=new TeacherController(keyIn, new ArrayList<Teacher>());
-        ManagerController mc=new ManagerController(keyIn, new LinkedList<Manager>());
-        
-        sc.keyIn=keyIn;
-        tc.keyIn=keyIn; //이렇게 해줘야 system.in을 scanner가 씀
-        mc.keyIn=keyIn;
-        
+
+        HashMap<String,Controller> requestHandlerMapping = new HashMap<>();
+
+        requestHandlerMapping.put("1", 
+                new StudentController(new LinkedList<Student>()));
+        requestHandlerMapping.put("2", 
+                new TeacherController(new ArrayList<Teacher>()));
+        requestHandlerMapping.put("3", 
+                new ManagerController(new LinkedList<Manager>()));
+
+
         while(true) {
             String menu=promptMenu();
-            if(menu.equals("1")) {
-                sc.serviceStudentMenu();
-            }
-            else if(menu.equals("2")) {
-                tc.serviceTeacherMenu();
-            }
-            else if(menu.equals("3")) {
-                mc.serviceManagerMenu();
-            }
-            else if(menu.equals("0")) {
+            if(menu.equals("0")) {
                 System.out.println("good-bye!");
                 break;
+            }
+            
+            Controller controller = requestHandlerMapping.get(menu);
+            
+            if(controller!=null) {
+                controller.service(keyIn);
+            }
+            else {
+                System.out.println("invailed number!");
             }
         }
         keyIn.close();

@@ -4,19 +4,16 @@ import java.util.Scanner;
 
 import bitcamp.java110.cms.domain.Student;
 
-public class StudentController {
+public class StudentController implements Controller{
     
     private List<Student> students;
-    public Scanner keyIn;
-
-    
-    public StudentController(Scanner keyIn, List<Student> students) {
-        this.keyIn = keyIn;
+   
+    public StudentController(List<Student> students) {
         this.students=students;
         init();
     }
     
-    public void serviceStudentMenu() {
+    public void service(Scanner keyIn) {
         while(true) {
             System.out.print("student menu> ");
             String command=keyIn.nextLine();
@@ -24,11 +21,11 @@ public class StudentController {
                 printStudents();
             }
             else if(command.equals("add")) {
-                inputStudents();
+                inputStudents(keyIn);
             }else if(command.equals("delete")) {
-                deleteStudent();
+                deleteStudent(keyIn);
             }else if(command.equals("detail")) {
-                detailStudent();
+                detailStudent(keyIn);
             }
             else if(command.equals("quit")) {
                 break;
@@ -39,7 +36,7 @@ public class StudentController {
         }
     }
 
-    private void inputStudents() {
+    private void inputStudents(Scanner keyIn) {
         while(true) {
             Student m = new Student();
             System.out.print("name? ");
@@ -76,7 +73,7 @@ public class StudentController {
     }
 
 
-    private void deleteStudent() {
+    private void deleteStudent(Scanner keyIn) {
         System.out.print("input number to delete  ");
         int no=Integer.parseInt(keyIn.nextLine());
 
@@ -88,7 +85,7 @@ public class StudentController {
         System.out.println("delete success!");
     }
 
-    private void detailStudent() {
+    private void detailStudent(Scanner keyIn) {
         System.out.print("input number to show  ");
         int no=Integer.parseInt(keyIn.nextLine());
 
