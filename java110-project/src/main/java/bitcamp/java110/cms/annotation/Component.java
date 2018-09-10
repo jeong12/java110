@@ -3,7 +3,7 @@ package bitcamp.java110.cms.annotation;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@Retention(RetentionPolicy.RUNTIME) //value이름이고, 값이 하나일때는 생략 가능!
+@Retention(RetentionPolicy.RUNTIME) //value이름이고, 값이 하나일때는 생략 가능!!
 public @interface Component {
     /*annotation의 용도. "부가 데이터 다룰려고!(meta data)"
     *일반 주석은 compile하면 주석이 날아감. 
