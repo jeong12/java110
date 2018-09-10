@@ -38,22 +38,4 @@ public class TeacherAddController {
         } 
 
     }
-    
-   { 
-        Student s=new Student();
-        s.setName("a");
-        App.students.add(s);
-        s=new Student();
-        s.setName("b");
-        App.students.add(s);
-        s=new Student();
-        s.setName("c");
-        App.students.add(s);
-        s=new Student();
-        s.setName("d");
-        App.students.add(s);
-        s=new Student();
-        s.setName("e");
-        App.students.add(s);
-    }   
 }

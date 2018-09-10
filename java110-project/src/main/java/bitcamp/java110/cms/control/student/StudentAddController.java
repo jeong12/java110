@@ -28,7 +28,11 @@ public class StudentAddController {
             System.out.print("tel? ");
             m.setTel(keyIn.nextLine());
 
-            App.students.add(m); //student 자체를 add
+            if(App.studentDao.insert(m)>0){
+                System.out.println("inserting successes");
+            }else {
+                System.out.println("Same eamil address exists");
+            }
 
             System.out.println("continue?(Y/n) ");
             String answer = keyIn.nextLine();
@@ -40,18 +44,23 @@ public class StudentAddController {
    { 
         Student s=new Student();
         s.setName("a");
-        App.students.add(s);
+        s.setEmail("a@text.com");
+        App.studentDao.insert(s);
         s=new Student();
         s.setName("b");
-        App.students.add(s);
+        s.setEmail("b@text.com");
+        App.studentDao.insert(s);
         s=new Student();
         s.setName("c");
-        App.students.add(s);
+        s.setEmail("c@text.com");
+        App.studentDao.insert(s);
         s=new Student();
         s.setName("d");
-        App.students.add(s);
+        s.setEmail("d@text.com");
+        App.studentDao.insert(s);
         s=new Student();
         s.setName("e");
-        App.students.add(s);
+        s.setEmail("e@text.com");
+        App.studentDao.insert(s);
     }   
 }

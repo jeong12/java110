@@ -14,14 +14,15 @@ public class StudenDetailController {
 
     @RequestMapping("student/detail")
     public void detail(Scanner keyIn) {
-        System.out.print("input number to show  ");
-        int no=Integer.parseInt(keyIn.nextLine());
+        System.out.print("input email to show  ");
+        String email=keyIn.nextLine();
 
-        if(no<0 || no>=App.students.size()) {
-            System.out.println("unvailed number");
+        Student student=App.studentDao.findByEmail(email);
+        
+        if(student==null) {
+            System.out.println("can not find data");
             return;
         }
-        Student student = (Student)App.students.get(no);
         System.out.println("name: " + student.getName());
         System.out.println("email: " + student.getEmail());
         System.out.println("password: " + student.getPassword());

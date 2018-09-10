@@ -18,7 +18,7 @@ public class ManagerDetailController {
         System.out.print("input number to show  ");
         int no=Integer.parseInt(keyIn.nextLine());
 
-        if(no<0 || no>=App.students.size()) {
+        if(no<0 || no>=App.managers.size()) {
             System.out.println("unvailed number");
             return;
         }
