@@ -2,8 +2,8 @@ package bitcamp.java110.cms.context;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.Set;
 
 import org.apache.ibatis.io.Resources;
 
@@ -31,6 +31,13 @@ public class ApplicationContext {
     //objPool에서 주어진 객체를 이름으로 찾아 리턴
     public Object getBean(String name) {
         return objPool.get(name);
+    }
+    
+    public String[]getBeanDefinitionNames(){
+        Set<String> keySet = objPool.keySet();
+        String []names = new String[keySet.size()];
+        keySet.toArray(names); // toArray도 names를 리턴. 그래도 리턴을 적은 이유는 헷갈리까봐.
+        return names;
     }
 
     private void findClass(File path, String packagePath)throws Exception {
@@ -60,9 +67,15 @@ public class ApplicationContext {
               Component anno=clazz.getAnnotation(Component.class); //class 라는 변수 명! class 정보를 가진 객체를 가르킴. class type. 
               // 자바에서는 annotation, interface, class 모두 다 class 취급!
               
-              // =>annotation value 값으로 인스턴스를 objPool에 저장한다.
-              objPool.put(anno.value(),instance);
+              // => Component annotation의 value값이 있으면 그 값으로 객체를 저장.
+              //    없으면 클래스 이름으로 객체를 저장
               
+              if(anno.value().length()>0) {
+                  // =>annotation value 값으로 인스턴스를 objPool에 저장한다.
+                  objPool.put(anno.value(),instance);                  
+              }else {
+                  objPool.put(clazz.getName(), instance);
+              }              
               }catch(Exception e) {
                   e.printStackTrace();
               }
