@@ -12,14 +12,11 @@ public class TeacherDetailController {
 
     @RequestMapping("teacher/detail")
     public void detail(Scanner keyIn) {
-        System.out.print("input number to show  ");
-        int no=Integer.parseInt(keyIn.nextLine());
+        System.out.print("input email to show  ");
+        String email=keyIn.nextLine();
 
-        if(no<0 || no>=App.teachers.size()) {
-            System.out.println("unvailed number");
-            return;
-        }
-        Teacher teacher=App.teachers.get(no);
+        App.teacherDao.findByEmail(email);        
+        Teacher teacher=App.teacherDao.findByEmail(email);
         System.out.println("name: "+ teacher.getName());
         System.out.println("email: "+ teacher.getEmail());
         System.out.println("password: "+ teacher.getPassword());

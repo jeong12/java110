@@ -29,8 +29,13 @@ public class TeacherAddController {
             System.out.print("subjects? (ex: java, c, c++) ");
             m.setSubjects(keyIn.nextLine());
 
-            App.teachers.add(m);
+            if(App.teacherDao.insert(m)>0) {
+                System.out.println("success to insert!");
+            }else {
+                System.out.println("fail to insert :(");
+            }
 
+            
             System.out.println("continue?(Y/n) ");
             String answer = keyIn.nextLine();
             if(answer.toLowerCase().equals("n"))

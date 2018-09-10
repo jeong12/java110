@@ -11,17 +11,13 @@ public class TeacherDeleteController {
         
     @RequestMapping("teacher/delete")
     public void delete(Scanner keyIn) {
-        System.out.print("input number to delete  ");
-        int no=Integer.parseInt(keyIn.nextLine());
-
-        if(no<0 || no>=App.teachers.size()) {
-            System.out.println("unvailed number");
-            return;
+        System.out.print("input email to delete  ");
+        String email=keyIn.nextLine();
+        if(App.teacherDao.delete(email)>0) {
+            System.out.println("delete success! ");
+        }else {
+            System.out.println("delete fail :(");
         }
-        App.teachers.remove(no);
-        System.out.println("delete success!");
+ 
     }
-    
-    
-    
 }

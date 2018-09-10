@@ -11,15 +11,15 @@ public class ManagerDeleteController {
         
     @RequestMapping("manager/delete")
     public void delete(Scanner keyIn) {
-        System.out.print("input number to delete  ");
-        int no=Integer.parseInt(keyIn.nextLine());
+        System.out.print("input email to delete  ");
+        String email=keyIn.nextLine();
 
-        if(no<0 || no>=App.managers.size()) {
-            System.out.println("unvailed number");
-            return;
+        if(App.managerDao.delete(email)>0) {
+            System.out.println("delete success!");            
+        }else {
+            System.out.println("can not find data");
         }
-        App.managers.remove(no);
-        System.out.println("delete success!");
+        
     }
     
     

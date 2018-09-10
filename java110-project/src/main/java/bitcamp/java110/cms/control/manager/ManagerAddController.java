@@ -26,7 +26,7 @@ public class ManagerAddController {
             System.out.print("tel? ");
             m.setTel(keyIn.nextLine());
 
-            App.managers.add(m);
+            App.managerDao.insert(m);
 
             System.out.println("continue?(Y/n) ");
             String answer = keyIn.nextLine();
@@ -34,22 +34,5 @@ public class ManagerAddController {
                 break;
         } 
     }
-    
-   { 
-        Manager s=new Manager();
-        s.setName("a");
-        App.managers.add(s);
-        s=new Manager();
-        s.setName("b");
-        App.managers.add(s);
-        s=new Manager();
-        s.setName("c");
-        App.managers.add(s);
-        s=new Manager();
-        s.setName("d");
-        App.managers.add(s);
-        s=new Manager();
-        s.setName("e");
-        App.managers.add(s);
-    }   
+     
 }

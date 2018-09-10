@@ -15,14 +15,11 @@ public class ManagerDetailController {
 
     @RequestMapping("manager/detail")
     public void detail(Scanner keyIn) {
-        System.out.print("input number to show  ");
-        int no=Integer.parseInt(keyIn.nextLine());
+        System.out.print("input email to show  ");
+       String email=keyIn.nextLine();
 
-        if(no<0 || no>=App.managers.size()) {
-            System.out.println("unvailed number");
-            return;
-        }
-        Manager manager=App.managers.get(no);
+     
+        Manager manager=App.managerDao.findByEmail(email);
         System.out.println("name: "+ manager.getName());
         System.out.println("email: "+ manager.getEmail());
         System.out.println("password: "+ manager.getPassword());
