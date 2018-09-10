@@ -18,7 +18,7 @@ public class App {
         RequestMappingHandlerMapping requestHandlerMap=
                 new RequestMappingHandlerMapping();
         
-        //=>IOC 컨테이너에 보관된 객체의 이름 목록을 가져온다.
+        //=>IOC 컨테이너에 보관된 객체의 이름 목록을 가져옴.
         String[]names = iocContainer.getBeanDefinitionNames();
         for(String name:names) {
             Object obj=iocContainer.getBean(name);
