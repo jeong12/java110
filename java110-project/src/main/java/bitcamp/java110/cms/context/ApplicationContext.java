@@ -7,6 +7,8 @@ import java.util.HashMap;
 
 import org.apache.ibatis.io.Resources;
 
+import bitcamp.java110.cms.annotation.Component;
+
 public class ApplicationContext {  
     HashMap<String,Object> objPool=new HashMap<>();
 
@@ -14,13 +16,10 @@ public class ApplicationContext {
 
         //패키지 이름을 파일 경로로 바꾼다.
         String path=packageName.replace(".", "/");
-        System.out.println(path);
-
 
         // 패키지 경로를 가지고 전체 파일 경로를 알아낸다. (Resouces가)
         File file = Resources.getResourceAsFile(path);
         // 현재 클래스를 실행하는 JVM이 java classpath에서 찾음! 
-        System.out.println(file.getAbsolutePath());
 
         //2) 패키지 폴더에 들어 있는 파일 목록을 알아낸다. 패키지 폴더에 들어있는 클래스를 찾아 인스턴스를 생성하여 objPool에 보관한다.
         findClass(file,path);
@@ -57,21 +56,15 @@ public class ApplicationContext {
               //->생성자를 가지고 인스턴스를 생성한다.
               Object instance=constructor.newInstance();
               
-              // ->이름으로 인스턴스의 필드를 찾는다.
-              Field field=clazz.getField("name");
+              // =>class에서 Component annotation 정볼르 추출한다.
+              Component anno=clazz.getAnnotation(Component.class); //class 라는 변수 명! class 정보를 가진 객체를 가르킴. class type. 
+              // 자바에서는 annotation, interface, class 모두 다 class 취급!
               
-              // ->"name"필드의 값을 꺼낸다.
-              Object name=field.get(instance);
-              //System.out.println(clazz.getName() + "==>" + name);
+              // =>annotation value 값으로 인스턴스를 objPool에 저장한다.
+              objPool.put(anno.value(),instance);
               
-              // =>"name" 필드의 값으로 인스턴스를 objPool에 저장한다.
-              objPool.put((String)name,instance);
-              
-              System.out.println(instance.getClass());
               }catch(Exception e) {
                   e.printStackTrace();
-                  System.out.printf("%s class dosen't have default constructor\n",
-                          clazz.getName());
               }
             }
         }
