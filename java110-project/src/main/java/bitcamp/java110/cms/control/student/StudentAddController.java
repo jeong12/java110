@@ -2,13 +2,21 @@ package bitcamp.java110.cms.control.student;
 
 import java.util.Scanner;
 
-import bitcamp.java110.cms.App;
+import bitcamp.java110.cms.annotation.Autowired;
 import bitcamp.java110.cms.annotation.Component;
 import bitcamp.java110.cms.annotation.RequestMapping;
+import bitcamp.java110.cms.dao.StudentDao;
 import bitcamp.java110.cms.domain.Student;
 
 @Component
 public class StudentAddController {
+    
+    StudentDao studentDao;
+    
+    @Autowired
+    public void setStudentDao(StudentDao studentDao) {
+        this.studentDao = studentDao;
+    }
 
     
     @RequestMapping("student/add")
@@ -28,7 +36,7 @@ public class StudentAddController {
             System.out.print("tel? ");
             m.setTel(keyIn.nextLine());
 
-            if(App.studentDao.insert(m)>0){
+            if(studentDao.insert(m)>0){
                 System.out.println("inserting successes");
             }else {
                 System.out.println("Same eamil address exists");
@@ -39,28 +47,5 @@ public class StudentAddController {
             if(answer.toLowerCase().equals("n"))
                 break;
         } 
-    }
-    
-   { 
-        Student s=new Student();
-        s.setName("a");
-        s.setEmail("a@text.com");
-        App.studentDao.insert(s);
-        s=new Student();
-        s.setName("b");
-        s.setEmail("b@text.com");
-        App.studentDao.insert(s);
-        s=new Student();
-        s.setName("c");
-        s.setEmail("c@text.com");
-        App.studentDao.insert(s);
-        s=new Student();
-        s.setName("d");
-        s.setEmail("d@text.com");
-        App.studentDao.insert(s);
-        s=new Student();
-        s.setName("e");
-        s.setEmail("e@text.com");
-        App.studentDao.insert(s);
-    }   
+    } 
 }
