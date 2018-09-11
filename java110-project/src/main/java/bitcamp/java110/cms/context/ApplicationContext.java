@@ -10,7 +10,6 @@ import java.util.Set;
 
 import org.apache.ibatis.io.Resources;
 
-import bitcamp.java110.cms.annotation.AutoWiredAnnotationBeanPostProcessor;
 import bitcamp.java110.cms.annotation.Component;
 
 public class ApplicationContext {
@@ -28,15 +27,13 @@ public class ApplicationContext {
         // 패키지 폴더에 들어 있는 클래스를 찾아 클래스를 로딩한 후 목록에 저장한다.
         findClass(file, path);
         
-        // 로딩된 클래스 목록을 뒤져서 @Component 가 붙은 
-        // 클래스에 대해 인스턴스를 생성하여 objPool에 보관한다.
+        // 로딩된 클래스 목록을 뒤져서 @Component 가 붙은 클래스에 대해 인스턴스를 생성하여 objPool에 보관한다.
         createInstance();
         
         
-        //injectDependency() 메서드를 외부 클래스로 분리한 다음, 그 객체를 실행
-        AutoWiredAnnotationBeanPostProcessor processor = 
-                new AutoWiredAnnotationBeanPostProcessor();
-        processor.postProcess(this);
+     // 객체 생성 후에 실행할 작업이 있다면 BeanPostProcessor 구현체를 찾아 실행한다.
+        callBeanPostProcessor();
+        
        
     }    
     // objPool에 보관된 객체를 이름으로 찾아 리턴한다.
@@ -117,7 +114,7 @@ public class ApplicationContext {
             }
         }
     }    
-/*    private void callBeanPostProcessor() {
+    private void callBeanPostProcessor() {
         
         Collection<Object> objList = objPool.values();
 
@@ -129,7 +126,7 @@ public class ApplicationContext {
             processor.postProcess(this);
             
         }
-    }*/
+    }
     
 }
 
