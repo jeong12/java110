@@ -23,11 +23,11 @@ public class StudentAddController {
         while (true) {
             Student m = new Student();
             
-            System.out.print("이름? ");
-            m.setName(keyIn.nextLine());
-            
             System.out.print("이메일? ");
             m.setEmail(keyIn.nextLine());
+
+            System.out.print("이름? ");
+            m.setName(keyIn.nextLine());
             
             System.out.print("암호? ");
             m.setPassword(keyIn.nextLine());
@@ -35,12 +35,12 @@ public class StudentAddController {
             System.out.print("최종학력? ");
             m.setSchool(keyIn.nextLine());
             
-            System.out.print("재직여부?(true/false) ");
-            m.setWorking(Boolean.parseBoolean(keyIn.nextLine()));
-            
             System.out.print("전화? ");
             m.setTel(keyIn.nextLine());
-            
+
+            System.out.print("재직여부?(true/false) ");
+            m.setWorking(Boolean.parseBoolean(keyIn.nextLine()));
+                        
             if (studentDao.insert(m) > 0) {
                 System.out.println("저장하였습니다.");
             } else {

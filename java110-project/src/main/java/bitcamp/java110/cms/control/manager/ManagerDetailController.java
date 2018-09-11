@@ -29,8 +29,8 @@ public class ManagerDetailController {
             return;
         }
         
-        System.out.printf("이름: %s\n", m.getName());
         System.out.printf("이메일: %s\n", m.getEmail());
+        System.out.printf("이름: %s\n", m.getName());
         System.out.printf("암호: %s\n", m.getPassword());
         System.out.printf("직위: %s\n", m.getPosition());
         System.out.printf("전화: %s\n", m.getTel());

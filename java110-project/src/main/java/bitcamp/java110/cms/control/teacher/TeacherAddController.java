@@ -23,21 +23,21 @@ public class TeacherAddController {
         while (true) {
             Teacher m = new Teacher();
             
-            System.out.print("이름? ");
-            m.setName(keyIn.nextLine());
-            
             System.out.print("이메일? ");
             m.setEmail(keyIn.nextLine());
-            
+
+            System.out.print("이름? ");
+            m.setName(keyIn.nextLine());
+                        
             System.out.print("암호? ");
             m.setPassword(keyIn.nextLine());
             
-            System.out.print("전화? ");
-            m.setTel(keyIn.nextLine());
-            
             System.out.print("시급? ");
             m.setPay(Integer.parseInt(keyIn.nextLine()));
-            
+
+            System.out.print("전화? ");
+            m.setTel(keyIn.nextLine());
+                        
             System.out.print("강의과목?(예: 자바,C,C++) ");
             m.setSubjects(keyIn.nextLine());
             

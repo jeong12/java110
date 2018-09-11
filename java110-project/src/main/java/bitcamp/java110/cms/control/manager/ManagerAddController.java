@@ -23,21 +23,21 @@ public class ManagerAddController {
         while (true) {
             Manager m = new Manager();
             
-            System.out.print("이름? ");
-            m.setName(keyIn.nextLine());
-            
             System.out.print("이메일? ");
             m.setEmail(keyIn.nextLine());
+
+            System.out.print("이름? ");
+            m.setName(keyIn.nextLine());
             
             System.out.print("암호? ");
             m.setPassword(keyIn.nextLine());
             
-            System.out.print("전화? ");
-            m.setTel(keyIn.nextLine());
-            
             System.out.print("직위? ");
             m.setPosition(keyIn.nextLine());
             
+            System.out.print("전화? ");
+            m.setTel(keyIn.nextLine());
+                        
             if (managerDao.insert(m) > 0) {
                 System.out.println("저장하였습니다.");
             } else {

@@ -29,11 +29,11 @@ public class TeacherDetailController {
             return;
         }
         
-        System.out.printf("이름: %s\n", t.getName());
         System.out.printf("이메일: %s\n", t.getEmail());
+        System.out.printf("이름: %s\n", t.getName());
         System.out.printf("암호: %s\n", t.getPassword());
-        System.out.printf("전화: %s\n", t.getTel());
         System.out.printf("시급: %d\n", t.getPay());
+        System.out.printf("전화: %s\n", t.getTel());
         System.out.printf("강의과목: %s\n", t.getSubjects());
     }
 }

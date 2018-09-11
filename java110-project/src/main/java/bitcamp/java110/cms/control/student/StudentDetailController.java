@@ -29,8 +29,8 @@ public class StudentDetailController {
             return;
         }
         
-        System.out.printf("이름: %s\n", student.getName());
         System.out.printf("이메일: %s\n", student.getEmail());
+        System.out.printf("이름: %s\n", student.getName());
         System.out.printf("암호: %s\n", student.getPassword());
         System.out.printf("최종학력: %s\n", student.getSchool());
         System.out.printf("전화: %s\n", student.getTel());
