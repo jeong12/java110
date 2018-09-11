@@ -10,15 +10,9 @@ public class App {
     static Scanner keyIn = new Scanner(System.in);
 
     public static void main(String[] args) throws Exception {
-<<<<<<< HEAD
-
         ApplicationContext iocContainer 
         = new ApplicationContext("bitcamp.java110.cms");
-=======
->>>>>>> b1
-        
-        ApplicationContext iocContainer = 
-                new ApplicationContext("bitcamp.java110.cms");
+
         
         RequestMappingHandlerMapping requestHandlerMap = 
                 new RequestMappingHandlerMapping();
