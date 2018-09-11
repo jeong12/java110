@@ -1,6 +1,6 @@
 package bitcamp.java110.cms.domain;
 
-public class Manager extends Member{
+public class Manager extends Member {
     protected String position;
     protected String tel;
 
@@ -15,5 +15,6 @@ public class Manager extends Member{
     }
     public void setTel(String tel) {
         this.tel = tel;
-    }    
-}  
+    }
+}
+
