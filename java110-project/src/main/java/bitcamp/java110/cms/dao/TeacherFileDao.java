@@ -9,16 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bitcamp.java110.cms.annotation.Component;
-import bitcamp.java110.cms.domain.Student;
+import bitcamp.java110.cms.domain.Teacher;
 
 @Component
-public class StudentFileDao implements StudentDao {
-
-    private List<Student> list = new ArrayList<>();
-
-    File dataFile = new File("data/student.dat");
-
-    public StudentFileDao() {
+public class TeacherFileDao implements TeacherDao{
+    private List<Teacher> list = new ArrayList<>();
+    
+    File dataFile = new File("data/teacher.dat");
+    
+    public TeacherFileDao() {
         try(
                 BufferedReader in=new BufferedReader(new FileReader(dataFile))) 
         {
@@ -26,15 +25,15 @@ public class StudentFileDao implements StudentDao {
                 String line=in.readLine();
                 if(line == null)
                     break;
-                
                 String[]values= line.split(",");
-                Student s= new Student();
+
+                Teacher s= new Teacher();
                 s.setEmail(values[0]);
                 s.setName(values[1]);
                 s.setPassword(values[2]);
-                s.setSchool(values[3]);
+                s.setPay(Integer.parseInt(values[3]));
                 s.setTel(values[4]);
-                s.setWorking(Boolean.parseBoolean(values[5]));
+                s.setSubjects(values[5]);
 
                 list.add(s);
             }
@@ -45,45 +44,47 @@ public class StudentFileDao implements StudentDao {
     }
 
     private void save() {
-        File dataFile = new File("data/student.dat");
+        File dataFile = new File("data/teacher.dat");
         try(BufferedWriter out=new BufferedWriter(new FileWriter(dataFile))) 
-        {for(Student s:list) {
-            out.write(String.format("%s,%s,%s,%s,%s,%b\n", s.getEmail()
-                    ,s.getName(),s.getPassword(),s.getSchool(),s.getTel()
-                    ,s.isWorking()));
+        {for(Teacher s:list) {
+            out.write(String.format("%s,%s,%s,%d,%s,%s\n", s.getEmail()
+                    ,s.getName(),s.getPassword(),s.getPay(),s.getTel()
+                    ,s.getSubjects()));
             }
         out.flush();
         }catch(Exception e) {
             e.printStackTrace();
         }
     }
-
-    public int insert(Student student) {
-        for (Student item : list) {
-            if (item.getEmail().equals(student.getEmail())) {
+    
+    
+    
+    public int insert(Teacher teacher) {
+        for (Teacher item : list) {
+            if (item.getEmail().equals(teacher.getEmail())) {
                 return 0;
             }
         }
-        list.add(student);
-        save(); //다 지우고 insert 하는 방식. 좋지 않음.. 
+        list.add(teacher);
+        save();
         return 1;
     }
-
-    public List<Student> findAll() {
+    
+    public List<Teacher> findAll() {
         return list;
     }
-
-    public Student findByEmail(String email) {
-        for (Student item : list) {
+    
+    public Teacher findByEmail(String email) {
+        for (Teacher item : list) {
             if (item.getEmail().equals(email)) {
                 return item;
             }
         }
         return null;
     }
-
+    
     public int delete(String email) {
-        for (Student item : list) {
+        for (Teacher item : list) {
             if (item.getEmail().equals(email)) {
                 list.remove(item);
                 save();
@@ -93,11 +94,3 @@ public class StudentFileDao implements StudentDao {
         return 0;
     }
 }
-
-
-
-
-
-
-
-
