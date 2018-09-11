@@ -1,11 +1,10 @@
 package bitcamp.java110.cms.domain;
 
-public class Member{
+public class Member {
     protected String name;
     protected String email;
     protected String password;
-
-    //인스턴스의 메모리는 다루는 operator=getter/setter=accessor=property=message
+    
     public String getName() {
         return name;
     }

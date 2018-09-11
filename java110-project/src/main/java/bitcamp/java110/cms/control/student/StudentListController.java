@@ -13,6 +13,10 @@ import bitcamp.java110.cms.domain.Student;
 public class StudentListController {
     
     StudentDao studentDao;
+<<<<<<< HEAD
+=======
+    
+>>>>>>> b1
     @Autowired
     public void setStudentDao(StudentDao studentDao) {
         this.studentDao = studentDao;
@@ -20,11 +24,21 @@ public class StudentListController {
 
     @RequestMapping("student/list")
     public void list(Scanner keyIn) {
+<<<<<<< HEAD
         List<Student> list=studentDao.findAll();
         for(Student s: list) {
+=======
+        List<Student> list = studentDao.findAll();
+        
+        for (Student s : list) {
+>>>>>>> b1
             System.out.printf("%s, %s, %s, %s, %b, %s\n",
-                    s.getName(), s.getEmail(), s.getPassword(), 
-                    s.getSchool(),s.isWorking(), s.getTel());
+                    s.getName(), 
+                    s.getEmail(), 
+                    s.getPassword(), 
+                    s.getSchool(),
+                    s.isWorking(),
+                    s.getTel());
         }
     }
 }

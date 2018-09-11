@@ -9,22 +9,39 @@ import bitcamp.java110.cms.dao.StudentDao;
 
 @Component
 public class StudentDeleteController {
+<<<<<<< HEAD
         
     StudentDao studentDao;
+=======
+    
+    StudentDao studentDao;
+    
+>>>>>>> b1
     @Autowired
     public void setStudentDao(StudentDao studentDao) {
         this.studentDao = studentDao;
     }
+<<<<<<< HEAD
         
+=======
+    
+>>>>>>> b1
     @RequestMapping("student/delete")
     public void delete(Scanner keyIn) {
-        System.out.print("input email to delete  ");
-        String email=keyIn.nextLine();
+        System.out.print("삭제할 학생의 이메일? ");
+        String email = keyIn.nextLine();
         
+<<<<<<< HEAD
         if(studentDao.delete(email)>0) {
         System.out.println("delete success!");
         }else {
          System.out.println("fail to delete!");   
+=======
+        if (studentDao.delete(email) > 0) {
+            System.out.println("삭제하였습니다.");
+        } else {
+            System.out.println("이메일에 해당하는 학생이 없습니다.");
+>>>>>>> b1
         }
     }
 }

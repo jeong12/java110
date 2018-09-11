@@ -10,41 +10,72 @@ public class App {
     static Scanner keyIn = new Scanner(System.in);
 
     public static void main(String[] args) throws Exception {
+<<<<<<< HEAD
 
         ApplicationContext iocContainer 
         = new ApplicationContext("bitcamp.java110.cms");
+=======
+>>>>>>> b1
         
-        RequestMappingHandlerMapping requestHandlerMap=
+        ApplicationContext iocContainer = 
+                new ApplicationContext("bitcamp.java110.cms");
+        
+        RequestMappingHandlerMapping requestHandlerMap = 
                 new RequestMappingHandlerMapping();
         
-        //=>IOC 컨테이너에 보관된 객체의 이름 목록을 가져옴.
-        String[]names = iocContainer.getBeanDefinitionNames();
-        for(String name:names) {
-            Object obj=iocContainer.getBean(name);
+        // => IoC 컨테이너에 보관된 객체의 이름 목록을 가져온다.
+        String[] names = iocContainer.getBeanDefinitionNames();
+        for (String name : names) {
+            // => 이름으로 객체를 꺼낸다.
+            Object obj = iocContainer.getBean(name);
+            
+            // => 객체에서 @RequestMapping이 붙은 메서드를 찾아 저장한다.
             requestHandlerMap.addMapping(obj);
-        }      
-                
-        while(true) {
-            String menu=prompt();
-            if(menu.equals("exit")) {
-                System.out.println("good-bye!");
+        }
+        
+        while (true) {
+            String menu = prompt();
+            if (menu.equals("exit")){
+                System.out.println("안녕히 가세요!");
                 break;
-            }
+            } 
             
-            RequestMappingHandler mapping= requestHandlerMap.getMapping(menu);
-            
-            if(mapping == null) {
-                System.out.println("invailed command!");
+            RequestMappingHandler mapping = requestHandlerMap.getMapping(menu);
+            if (mapping == null) {
+                System.out.println("해당 메뉴가 없습니다.");
                 continue;
             }
-                mapping.getMethod().invoke(mapping.getInstatnce(), keyIn); 
-                //첫번쨰 파라미터가 인스턴스 주소값. 만약, 클래스 메서드면 null. 두번쨰 파라미터가 메서드의 파라미터
+            
+            mapping.getMethod().invoke(mapping.getInstance(), keyIn);
         }
+        
         keyIn.close();
-    }   
+    }
 
     private static String prompt() {
-        System.out.print("menu> ");
+        System.out.print("메뉴> ");
         return keyIn.nextLine();
-        }   
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
