@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 // IoC 컨테이너는 이 애노테이션이 붙은 메서드를 호출하여 의존 객체를 주입한다.
 
 @Target({ElementType.METHOD,ElementType.FIELD,ElementType.CONSTRUCTOR})
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(value=RetentionPolicy.RUNTIME)
 public @interface Autowired {
     boolean required() default true;
 }
