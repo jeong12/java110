@@ -1,6 +1,6 @@
 package bitcamp.java110.cms.dao;
 
-public class manadatoryValueDaoException extends Exception{
+public class manadatoryValueDaoException extends RuntimeException{
 
     //분류를 편하게 하기 위하여
     
