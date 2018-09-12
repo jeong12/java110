@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bitcamp.java110.cms.annotation.Component;
+import bitcamp.java110.cms.dao.DuplicationDaoException;
 import bitcamp.java110.cms.dao.ManagerDao;
+import bitcamp.java110.cms.dao.manadatoryValueDaoException;
 import bitcamp.java110.cms.domain.Manager;
 
 @Component
@@ -23,18 +25,18 @@ public class ManagerFile2Dao implements ManagerDao{
 
     public ManagerFile2Dao(String filename) {
         this.filename=filename;
-        
+
         File dataFile = new File(filename);
         try(
-             FileInputStream in0 = new FileInputStream(dataFile);
-             BufferedInputStream in1=new BufferedInputStream(in0);
-             ObjectInputStream in = new ObjectInputStream(in1);)
+                FileInputStream in0 = new FileInputStream(dataFile);
+                BufferedInputStream in1=new BufferedInputStream(in0);
+                ObjectInputStream in = new ObjectInputStream(in1);)
         {
             /*list=(List<Manager>)in.readObject();   */                 
             while(true) {
                 try {
-                Manager m = (Manager)in.readObject();
-                list.add(m);
+                    Manager m = (Manager)in.readObject();
+                    list.add(m);
                 }catch(Exception e) {
                     break;
                 }
@@ -45,8 +47,8 @@ public class ManagerFile2Dao implements ManagerDao{
     }
 
     public ManagerFile2Dao() {
-      this(defaultFilename);
-      //주의! 생성자 안에서의 생성자 호출은 반드시 첫번쨰 문장이어야 함. 
+        this(defaultFilename);
+        //주의! 생성자 안에서의 생성자 호출은 반드시 첫번쨰 문장이어야 함. 
     }
 
     private void save() {
@@ -59,27 +61,33 @@ public class ManagerFile2Dao implements ManagerDao{
         {
             /*out.writeObject(list);*/
             for(Manager s:list) {
-            out.writeObject(s);
-        }
-        out.flush();
+                out.writeObject(s);
+            }
+            out.flush();
         }catch(Exception e) {
             e.printStackTrace();
         }
     }
 
-    public int insert(Manager manager) {
+    public int insert(Manager manager) 
+            throws manadatoryValueDaoException,DuplicationDaoException {
         //necessary input field is empty
-       if(manager.getName().length()==0 ||
-          manager.getEmail().length()==0 ||
-          manager.getPassword().length()==0) {
-           return -1;
-       }
+        if(manager.getName().length()==0 ||
+           manager.getEmail().length()==0 ||
+           manager.getPassword().length()==0) {
+           
+            //호출자에게 예외 정보를 만들어 던진다.
+            throw new manadatoryValueDaoException("필수 입력 항목이 비었습니다."); 
+            //throwable 만 던질 수 있음. 이것보다 exception 추천
+                                            
+        }
         for (Manager item : list) {
             if (item.getEmail().equals(manager.getEmail())) {
+           
                 //  when same email exist, 
-                return -2;
+            throw new DuplicationDaoException("같은 이메일이 이미 등록되었습니다.");
             }
-/*   이런 방식은 과거 예외방식을 사용하지 않았을 경우 리턴값으로 예외 상황을 호출자에게 알림. 
+            /*   이런 방식은 과거 예외방식을 사용하지 않았을 경우 리턴값으로 예외 상황을 호출자에게 알림. 
             그러나 특정 타입을 리턴하는 경우 이 방법을 쓰지 못하는 상황 발생!
             예외처리 문법이 등장하면서 리턴값이 아닌 별도의 경로로 예외상황을 호출자에게 알림
             이전 방식에 비해 메서드의 리턴 타입에 영향을 받지 않으며, 예외 상황을 자세히 호출자에게 알려줄 수 있음*/
