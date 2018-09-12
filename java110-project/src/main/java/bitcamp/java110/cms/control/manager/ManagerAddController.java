@@ -37,11 +37,16 @@ public class ManagerAddController {
             
             System.out.print("전화? ");
             m.setTel(keyIn.nextLine());
-                        
-            if (managerDao.insert(m) > 0) {
+
+            int rtval = managerDao.insert(m);
+            if (rtval > 0) {
                 System.out.println("저장하였습니다.");
-            } else {
+            }else if(rtval == -1) { 
+                System.out.println("필수 입력 값이 비어있습니다.");
+            }else if(rtval == -2) {
                 System.out.println("같은 이메일의 매니저가 존재합니다.");
+            }else {
+                System.out.println("예기치 못한 오류가 발생했습닙다.");
             }
             
             System.out.print("계속 하시겠습니까?(Y/n) ");

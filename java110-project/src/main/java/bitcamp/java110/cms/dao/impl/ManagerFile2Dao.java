@@ -67,12 +67,22 @@ public class ManagerFile2Dao implements ManagerDao{
         }
     }
 
-
     public int insert(Manager manager) {
+        //necessary input field is empty
+       if(manager.getName().length()==0 ||
+          manager.getEmail().length()==0 ||
+          manager.getPassword().length()==0) {
+           return -1;
+       }
         for (Manager item : list) {
             if (item.getEmail().equals(manager.getEmail())) {
-                return 0;
+                //  when same email exist, 
+                return -2;
             }
+/*   이런 방식은 과거 예외방식을 사용하지 않았을 경우 리턴값으로 예외 상황을 호출자에게 알림. 
+            그러나 특정 타입을 리턴하는 경우 이 방법을 쓰지 못하는 상황 발생!
+            예외처리 문법이 등장하면서 리턴값이 아닌 별도의 경로로 예외상황을 호출자에게 알림
+            이전 방식에 비해 메서드의 리턴 타입에 영향을 받지 않으며, 예외 상황을 자세히 호출자에게 알려줄 수 있음*/
         }
         list.add(manager);
         save();
