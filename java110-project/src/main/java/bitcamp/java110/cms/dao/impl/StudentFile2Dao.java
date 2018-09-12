@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bitcamp.java110.cms.annotation.Component;
+import bitcamp.java110.cms.dao.DuplicationDaoException;
 import bitcamp.java110.cms.dao.StudentDao;
+import bitcamp.java110.cms.dao.manadatoryValueDaoException;
 import bitcamp.java110.cms.domain.Student;
 
 @Component
@@ -66,10 +68,16 @@ public class StudentFile2Dao implements StudentDao {
         }
     }
 
-    public int insert(Student student) {
+    public int insert(Student student)throws DuplicationDaoException,manadatoryValueDaoException {
+        
+        if(student.getEmail().length() == 0 ||
+           student.getName().length() == 0 ||
+           student.getPassword().length() == 0)
+            throw new manadatoryValueDaoException("필수항목이 비어있습니다.");
+        
         for (Student item : list) {
             if (item.getEmail().equals(student.getEmail())) {
-                return 0;
+               throw new DuplicationDaoException("이메일이 중복됩니다");
             }
         }
         list.add(student);
