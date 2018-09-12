@@ -8,7 +8,9 @@ public class Member implements Serializable{
 
     protected String name;
     protected String email;
-    protected String password;
+    
+    //transient field : excepted in serialize = doesn't save or read!
+    protected transient String password;
     
     public String getName() {
         return name;
