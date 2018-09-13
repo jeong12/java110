@@ -6,12 +6,17 @@ import java.io.Serializable;
 public class Member implements Serializable{
    private static final long serialVersionUID = 1226294943230355351L;
 
+    protected int no;
     protected String name;
     protected String email;
-    
-    //transient field : excepted in serialize = doesn't save or read!
-    protected transient String password;
-    
+    protected String password;
+     
+    public int getNo() {
+        return no;
+    }
+    public void setNo(int no) {
+        this.no = no;
+    }
     public String getName() {
         return name;
     }
