@@ -23,8 +23,10 @@ public class TeacherListController {
     public void list(Scanner keyIn) {
         List<Teacher> list = teacherDao.findAll();
         
+        
         for (Teacher t : list) {
-            System.out.printf("%s, %s, %s, %d, %s, [%s]\n",
+            System.out.printf("%d,%s, %s, %s, %d, %s, [%s]\n",
+                    t.getNo(),
                     t.getEmail(), 
                     t.getName(), 
                     t.getPassword(), 

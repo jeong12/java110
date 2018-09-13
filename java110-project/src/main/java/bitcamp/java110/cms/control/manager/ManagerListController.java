@@ -22,14 +22,14 @@ public class ManagerListController {
     @RequestMapping("manager/list")
     public void list(Scanner keyIn) {
         List<Manager> list = managerDao.findAll();
-        for (Manager m : list) {
+        for (Manager s : list) {
             System.out.printf("%d, %s, %s, %s, %s, %s\n",
-                    m.getNo(),
-                    m.getEmail(), 
-                    m.getName(), 
-                    m.getPassword(), 
-                    m.getPosition(),
-                    m.getTel());
+                    s.getNo(),
+                    s.getName(), 
+                    s.getEmail(), 
+                    s.getPassword(), 
+                    s.getTel(),
+                    s.getPosition());
         }
     }
     

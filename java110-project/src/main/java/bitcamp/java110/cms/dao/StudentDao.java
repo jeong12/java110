@@ -11,9 +11,11 @@ public interface StudentDao {
     
    List<Student> findAll(); 
      
-   Student findByEmail(String email);
+   default Student findByEmail(String email) {return null;};
+   default Student findByNo(int no) {return null;};
     
-   int delete(String email);
+   default int delete(String email) {return 0;};
+   default int delete(int no) {return 0;};
    
 }
 
