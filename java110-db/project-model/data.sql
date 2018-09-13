@@ -32,4 +32,7 @@ insert into p1_tchr(tno,hrpay,subj) values(6,10000,'자바,C,C++');
 insert into p1_tchr(tno,hrpay,subj) values(7,12000,'자바,빅데이터');
 insert into p1_tchr(tno,hrpay,subj) values(8,14000,'C,C++,안드로이드');
 
+-- 매니저 회원
+insert into p1_mgr(mrno,posi) values(9,'대리');
+insert into p1_mgr(mrno,posi) values(10,'과장');
 
