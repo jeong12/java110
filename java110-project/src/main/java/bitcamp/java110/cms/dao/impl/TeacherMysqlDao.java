@@ -1,30 +1,34 @@
 package bitcamp.java110.cms.dao.impl;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import bitcamp.java110.cms.annotation.Autowired;
 import bitcamp.java110.cms.annotation.Component;
 import bitcamp.java110.cms.dao.DaoException;
 import bitcamp.java110.cms.dao.TeacherDao;
 import bitcamp.java110.cms.domain.Teacher;
+import bitcamp.java110.cms.util.DataSource;
 
 @Component
 public class TeacherMysqlDao  implements TeacherDao {
+    
+    DataSource dataSource;
+    
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
     
     public int insert(Teacher teacher) {
         Connection con = null;
         Statement stmt = null;
 
         try {         
-            Class.forName("org.mariadb.jdbc.Driver");
-            con = DriverManager.getConnection(
-                    "jdbc:mariadb://localhost:3306/studydb", 
-                    "study", "1111");
-
+            con=dataSource.getConnection();
             con.setAutoCommit(false);
 
             stmt = con.createStatement();
@@ -52,11 +56,11 @@ public class TeacherMysqlDao  implements TeacherDao {
             con.commit();
             return 1;
         } catch (Exception e) {
+            try{con.rollback();} catch(Exception e2) {} 
             throw new DaoException(e);
 
         } finally {
             try {stmt.close();} catch (Exception e) {}
-            try {con.close();} catch (Exception e) {}
         }
 
     }
@@ -69,11 +73,7 @@ public class TeacherMysqlDao  implements TeacherDao {
         ResultSet rs = null;
 
         try {
-            Class.forName("org.mariadb.jdbc.Driver");
-            con = DriverManager.getConnection(
-                    "jdbc:mariadb://localhost:3306/studydb", 
-                    "study", "1111");
-
+            con=dataSource.getConnection();
             stmt = con.createStatement();
             rs = stmt.executeQuery(
                     "select" + 
@@ -100,7 +100,6 @@ public class TeacherMysqlDao  implements TeacherDao {
         } finally {
             try {rs.close();} catch (Exception e) {}
             try {stmt.close();} catch (Exception e) {}
-            try {con.close();} catch (Exception e) {}
         }
         return list;
     }
@@ -111,10 +110,7 @@ public class TeacherMysqlDao  implements TeacherDao {
         ResultSet rs = null;
         
         try {
-            Class.forName("org.mariadb.jdbc.Driver");
-            con = DriverManager.getConnection(
-                    "jdbc:mariadb://localhost:3306/studydb", 
-                    "study", "1111");
+            con=dataSource.getConnection();
             stmt = con.createStatement();
             rs = stmt.executeQuery(
                     "select" + 
@@ -147,7 +143,6 @@ public class TeacherMysqlDao  implements TeacherDao {
         } finally {
             try {rs.close();} catch (Exception e) {}
             try {stmt.close();} catch (Exception e) {}
-            try {con.close();} catch (Exception e) {}
         }
     }
     
@@ -157,10 +152,7 @@ public class TeacherMysqlDao  implements TeacherDao {
         ResultSet rs = null;
         
         try {
-            Class.forName("org.mariadb.jdbc.Driver");
-            con = DriverManager.getConnection(
-                    "jdbc:mariadb://localhost:3306/studydb", 
-                    "study", "1111");
+            con=dataSource.getConnection();
             stmt = con.createStatement();
             rs = stmt.executeQuery(
                     "select" + 
@@ -193,7 +185,6 @@ public class TeacherMysqlDao  implements TeacherDao {
         } finally {
             try {rs.close();} catch (Exception e) {}
             try {stmt.close();} catch (Exception e) {}
-            try {con.close();} catch (Exception e) {}
         }
     }
     
@@ -204,11 +195,7 @@ public class TeacherMysqlDao  implements TeacherDao {
         Statement stmt = null;
         
         try {
-            Class.forName("org.mariadb.jdbc.Driver");
-            con = DriverManager.getConnection(
-                    "jdbc:mariadb://localhost:3306/studydb", 
-                    "study", "1111");
-            
+            con=dataSource.getConnection();
             con.setAutoCommit(false);
             stmt = con.createStatement();
             
@@ -225,11 +212,11 @@ public class TeacherMysqlDao  implements TeacherDao {
             return 1;
             
         } catch (Exception e) {
+            try{con.rollback();} catch(Exception e2) {} 
             throw new DaoException(e);
             
         } finally {
             try {stmt.close();} catch (Exception e) {}
-            try {con.close();} catch (Exception e) {}
         }
     }
 }
