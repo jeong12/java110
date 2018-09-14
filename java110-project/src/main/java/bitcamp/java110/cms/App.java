@@ -14,7 +14,7 @@ public class App {
         
         //java class가 있는 classpath에서 찾겠음
         ClassPathXmlApplicationContext iocContainer = 
-                new ClassPathXmlApplicationContext("bitcamp/java110/cms/conf/application-context.xml");
+                new ClassPathXmlApplicationContext("bitcamp/java110/cms/conf/Application-context.xml");
         
 /*        //IOC 컨테이너가 생성한 객체 조회하기
         System.out.println(":::::::::::::::::::::");
