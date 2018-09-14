@@ -14,7 +14,7 @@ public class ClientApp {
 
         try(
                 //서버에 연결하기
-                Socket socket = new Socket("localhost",8888);
+                Socket socket = new Socket("192.168.0.11",8888);
 
                 //서버에 데이터를 보내고 읽을 도구 준비
                 PrintStream out=new PrintStream(
@@ -32,7 +32,8 @@ public class ClientApp {
 
             while (true) {
                 String requestLine = prompt();
-                out.println(requestLine); out.flush();                
+                out.println(requestLine); out.flush();
+                
                 while(true) {
                     String responseLine = in.readLine();
                     System.out.println(responseLine);
