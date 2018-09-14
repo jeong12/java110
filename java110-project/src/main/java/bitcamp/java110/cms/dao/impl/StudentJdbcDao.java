@@ -49,8 +49,6 @@ public class StudentJdbcDao implements StudentDao {
                 n="N";
             }
             
-            System.out.println("::::n");
-
             String sql2 = "insert into p1_stud(sno,schl,work)"
                     + " values(" + memberNo+ ",'" + student.getSchool()
                     + "','" +n+"')";
@@ -108,8 +106,7 @@ public class StudentJdbcDao implements StudentDao {
                 }else {
                     an="false";
                 }                  
-                
-                System.out.println("::::an");
+
                 mgr.setWorking(Boolean.parseBoolean(an));
                 list.add(mgr);
             }

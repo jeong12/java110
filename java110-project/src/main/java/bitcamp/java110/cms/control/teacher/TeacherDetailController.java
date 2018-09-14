@@ -25,7 +25,7 @@ public class TeacherDetailController {
         Teacher t = teacherDao.findByNo(no);
         
         if (t == null) {
-            System.out.println("해당 이메일의 강사 정보가 없습니다!");
+            System.out.println("해당 번호의 강사 정보가 없습니다!");
             return;
         }
         
