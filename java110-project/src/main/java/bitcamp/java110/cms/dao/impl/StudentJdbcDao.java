@@ -15,8 +15,6 @@ import bitcamp.java110.cms.domain.Student;
 @Component
 public class StudentJdbcDao implements StudentDao {
 
-    private List<Student> list = new ArrayList<>();
-
     public int insert(Student student) {
         Connection con = null;
         Statement stmt = null;

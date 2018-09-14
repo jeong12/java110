@@ -14,7 +14,6 @@ import bitcamp.java110.cms.domain.Teacher;
 
 @Component
 public class TeacherJebcDao  implements TeacherDao {
-    private List<Teacher> list = new ArrayList<>();
     
     public int insert(Teacher teacher) {
         Connection con = null;

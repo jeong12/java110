@@ -1,9 +1,7 @@
 package bitcamp.java110.cms.context;
 
-import java.lang.reflect.Method;
 import java.util.Collection;
 
-import bitcamp.java110.cms.annotation.Autowired;
 import bitcamp.java110.cms.annotation.Component;
 
 @Component
@@ -13,7 +11,8 @@ public class LogBeanPostProcessor implements BeanPostProcessor{
 
 
     public void postProcess(ApplicationContext beanContatiner) {
-        Collection<Object> objList = beanContatiner.objPool.values();
+        Collection<Object> objList = ApplicationContext.objPool.values();
+        //Collection<Object> objList = beanContatiner.objPool.values();
 
         System.out.println("------------------");
         for (Object obj : objList) {

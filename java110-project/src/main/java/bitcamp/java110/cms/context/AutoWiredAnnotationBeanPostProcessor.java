@@ -13,7 +13,13 @@ public class AutoWiredAnnotationBeanPostProcessor implements BeanPostProcessor{
 
    
    public void postProcess(ApplicationContext beanContatiner) {
-       Collection<Object> objList = beanContatiner.objPool.values();
+      
+       Collection<Object> objList = ApplicationContext.objPool.values();
+
+       /*얘랑 아래랑 같은 아이. 근데, 얘를 쓴 이유는, Application의 Context의 objPool은 static이니까,
+        * 클래스 명으로도 바로 호출이 가능함. 그래서 beanContatiner를 쓰면 경고 표시가 뜬 거였음.  
+        */ 
+       //Collection<Object> objList = beanContatiner.objPool.values();
        
        for (Object obj : objList) {
            //목록에서 객체를 꺼내 @Autowired가 붙은 메서드를 찾는다.
