@@ -24,13 +24,11 @@ public class StudentListController {
         List<Student> list = studentDao.findAll();
         
         for (Student s : list) {
-            System.out.printf("%d,%s, %s, %s, %s, %s, %b\n",
+            System.out.printf("%d,%s, %s, %s, %b\n",
                     s.getNo(),
                     s.getEmail(), 
                     s.getName(), 
-                    s.getPassword(), 
                     s.getSchool(),
-                    s.getTel(),
                     s.isWorking());
         }
     }

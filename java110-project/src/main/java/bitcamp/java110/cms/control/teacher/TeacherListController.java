@@ -25,13 +25,11 @@ public class TeacherListController {
         
         
         for (Teacher t : list) {
-            System.out.printf("%d,%s, %s, %s, %d, %s, [%s]\n",
+            System.out.printf("%d,%s, %s, %d, [%s]\n",
                     t.getNo(),
                     t.getEmail(), 
                     t.getName(), 
-                    t.getPassword(), 
                     t.getPay(),
-                    t.getTel(),
                     t.getSubjects());
         }
     }

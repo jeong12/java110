@@ -13,7 +13,7 @@ import bitcamp.java110.cms.dao.StudentDao;
 import bitcamp.java110.cms.domain.Student;
 
 @Component
-public class StudentJdbcDao implements StudentDao {
+public class StudentMysqlDao implements StudentDao {
 
     public int insert(Student student) {
         Connection con = null;
@@ -144,6 +144,59 @@ public Student findByNo(int no) {
                 " from p1_stud mr" + 
                 " inner join p1_memb m on mr.sno = m.mno" +
                 " where m.mno=" + no);
+        
+        if (rs.next()) {
+            Student mgr = new Student();
+            mgr.setNo(rs.getInt("mno"));
+            mgr.setEmail(rs.getString("email"));
+            mgr.setName(rs.getString("name"));
+            mgr.setTel(rs.getString("tel"));
+            mgr.setSchool(rs.getString("schl"));
+            String an=null;
+            if(rs.getString("work").equals("Y")){
+                an="true";
+            }else {
+                an="false";
+            }
+            mgr.setWorking(Boolean.parseBoolean(an));
+            
+            return mgr;
+        }
+        return null;
+        
+    } catch (Exception e) {
+        throw new DaoException(e);
+        
+    } finally {
+        try {rs.close();} catch (Exception e) {}
+        try {stmt.close();} catch (Exception e) {}
+        try {con.close();} catch (Exception e) {}
+    }
+}
+
+public Student findByEmail(String email) {
+    Connection con = null;
+    Statement stmt = null;
+    ResultSet rs = null;
+    
+    try {
+        Class.forName("org.mariadb.jdbc.Driver");
+        con = DriverManager.getConnection(
+                "jdbc:mariadb://localhost:3306/studydb", 
+                "study", "1111");
+        
+        stmt = con.createStatement();
+        rs = stmt.executeQuery(
+                "select" + 
+                " m.mno," +
+                " m.name," + 
+                " m.email," + 
+                " m.tel," + 
+                " mr.schl," +
+                " mr.work" +
+                " from p1_stud mr" + 
+                " inner join p1_memb m on mr.sno = m.mno" +
+                " where m.eamil=" + "'+email+'");
         
         if (rs.next()) {
             Student mgr = new Student();
