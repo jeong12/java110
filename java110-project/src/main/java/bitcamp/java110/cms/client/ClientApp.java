@@ -14,7 +14,7 @@ public class ClientApp {
 
         try(
                 //서버에 연결하기
-                Socket socket = new Socket("192.168.0.11",8888);
+                Socket socket = new Socket("192.168.0.10",8888);
 
                 //서버에 데이터를 보내고 읽을 도구 준비
                 PrintStream out=new PrintStream(
