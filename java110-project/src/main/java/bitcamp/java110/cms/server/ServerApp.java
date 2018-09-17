@@ -3,7 +3,6 @@ package bitcamp.java110.cms.server;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -17,7 +16,7 @@ public class ServerApp {
 
     ClassPathXmlApplicationContext iocContainer;
     RequestMappingHandlerMapping requestHandlerMap; 
-    
+
     public ServerApp() throws Exception{
         createIoCContatiner();
         logBeansOfContatiner();
@@ -28,7 +27,7 @@ public class ServerApp {
         iocContainer = new ClassPathXmlApplicationContext(
                 "bitcamp/java110/cms/conf/Application-context.xml");
     }
-    
+
     private void processRequestMappingAnnotation() {
         requestHandlerMap = new RequestMappingHandlerMapping();
         String[] names = iocContainer.getBeanDefinitionNames();
@@ -39,35 +38,60 @@ public class ServerApp {
     }
 
     private void logBeansOfContatiner() {
-        System.out.println(":::::::::::::::::::::");
+        System.out.println("======================");
         String[]nameList=iocContainer.getBeanDefinitionNames();
         for(String name:nameList) {
             System.out.println(name);
         }
-        System.out.println(":::::::::::::::::::::");
+        System.out.println("======================");
     }
 
     public void service() throws Exception{
         //클라이언트 연결을 기다리는 서버 소켓 준비      포트번호,backlog(대기열 크기) : 대기열은 que방식!
-        ServerSocket seversocket = new ServerSocket(8888);
+        ServerSocket severSocket = new ServerSocket(8888);
         System.out.println("서버 실행 중...");
 
         while(true) {
-            try(
-                    Socket socket = seversocket.accept();
-                    
-                    //Servelt에서는 printStream이 아닌, PrintWrite를 씀.
-                    PrintWriter out=new PrintWriter(
-                            new BufferedOutputStream(
-                                    socket.getOutputStream()));
+            Socket socket = severSocket.accept(); //main Thread
+            RequestWorker worker = new RequestWorker(socket);
+/*            Thread t = new Thread(worker);
+            t.start(); */
+            new Thread(worker).start();
+            
+        }
+    }
 
-                    BufferedReader in = new BufferedReader(
+
+    public static void main(String[] args) throws Exception {
+
+        ServerApp serverApp = new ServerApp();
+        serverApp.service();
+    }
+
+     class RequestWorker implements Runnable{
+
+        Socket socket;
+
+        public RequestWorker(Socket socket) {
+            this.socket=socket;
+        }
+
+        @Override
+        public void run() {
+            // 이 메서드에 "main"스레드에서 분리하여 독립적으로 수행할 코드를 둔다.
+            try(
+                Socket socket = this.socket; //자동 close을 위해 = finally의 socket.close()
+               //Servelt에서는 printStream이 아닌, PrintWrite를 씀.
+               PrintWriter out=new PrintWriter(
+                           new BufferedOutputStream(socket.getOutputStream()));
+
+               BufferedReader in = new BufferedReader(
                             new InputStreamReader(
                                     socket.getInputStream()));
-                    ){
+                ){
                 System.out.println(in.readLine());
                 out.println("OK:희정"); out.flush();
-                
+
                 while(true) {
                     String requestLine = in.readLine();
                     if(requestLine.equals("EXIT")) {
@@ -75,13 +99,13 @@ public class ServerApp {
                         out.println(); out.flush();
                         break;
                     }
-                    
+
                     //요청 객체 준비
                     Request request = new Request(requestLine);
-                    
+
                     //응답 객체 준비
                     Response response = new Response(out);
-                    
+
                     RequestMappingHandler mapping = 
                             requestHandlerMap.getMapping(request.getApppath());
                     if (mapping == null) {
@@ -91,8 +115,8 @@ public class ServerApp {
                     }
                     try {                        
                         //요청 핸들러 호출
-                    mapping.getMethod().invoke(mapping.getInstance(), request, response);
-                    //mapping.getInstance() : method 주소를 줌.  만약 static일때는 null;
+                        mapping.getMethod().invoke(mapping.getInstance(), request, response);
+                        //mapping.getInstance() : method 주소를 줌.  만약 static일때는 null;
                     }catch(Exception e) {
                         e.printStackTrace();
                         out.println("요청 처리 중에 오류가 발생했습니다.");
@@ -100,14 +124,10 @@ public class ServerApp {
                     out.println();
                     out.flush();
                 }
+            }catch(Exception e) {
+                System.out.println(e.getMessage());
             }
-        }
-    }
+        }//run()
 
-    
-    public static void main(String[] args) throws Exception {
-
-        ServerApp serverApp = new ServerApp();
-        serverApp.service();
-    }
-}
+    }//requestWorker class    
+}//ServerAppclass
