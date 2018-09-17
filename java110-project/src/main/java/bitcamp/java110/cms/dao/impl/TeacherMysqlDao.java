@@ -24,7 +24,7 @@ public class TeacherMysqlDao  implements TeacherDao {
         this.dataSource = dataSource;
     }
     
-    public int insert(Teacher teacher) {
+    public int insert(Teacher teacher) throws DaoException {
         Connection con = null;
         Statement stmt = null;
 
@@ -66,7 +66,7 @@ public class TeacherMysqlDao  implements TeacherDao {
 
     }
     
-    public List<Teacher> findAll() {
+    public List<Teacher> findAll() throws DaoException {
         ArrayList<Teacher> list = new ArrayList<>();
 
         Connection con = null;
@@ -105,7 +105,7 @@ public class TeacherMysqlDao  implements TeacherDao {
         return list;
     }
     
-    public Teacher findByNo(int no) {
+    public Teacher findByNo(int no)throws DaoException {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -147,7 +147,7 @@ public class TeacherMysqlDao  implements TeacherDao {
         }
     }
     
-    public Teacher findByEmail(String email) {
+    public Teacher findByEmail(String email) throws DaoException {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -191,7 +191,7 @@ public class TeacherMysqlDao  implements TeacherDao {
     
     
     
-    public int delete(int no) {
+    public int delete(int no) throws DaoException{
         Connection con = null;
         Statement stmt = null;
         
