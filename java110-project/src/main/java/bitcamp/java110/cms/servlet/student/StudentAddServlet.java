@@ -9,25 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bitcamp.java110.cms.dao.impl.StudentMysqlDao;
+import bitcamp.java110.cms.dao.StudentDao;
 import bitcamp.java110.cms.domain.Student;
-import bitcamp.java110.cms.util.DataSource;
 
 @WebServlet("/student/add")
 public class StudentAddServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    StudentMysqlDao studentDao;
-
-    @Override
-    public void init() throws ServletException {
-        studentDao = new StudentMysqlDao();
-        DataSource datasource= new DataSource();
-        studentDao.setDataSource(datasource);
-    }
-
+ 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        StudentDao studentDao = (StudentDao)this.getServletContext()
+                .getAttribute("studentDao");
+        
         Student m = new Student();
         m.setName(request.getParameter("name"));
         m.setEmail(request.getParameter("email"));
