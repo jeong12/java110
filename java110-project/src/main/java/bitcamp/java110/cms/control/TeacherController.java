@@ -12,8 +12,6 @@ import org.springframework.stereotype.Component;
 import bitcamp.java110.cms.annotation.RequestMapping;
 import bitcamp.java110.cms.dao.TeacherDao;
 import bitcamp.java110.cms.domain.Teacher;
-import bitcamp.java110.cms.server.Request;
-import bitcamp.java110.cms.server.Response;
 
 @Component
 public class TeacherController {

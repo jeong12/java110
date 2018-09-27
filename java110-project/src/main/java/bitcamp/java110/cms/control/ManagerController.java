@@ -1,6 +1,5 @@
 package bitcamp.java110.cms.control;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -13,8 +12,6 @@ import org.springframework.stereotype.Component;
 import bitcamp.java110.cms.annotation.RequestMapping;
 import bitcamp.java110.cms.dao.ManagerDao;
 import bitcamp.java110.cms.domain.Manager;
-import bitcamp.java110.cms.server.Request;
-import bitcamp.java110.cms.server.Response;
 
 @Component
 public class ManagerController { 
