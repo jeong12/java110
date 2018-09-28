@@ -21,17 +21,28 @@ public class TeacherDeleteServlet extends HttpServlet{
         
         int no = Integer.parseInt(request.getParameter("no"));
         
-        response.setContentType("text/plain;Charset=UTF-8");
+        response.setContentType("text/html;Charset=UTF-8");
         PrintWriter out = response.getWriter();
 
         TeacherDao teacherDao = (TeacherDao)this.getServletContext()
                 .getAttribute("teacherDao");
         
+        out.println("<!DOCTYPE html>");
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<meta charset='UTF-8'>");
+        out.println("<title>강사 관리</title>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<h1>강사 삭제 결과</h1>");       
+        
         if (teacherDao.delete(no) > 0) {
-            out.println("삭제하였습니다.");
+            out.println("<p>삭제하였습니다.</p>");
         } else {
-            out.println("번호에 해당하는 강사가 없습니다.");
+            out.println("<p>번호에 해당하는 강사가 없습니다.</p>");
         }
+        out.println("</body>");
+        out.println("</html>");
     }
     
     

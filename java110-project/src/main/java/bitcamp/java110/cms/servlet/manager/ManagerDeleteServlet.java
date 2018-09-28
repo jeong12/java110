@@ -17,20 +17,30 @@ public class ManagerDeleteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         int no = Integer.parseInt(request.getParameter("no"));
-        response.setContentType("text/plain;Charset=UTF-8");
+        response.setContentType("text/html;Charset=UTF-8");
         PrintWriter out = response.getWriter();
 
         ManagerDao managerDao = (ManagerDao)this.getServletContext()
                 .getAttribute("managerDao");
         
-        if (managerDao.delete(no) > 0) {
-            out.println("삭제하였습니다.");
-        } else {
-            out.println("해당 번호의 매니저가 없습니다!");
+        out.println("<!DOCTYPE html>");
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<meta charset='UTF-8'>");
+        out.println("<title>매니저 관리</title>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<h1>매니저 삭제 결과</h1>");              
+        
+        try { managerDao.delete(no);
+            out.println("<p>삭제하였습니다.</p>");
+        } catch(Exception e) {
+            e.printStackTrace();
+            out.println("<p>삭제 중 오류 발생!</p>");
         }
+        out.println("</body>");
+        out.println("</html>");
     }
-
-
 }
 
 
