@@ -18,10 +18,8 @@ public class TeacherAddServlet extends HttpServlet {
     
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
         TeacherDao teacherDao = (TeacherDao)this.getServletContext()
                 .getAttribute("teacherDao");
-        
         Teacher m = new Teacher();
         m.setName(request.getParameter("name"));
         m.setEmail(request.getParameter("email"));
@@ -30,26 +28,28 @@ public class TeacherAddServlet extends HttpServlet {
         m.setPay(Integer.parseInt(request.getParameter("pay")));
         m.setSubjects(request.getParameter("subjects"));
         
-        response.setContentType("text/html;Charset=UTF-8");
-        PrintWriter out = response.getWriter();
-
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<meta charset='UTF-8'>");
-        out.println("<title>매니저 관리</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h1>강사 등록 결과</h1>");  
         try {
             teacherDao.insert(m);
-            out.println("<p>저장하였습니다.</p>");
+            response.sendRedirect("list");
         }catch(Exception e) {
             e.printStackTrace();
-            out.println("<p>등록 중 오류 발생!</p>");
+            request.setCharacterEncoding("UTF-8");
+            response.setContentType("text/html;Charset=UTF-8");
+            response.setHeader("Refresh", "3;url=list");
+            PrintWriter out = response.getWriter();
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<meta charset='UTF-8'>");
+            out.println("<title>강사 관리</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>강사 등록 오류</h1>");  
+            out.printf("<p>%s</p>\n", e.getMessage());
+            out.println("<p>잠시 기다리시면 목록 페이지로 자동으로 이동합니다.</p>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        out.println("</body>");
-        out.println("</html>");
     }
     
 }

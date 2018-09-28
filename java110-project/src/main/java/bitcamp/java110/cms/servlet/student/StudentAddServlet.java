@@ -30,26 +30,28 @@ public class StudentAddServlet extends HttpServlet {
         m.setSchool(request.getParameter("school"));
         m.setWorking(Boolean.parseBoolean(request.getParameter("working")));
         
-        response.setContentType("text/html;Charset=UTF-8");
-        PrintWriter out = response.getWriter();
-
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<meta charset='UTF-8'>");
-        out.println("<title>매니저 관리</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h1>매니저 등록 결과</h1>");  
         try {
             studentDao.insert(m);
-            out.println("<p>저장하였습니다.</p>");
+            response.sendRedirect("list");
         }catch(Exception e) {
             e.printStackTrace();
-            out.println("<p>등록 중 오류 발생!</p>");
+            response.setContentType("text/html;Charset=UTF-8");
+            response.setHeader("Refresh", "1;url=list");
+            PrintWriter out = response.getWriter();
+            
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<meta charset='UTF-8'>");
+            out.println("<title>학생 관리</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>학생 등록 오류</h1>");  
+            out.printf("<p>%s</p>\n", e.getMessage());
+            out.println("<p>잠시 기다리시면 목록 페이지로 자동으로 이동합니다.</p>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        out.println("</body>");
-        out.println("</html>");
     }
     
   

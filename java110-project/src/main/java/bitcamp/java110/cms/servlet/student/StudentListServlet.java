@@ -45,7 +45,7 @@ public class StudentListServlet extends HttpServlet{
         out.println("</head>");
         out.println("<body>");
         out.println("<h1>학생 목록</h1>");
-        out.println("<p><a href='form.html'>추가</a></p>");
+        out.println("<p><a href='form.html'>추가하기</a></p>");
         out.println("<table>");
         out.println("<thead>");
         out.println("<tr>");
