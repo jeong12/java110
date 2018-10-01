@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,6 +33,7 @@ public class StudentListServlet extends HttpServlet{
         out.println("<head>");
         out.println("<meta charset='UTF-8'>");
         out.println("<title>학생 관리</title>");
+        out.println("<link rel='stylesheet' href='../css/common.css'>");
         out.println("<style>");
         out.println("table, td, th{");
         out.println("border : 1px solid gray;");
@@ -44,6 +46,8 @@ public class StudentListServlet extends HttpServlet{
         out.println("</style>");
         out.println("</head>");
         out.println("<body>");
+        RequestDispatcher rd = request.getRequestDispatcher("/header");
+        rd.include(request, response);
         out.println("<h1>학생 목록</h1>");
         out.println("<p><a href='form.html'>추가하기</a></p>");
         out.println("<table>");
@@ -65,6 +69,8 @@ public class StudentListServlet extends HttpServlet{
         }
         out.println("</tbody>");
         out.println("</table>");
+        rd=request.getRequestDispatcher("/footer");
+        rd.include(request, response);
         out.println("</body>");
         out.println("</html>");
     }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,13 +27,13 @@ public class TeacherListServlet extends HttpServlet{
         
         response.setContentType("text/html;Charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
         List<Teacher> list = teacherDao.findAll();
         out.println("<!DOCTYPE html>");
         out.println("<html>");
         out.println("<head>");
         out.println("<meta charset='UTF-8'>");
         out.println("<title>강사 관리</title>");
+        out.println("<link rel='stylesheet' href='../css/common.css'>");
         out.println("<style>");
         out.println("table, td, th{");
         out.println("border : 1px solid gray;");
@@ -45,6 +46,8 @@ public class TeacherListServlet extends HttpServlet{
         out.println("</style>");
         out.println("</head>");
         out.println("<body>");
+        RequestDispatcher rd = request.getRequestDispatcher("/header");
+        rd.include(request, response);
         out.println("<h1>강사 목록</h1>");
         out.println("<p><a href='form.html'>추가하기</a></p>");
         out.println("<table>");
@@ -67,6 +70,8 @@ public class TeacherListServlet extends HttpServlet{
         }
         out.println("</tbody>");
         out.println("</table>");
+        rd=request.getRequestDispatcher("/footer");
+        rd.include(request, response);
         out.println("</body>");
         out.println("</html>");
     }

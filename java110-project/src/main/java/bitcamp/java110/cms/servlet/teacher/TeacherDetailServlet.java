@@ -3,6 +3,7 @@ package bitcamp.java110.cms.servlet.teacher;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,6 +35,7 @@ public class TeacherDetailServlet extends HttpServlet {
         out.println("<head>");
         out.println("<meta charset='UTF-8'>");
         out.println("<title>강사 관리</title>");
+        out.println("<link rel='stylesheet' href='../css/common.css'>");
         out.println("<style>");
         out.println("table, td, th{");
         out.println("border : 1px solid gray;");
@@ -41,6 +43,8 @@ public class TeacherDetailServlet extends HttpServlet {
         out.println("</style>");
         out.println("</head>");
         out.println("<body>");
+        RequestDispatcher rd = request.getRequestDispatcher("/header");
+        rd.include(request, response);
         out.println("<h1>강사 상세정보</h1>");
         if (t == null) {
             out.println("해당 번호의 강사 정보가 없습니다!");
@@ -63,6 +67,8 @@ public class TeacherDetailServlet extends HttpServlet {
         out.printf("location.href='delete?no=%d'",t.getNo());
         out.println("}");
         out.println("</script>");
+        rd=request.getRequestDispatcher("/footer");
+        rd.include(request, response);
         out.println("</body>");
         out.println("</html>");
 
