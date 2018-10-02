@@ -37,7 +37,7 @@ public class Servlet01_3 extends HttpServlet{
         
         //유효기간 : 쿠키를 받은 시점에서 1일 동안만 유효 
         Cookie c3 = new Cookie("working","true");
-        c3.setMaxAge(60*60*24);
+        //c3.setMaxAge(60*60*24);
         c3.setPath("/");
 
 /*      HTTP/1.1 200

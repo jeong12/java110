@@ -37,6 +37,7 @@ public class Servlet01_1 extends HttpServlet{
         res.addCookie(c1);
         res.addCookie(c2);
         res.addCookie(c3);
+        c3.setMaxAge(0);
         
         /* HTTP 응답 프로토콜 예)
          * HTTP/1.1 200

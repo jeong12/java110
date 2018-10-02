@@ -15,8 +15,11 @@ header > h1{
 	float: left;
 }
 
-li{
-	float : right;
+header ul{
+	float : right;	
+}
+
+header li{
 	list-style-type: none;
 	display: inline-block;
 	margin: 0px 5px;

@@ -38,6 +38,14 @@ Accept-Encoding: gzip, deflate, br
 Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
 Cookie: name=hong-gildong; age=12; working=true  <== 서버에 보내는 쿠키        
  */
+   
+        Cookie c1 = new Cookie("name","mingming");
+        Cookie c2 = new Cookie("age","28");
+
+        //2)응답 헤더에 쿠키를 포함하기
+        res.addCookie(c1);
+        res.addCookie(c2);
+        
         Cookie[] cookies = req.getCookies();
         res.setContentType("text/html;charset=UTF-8");
         PrintWriter out = res.getWriter();
