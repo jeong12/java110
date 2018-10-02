@@ -31,6 +31,8 @@ public class HeaderServlet extends HttpServlet{
         HttpSession session = request.getSession();
         Member loginUser =  (Member)session.getAttribute("loginUser");
         
+        String type = request.getParameter("type");
+        System.out.println(type);
         if(loginUser == null) {
             out.println("<li><a href='/auth/login'>로그인</a></li>");
         }else {
