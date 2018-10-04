@@ -24,55 +24,13 @@ public class TeacherListServlet extends HttpServlet{
                 
         TeacherDao teacherDao = (TeacherDao)this.getServletContext()
                 .getAttribute("teacherDao");
-        
-        response.setContentType("text/html;Charset=UTF-8");
-        PrintWriter out = response.getWriter();
         List<Teacher> list = teacherDao.findAll();
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<meta charset='UTF-8'>");
-        out.println("<title>강사 관리</title>");
-        out.println("<link rel='stylesheet' href='../css/common.css'>");
-        out.println("<style>");
-        out.println("table, td, th{");
-        out.println("border : 1px solid gray;");
-        out.println("text-align : center;");
-        out.println("}");
-        out.println("a{");
-        out.println("text-decoration: none;");
-        out.println("color: black;");
-        out.println("}");
-        out.println("</style>");
-        out.println("</head>");
-        out.println("<body>");
-        RequestDispatcher rd = request.getRequestDispatcher("/header");
-        rd.include(request, response);
-        out.println("<h1>강사 목록</h1>");
-        out.println("<p><a href='form.html'>추가하기</a></p>");
-        out.println("<table>");
-        out.println("<thead>");
-        out.println("<tr>");
-        out.println("<th>번호</th><th>이름</th><th>이메일</th><th>임금</th><th>과목들</th>");
-        out.println("</tr>");
-        out.println("</thead>");
-        out.println("<tbody>");
+
+        request.setAttribute("list", list);
+        response.setContentType("text/html;Charset=UTF-8");
         
-        
-        for (Teacher t : list) {
-            out.println("<tr>");
-            out.printf("<td>%d</td>\n",t.getNo());
-            out.printf("<td><a href='detail?no=%d'>%s</a></td>\n",t.getNo(),t.getName());
-            out.printf("<td>%s</td>\n",t.getEmail());
-            out.printf("<td>%d</td>\n",t.getPay());
-            out.printf("<td>[%s]</td>\n",t.getSubjects());
-            out.printf("</tr>");
-        }
-        out.println("</tbody>");
-        out.println("</table>");
-        rd=request.getRequestDispatcher("/footer");
+        RequestDispatcher rd = request.getRequestDispatcher("/teacher/list.jsp");
         rd.include(request, response);
-        out.println("</body>");
-        out.println("</html>");
+       
     }
 }

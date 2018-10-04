@@ -17,10 +17,20 @@ public class ManagerAddServlet extends HttpServlet{
     private static final long serialVersionUID = 1L;
   
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+       //만약 Get요청이 들어온다면, form.jsp로 인클루딩
+        response.setContentType("text/html;charset=UTF-8"); //인클루드는 보내는 쪽에서 설정해야 함.
+        RequestDispatcher rd = request.getRequestDispatcher("/manager/form.jsp");
+        rd.include(request, response);
+    }
+    
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
         //Post 방식으로 들어온 한글 데이터는 다음 메서드를 호출하여 어떤 인코딩인지 알려줘야 getParameter() 호출할때 정상적으로 디코딩 할 것이다.
         request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         ManagerDao managerDao = (ManagerDao)this.getServletContext()
                 .getAttribute("managerDao");        
         //get이니까 request set하지 않아도 깨지지 않음.

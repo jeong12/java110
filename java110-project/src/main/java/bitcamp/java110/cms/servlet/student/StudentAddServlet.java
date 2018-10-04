@@ -2,6 +2,7 @@ package bitcamp.java110.cms.servlet.student;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +16,16 @@ import bitcamp.java110.cms.domain.Student;
 public class StudentAddServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
  
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+       //만약 Get요청이 들어온다면, form.jsp로 인클루딩
+        response.setContentType("text/html;charset=UTF-8"); //인클루드는 보내는 쪽에서 설정해야 함.
+        RequestDispatcher rd = request.getRequestDispatcher("/student/form.jsp");
+        rd.include(request, response);
+    }
+    
+    
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");

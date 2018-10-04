@@ -33,7 +33,7 @@
 		<param-value>1111</param-value>
 	</context-param>
 
-    <!-- 톰캣 버전에 따라 이걸 쓸수도 있고 아닐수도 있음 -->
+	<!-- 톰캣 버전에 따라 이걸 쓸수도 있고 아닐수도 있음 -->
 	<!--<request-character-encoding>UTF-8</request-character-encoding> -->
 
 	<!-- InitServlet은 클라이언트의 요청을 처리하는 서블릿이 아니기 때문에 URL을 지정하지 않는다. 대신 클라이언트가 
@@ -43,6 +43,17 @@
 	<listener>
 		<listener-class>bitcamp.java110.cms.listener.ContextLoaderListener</listener-class>
 	</listener>
+
+	<servlet>
+		<servlet-name>error</servlet-name>
+		<jsp-file>/error.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>error</servlet-name>
+		<url-pattern>/error</url-pattern>
+	</servlet-mapping>
+
+
 
 	<!-- 클라이언트가 요청한 URL에 대해 기본(정적)파일을 찾을 때 우선순위 (하나 실행되면 그것만 실행됨) -->
 	<welcome-file-list>

@@ -1,7 +1,6 @@
 package bitcamp.java110.cms.servlet.manager;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,60 +20,24 @@ public class ManagerDetailServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         
+        
+        //JSP 페이지에서 사용할 데이터를 준비한다.
         ManagerDao managerDao = (ManagerDao)this.getServletContext()
                 .getAttribute("managerDao");
         
         int no = Integer.parseInt(request.getParameter("no"));
         Manager m = managerDao.findByNo(no);
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
         
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<meta charset='UTF-8'>");
-        out.println("<title>매니저 관리</title>");
-        out.println("<link rel='stylesheet' href='../css/common.css'>");
-        out.println("<style>");
-        out.println("table, td, th{");
-        out.println("border : 1px solid gray;");
-        out.println("}");
-        out.println("</style>");
-        out.println("</head>");
-        out.println("<body>");
-        RequestDispatcher rd = request.getRequestDispatcher("/header");
+        // JSP 페이지에서 사용할 수 있도록 ServletRequest 보관소에 저장한다.
+        request.setAttribute("detail", m);
+        
+        // JSP 페이지를 인클루드 하기 전에 콘텐트 타입 설정 
+        response.setContentType("text/html;charset=UTF-8");
+        
+        //JSP 페이지 인클루딩
+        RequestDispatcher rd = request.getRequestDispatcher("/manager/detail.jsp");
         rd.include(request, response);
-        out.println("<h1>매니저 상세정보</h1>");
-                
-        if (m == null) {
-            out.println("<p>해당 번호의 매니저가 없습니다!</p>");
-        }else {
-            out.println("<table>");
-            out.println("<tbody>");
-            out.printf("<tr><th>번호</th><td>%d</td></tr>\n", m.getNo());
-            out.printf("<tr><th>이름</th><td>%s</td></tr>\n", m.getName());
-            out.printf("<tr><th>이메일</th><td>%s</td></tr>\n", m.getEmail());
-            out.printf("<tr><th>암호</th><td>%s</td></tr>\n", m.getPassword());
-            out.printf("<tr><th>전화</th><td>%s</td></tr>\n", m.getTel());
-            out.printf("<tr><th>직위</th><td>%s</td></tr>\n", m.getPosition());
-            out.println("</tbody>");
-            out.println("</table>");
-            out.println("<button type='button' onclick ='remove()'>삭제</button>\n");
     }
-        out.println("<script>");
-        out.println("function remove() {");
-        out.printf("location.href='delete?no=%d'",m.getNo());
-        out.println("}");
-        out.println("</script>");
-        rd=request.getRequestDispatcher("/footer");
-        rd.include(request, response);
-        out.println("</body>");
-        out.println("</html>");
-    }
-    
-    /*방법 1. button delete()에 no를 넘겨서 function으로 가기
-     * 방법2. 이거
-     * */
 }
     
     
