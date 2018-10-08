@@ -20,33 +20,21 @@ border : 1px solid gray;
 
 <h1>매니저 상세정보(MVC)</h1>
 
-<jsp:useBean
-    scope="request"
-    id="detail"
-    class="bitcamp.java110.cms.domain.Manager"/>
-
-<%
-if (detail == null) {
-%>
-<p>해당 번호의 매니저가 없습니다!</p>
-<%
-}else{
-%>
 <table>
 <tbody>
-<tr><th>번호</th><td><%=detail.getNo()%></td></tr>
-<tr><th>이름</th><td><%=detail.getName()%></td></tr>
-<tr><th>이메일</th><td><%=detail.getEmail()%></td></tr>
-<tr><th>암호</th><td><%=detail.getPassword()%></td></tr>
-<tr><th>전화</th><td><%=detail.getTel()%></td></tr>
-<tr><th>직위</th><td><%=detail.getPosition()%></td></tr>
+<tr><th>번호</th><td>${detail.no}</td></tr>
+<tr><th>이름</th><td>${detail.name}</td></tr>
+<tr><th>이메일</th><td>${detail.email}</td></tr>
+<tr><th>암호</th><td>${detail.password}</td></tr>
+<tr><th>전화</th><td>${detail.tel}</td></tr>
+<tr><th>직위</th><td>${detail.position}</td></tr>
 </tbody>
 </table>
 <button type='button' onclick ='remove()'>삭제</button>
-<%}%>
+
 <script>
 function remove() {
-    location.href='delete?no=<%=detail.getNo()%>'}
+    location.href='delete?no=${detail.no}'}
 </script>
 
 <jsp:include page="../footer.jsp"/>

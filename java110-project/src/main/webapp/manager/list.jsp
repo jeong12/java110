@@ -1,6 +1,4 @@
 <%@page import="bitcamp.java110.cms.domain.Manager"%>
-<%@page import="java.util.List"%>
-<%@page import="bitcamp.java110.cms.dao.ManagerDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 
@@ -26,6 +24,9 @@ color: black;
 <jsp:include page="../header.jsp"/>
 
 <h1>매니저 목록(MVC)</h1>
+
+<%-- <${detail==null ? "없는 번호 입니다." : "} --%>
+
 <p><a href='add'>추가하기</a></p> <!-- 바로 jsp로 연결하면 안됨. 항상 servlet을 경유하도록! -->
 <table>
 <thead>
@@ -50,12 +51,13 @@ if(list == null){
 
 <%
 for (Manager m : list) {
+    pageContext.setAttribute("m",m);
 %>
 <tr>
-<td><%=m.getNo() %></td>
-<td><a href='detail?no=<%=m.getNo()%>'><%=m.getName()%></a></td>
-<td><%=m.getEmail() %></td>
-<td><%=m.getPosition() %></td>
+<td>${m.no}</td>
+<td><a href='detail?no=${m.no}'>${m.name}</a></td>
+<td>${m.email}</td>
+<td>${m.position}</td>
 </tr>
 <%
 }

@@ -44,13 +44,14 @@ color: black;
 
 <%
 for (Student s : list) {
+    pageContext.setAttribute("s",s);
 %>
 <tr>
-<td><%=s.getNo() %></td>
-<td><a href='detail?no=<%=s.getNo()%>'><%=s.getName()%></a></td>
-<td><%=s.getEmail() %></td>
-<td><%=s.getSchool() %></td>
-<td><%=s.isWorking() %></td>
+<td>${s.no}</td>
+<td><a href='detail?no=${s.no}'>${s.name}</a></td>
+<td>${s.email}</td>
+<td>${s.school}</td>
+<td>${s.working}</td>
 </tr>
 <%
 }
