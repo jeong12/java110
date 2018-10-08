@@ -14,9 +14,11 @@ th{
 </head>
 <body>
 <h1>로그인(MVC)</h1>
-<%
-String email = (String)request.getAttribute("email");
-%>
+
+<jsp:useBean
+    scope="request"
+    id="email"
+    class="java.lang.String"/>  
 
 <form action='login' method='post'>
 <table>
@@ -28,7 +30,7 @@ String email = (String)request.getAttribute("email");
 </tr>
 <tr>
    <th>이메일</th>
-   <td><input type='email' name='email' value=<%=email %>></td>
+   <td><input type='email' name='email' value=<%=email%>></td>
 </tr>
 <tr>
    <th>암호</th>

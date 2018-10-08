@@ -35,9 +35,15 @@ color: black;
 <th>번호</th><th>이름</th><th>이메일</th><th>시급</th><th>과목들</th>
 </tr>
 </thead>
+
+<jsp:useBean
+    scope="request"
+    id="list"
+    class="java.util.ArrayList"
+    type="java.util.List<Teacher>"/>  
+
 <tbody>
 <%
-List<Teacher> list =(List<Teacher>) request.getAttribute("list");
 for (Teacher t : list) {
 %>
 <tr>

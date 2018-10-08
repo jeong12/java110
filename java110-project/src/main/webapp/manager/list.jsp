@@ -34,8 +34,21 @@ color: black;
 </tr>
 </thead>
 <tbody>
+
+<jsp:useBean
+    scope="request"
+    id="list"
+    class="java.util.ArrayList"
+    type="java.util.List<Manager>"/>    
+
+<%-- class에서는 Generic 적용되지 않음. type에서는 가능! 
+<%java.util.List<Manager>list = (java.util.List<Manager>)request.getAttribute("list");
+if(list == null){
+    list = new java.util.ArrayList();
+    request.setAttrtibute("list",list);}
+%> --%>
+
 <%
-List<Manager> list =(List<Manager>) request.getAttribute("list");
 for (Manager m : list) {
 %>
 <tr>
