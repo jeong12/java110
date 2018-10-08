@@ -1,6 +1,6 @@
-<%@page import="bitcamp.java110.cms.domain.Manager"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
@@ -36,32 +36,14 @@ color: black;
 </thead>
 <tbody>
 
-<jsp:useBean
-    scope="request"
-    id="list"
-    class="java.util.ArrayList"
-    type="java.util.List<Manager>"/>    
-
-<%-- class에서는 Generic 적용되지 않음. type에서는 가능! 
-<%java.util.List<Manager>list = (java.util.List<Manager>)request.getAttribute("list");
-if(list == null){
-    list = new java.util.ArrayList();
-    request.setAttrtibute("list",list);}
-%> --%>
-
-<%
-for (Manager m : list) {
-    pageContext.setAttribute("m",m);
-%>
+<c:forEach items="${list}" var="m">
 <tr>
 <td>${m.no}</td>
 <td><a href='detail?no=${m.no}'>${m.name}</a></td>
 <td>${m.email}</td>
 <td>${m.position}</td>
 </tr>
-<%
-}
-%>
+</c:forEach>
 </tbody>
 </table>
 <jsp:include page="../footer.jsp"/>
