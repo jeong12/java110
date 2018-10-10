@@ -1,17 +1,20 @@
 package bitcamp.java110.cms.servlet.student;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import bitcamp.java110.cms.dao.StudentDao;
 import bitcamp.java110.cms.domain.Student;
-
+@MultipartConfig(maxFileSize=2_000_000)
 @WebServlet("/student/add")
 public class StudentAddServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -41,6 +44,14 @@ public class StudentAddServlet extends HttpServlet {
         m.setWorking(Boolean.parseBoolean(request.getParameter("working")));
         
         try {
+            
+            Part part = request.getPart("file1");
+            if(part.getSize()>0) { //만약 이걸 지정하지 않으면, 첨부하지 않은 파일도 0바이트로 파일이 생김
+                String filename = UUID.randomUUID().toString();
+                part.write(this.getServletContext().getRealPath("/upload/" + filename));
+                m.setPhoto(filename);
+            }
+            
             studentDao.insert(m);
             response.sendRedirect("list");
         }catch(Exception e) {

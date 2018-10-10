@@ -1,6 +1,7 @@
 <%@page import="bitcamp.java110.cms.domain.Student"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
@@ -11,6 +12,9 @@
 <style>
 table, td, th{
 border : 1px solid gray;
+}
+#photo-image {
+    height: 100px;
 }
 </style>
 </head>
@@ -28,6 +32,17 @@ border : 1px solid gray;
 <tr><th>전화</th><td>${detail.tel}</td></tr>
 <tr><th>최종학력</th><td>${detail.school}</td></tr>
 <tr><th>재직여부</th><td>${detail.working}</td></tr>
+<tr>
+<th>사진</th>
+<c:choose>
+<c:when test="${not empty detail.photo}">
+<td><img id='photo-image' src='/upload/${detail.photo}'></td>
+</c:when>
+<c:otherwise>
+<td><img id='photo-image' src='/img/anonymous.png'></td>
+</c:otherwise>
+</c:choose>
+</tr>
 </tbody>
 </table>
 <button type='button' onclick ='remove()'>삭제</button>
