@@ -1,7 +1,6 @@
 package bitcamp.java110.cms.servlet.student;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bitcamp.java110.cms.dao.StudentDao;
 import bitcamp.java110.cms.domain.Student;
+import bitcamp.java110.cms.service.StudentService;
 
 @WebServlet("/student/list")
 public class StudentListServlet extends HttpServlet{
@@ -22,9 +21,9 @@ public class StudentListServlet extends HttpServlet{
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-        StudentDao studentDao = (StudentDao)this.getServletContext()
-                .getAttribute("studentDao");
-        List<Student> list = studentDao.findAll();
+        StudentService studentService = (StudentService)this.getServletContext()
+                .getAttribute("studentService");
+        List<Student> list = studentService.list();
         
         request.setAttribute("list", list);
         

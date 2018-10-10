@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import bitcamp.java110.cms.dao.StudentDao;
 import bitcamp.java110.cms.domain.Student;
+import bitcamp.java110.cms.service.StudentService;
 @MultipartConfig(maxFileSize=2_000_000)
 @WebServlet("/student/add")
 public class StudentAddServlet extends HttpServlet {
@@ -32,27 +32,28 @@ public class StudentAddServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        StudentDao studentDao = (StudentDao)this.getServletContext()
-                .getAttribute("studentDao");
         
-        Student m = new Student();
-        m.setName(request.getParameter("name"));
-        m.setEmail(request.getParameter("email"));
-        m.setPassword(request.getParameter("password"));
-        m.setTel(request.getParameter("tel"));
-        m.setSchool(request.getParameter("school"));
-        m.setWorking(Boolean.parseBoolean(request.getParameter("working")));
+        Student s = new Student();
+        s.setName(request.getParameter("name"));
+        s.setEmail(request.getParameter("email"));
+        s.setPassword(request.getParameter("password"));
+        s.setTel(request.getParameter("tel"));
+        s.setSchool(request.getParameter("school"));
+        s.setWorking(Boolean.parseBoolean(request.getParameter("working")));
         
+        StudentService studentService = (StudentService)this.getServletContext()
+                .getAttribute("studentService");
+
         try {
             
             Part part = request.getPart("file1");
             if(part.getSize()>0) { //만약 이걸 지정하지 않으면, 첨부하지 않은 파일도 0바이트로 파일이 생김
                 String filename = UUID.randomUUID().toString();
                 part.write(this.getServletContext().getRealPath("/upload/" + filename));
-                m.setPhoto(filename);
+                s.setPhoto(filename);
             }
             
-            studentDao.insert(m);
+            studentService.add(s);
             response.sendRedirect("list");
         }catch(Exception e) {
             request.setAttribute("error", e);

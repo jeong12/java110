@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import bitcamp.java110.cms.dao.TeacherDao;
 import bitcamp.java110.cms.domain.Teacher;
+import bitcamp.java110.cms.service.TeacherService;
 
 @MultipartConfig(maxFileSize=2_000_000)
 @WebServlet("/teacher/add")
@@ -31,25 +31,26 @@ public class TeacherAddServlet extends HttpServlet {
     
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        TeacherDao teacherDao = (TeacherDao)this.getServletContext()
-                .getAttribute("teacherDao");
-        Teacher m = new Teacher();
-        m.setName(request.getParameter("name"));
-        m.setEmail(request.getParameter("email"));
-        m.setPassword(request.getParameter("password"));
-        m.setTel(request.getParameter("tel"));
-        m.setPay(Integer.parseInt(request.getParameter("pay")));
-        m.setSubjects(request.getParameter("subjects"));
+        Teacher t = new Teacher();
+        t.setName(request.getParameter("name"));
+        t.setEmail(request.getParameter("email"));
+        t.setPassword(request.getParameter("password"));
+        t.setTel(request.getParameter("tel"));
+        t.setPay(Integer.parseInt(request.getParameter("pay")));
+        t.setSubjects(request.getParameter("subjects"));
+        
+        TeacherService teacherService = (TeacherService)this.getServletContext()
+                .getAttribute("teacherService");
         
         try {            
             Part part = request.getPart("file1");
             if(part.getSize()>0) { //만약 이걸 지정하지 않으면, 첨부하지 않은 파일도 0바이트로 파일이 생김
                 String filename = UUID.randomUUID().toString();
                 part.write(this.getServletContext().getRealPath("/upload/" + filename));
-                m.setPhoto(filename);
+                t.setPhoto(filename);
             }
             
-            teacherDao.insert(m);
+            teacherService.add(t);
             response.sendRedirect("list");
         }catch(Exception e) {
             request.setAttribute("error", e);

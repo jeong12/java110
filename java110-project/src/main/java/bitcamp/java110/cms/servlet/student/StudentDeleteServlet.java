@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bitcamp.java110.cms.dao.StudentDao;
+import bitcamp.java110.cms.service.StudentService;
 
 @WebServlet("/student/delete")
 public class StudentDeleteServlet extends HttpServlet{
@@ -18,12 +18,12 @@ public class StudentDeleteServlet extends HttpServlet{
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        StudentDao studentDao = (StudentDao)this.getServletContext()
-                .getAttribute("studentDao");
+        StudentService studentService = (StudentService)this.getServletContext()
+                .getAttribute("studentService");
 
         int no = Integer.parseInt(request.getParameter("no"));
         try { 
-            studentDao.delete(no);  
+            studentService.delete(no);  
             response.sendRedirect("list");
         } catch(Exception e) {
             request.setAttribute("error", e);

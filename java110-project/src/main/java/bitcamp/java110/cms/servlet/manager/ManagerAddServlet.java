@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import bitcamp.java110.cms.dao.ManagerDao;
 import bitcamp.java110.cms.domain.Manager;
+import bitcamp.java110.cms.service.ManagerService;
 
 @MultipartConfig(maxFileSize=2_000_000)
 @WebServlet("/manager/add")
@@ -35,8 +35,6 @@ public class ManagerAddServlet extends HttpServlet{
         //Post 방식으로 들어온 한글 데이터는 다음 메서드를 호출하여 어떤 인코딩인지 알려줘야 getParameter() 호출할때 정상적으로 디코딩 할 것이다.
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        ManagerDao managerDao = (ManagerDao)this.getServletContext()
-                .getAttribute("managerDao");        
         //get이니까 request set하지 않아도 깨지지 않음.
         Manager m = new Manager();
         m.setName(request.getParameter("name"));
@@ -44,6 +42,10 @@ public class ManagerAddServlet extends HttpServlet{
         m.setPassword(request.getParameter("password"));
         m.setTel(request.getParameter("tel"));
         m.setPosition(request.getParameter("position"));
+
+        ManagerService managerService = (ManagerService)this.getServletContext()
+                .getAttribute("managerService");        
+        
                
         try {
             //사진 데이터 처리
@@ -53,7 +55,7 @@ public class ManagerAddServlet extends HttpServlet{
                 part.write(this.getServletContext().getRealPath("/upload/" + filename));
                 m.setPhoto(filename);
             }
-            managerDao.insert(m);
+            managerService.add(m);
             //오류 없이 등록에 성공했으면, 목록 페이지를 다시 요청하라고 redirect 명령을 보낸다.
             response.sendRedirect("list");
         }catch(Exception e) {

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bitcamp.java110.cms.dao.ManagerDao;
+import bitcamp.java110.cms.service.ManagerService;
 @WebServlet("/manager/delete")
 public class ManagerDeleteServlet extends HttpServlet { 
     private static final long serialVersionUID = 1L;
@@ -17,11 +17,11 @@ public class ManagerDeleteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         int no = Integer.parseInt(request.getParameter("no"));
 
-        ManagerDao managerDao = (ManagerDao)this.getServletContext()
-                .getAttribute("managerDao");
+        ManagerService managerService = (ManagerService)this.getServletContext()
+                .getAttribute("managerService");
         
         
-        try { managerDao.delete(no);
+        try { managerService.delete(no);
                response.sendRedirect("list");
         } catch(Exception e) {
         

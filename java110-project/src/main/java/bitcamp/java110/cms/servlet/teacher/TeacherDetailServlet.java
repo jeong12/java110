@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bitcamp.java110.cms.dao.TeacherDao;
 import bitcamp.java110.cms.domain.Teacher;
+import bitcamp.java110.cms.service.TeacherService;
 
 @WebServlet("/teacher/detail")
 public class TeacherDetailServlet extends HttpServlet {
@@ -21,11 +21,11 @@ public class TeacherDetailServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        TeacherDao teacherDao = (TeacherDao)this.getServletContext()
-                .getAttribute("teacherDao");
+        TeacherService teacherService = (TeacherService)this.getServletContext()
+                .getAttribute("teacherService");
 
         int no = Integer.parseInt(request.getParameter("no"));
-        Teacher t = teacherDao.findByNo(no);
+        Teacher t = teacherService.get(no);
 
         response.setContentType("text/html;Charset=UTF-8");
         
