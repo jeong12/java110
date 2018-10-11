@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import bitcamp.java110.cms.domain.Member;
 
-//@WebFilter("/*")
+@WebFilter("/*")
 public class AuthFilter implements Filter{
 
     @Override
@@ -29,11 +29,10 @@ public class AuthFilter implements Filter{
         
         String servletPath = httpRequest.getServletPath();
         
-        if(servletPath.endsWith("form.html")|| servletPath.endsWith("delete")) {
+        if(servletPath.endsWith("add")|| servletPath.endsWith("delete")) {
             System.out.println(httpRequest.getServletPath());
             
             //로그인 여부 검사
-            
             HttpSession session = httpRequest.getSession();
             Member loginUser = (Member)session.getAttribute("loginUser");
             

@@ -41,7 +41,6 @@ public class ManagerServiceImpl implements ManagerService{
         }catch(Exception e) {
             throw new RuntimeException(e);
         }
-
     }
 
     @Override
