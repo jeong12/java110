@@ -14,28 +14,27 @@ import bitcamp.java110.cms.service.TeacherService;
 
 @WebServlet("/teacher/detail")
 public class TeacherDetailServlet extends HttpServlet {
-
     private static final long serialVersionUID = 1L;
-
-
+    
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        TeacherService teacherService = (TeacherService)this.getServletContext()
-                .getAttribute("teacherService");
+    protected void doGet(
+            HttpServletRequest request, 
+            HttpServletResponse response) 
+            throws ServletException, IOException {
 
         int no = Integer.parseInt(request.getParameter("no"));
+        
+        TeacherService teacherService = (TeacherService)this.getServletContext()
+                .getAttribute("teacherService");
+        
         Teacher t = teacherService.get(no);
-
-        response.setContentType("text/html;Charset=UTF-8");
+        request.setAttribute("teacher", t);
         
-        request.setAttribute("detail",t);
-        RequestDispatcher rd = request.getRequestDispatcher("/teacher/detail.jsp");
+        response.setContentType("text/html;charset=UTF-8");
+
+        RequestDispatcher rd = request.getRequestDispatcher(
+                "/teacher/detail.jsp");
         rd.include(request, response);
-        
-       
-
-
     }
 
 }

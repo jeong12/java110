@@ -21,16 +21,27 @@ public class TeacherAddServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       
-        response.setContentType("text/html;charset=UTF-8");
-        RequestDispatcher rd = request.getRequestDispatcher("/teacher/form.jsp");
-        rd.include(request, response);
+    protected void doGet(
+            HttpServletRequest request, 
+            HttpServletResponse response) 
+                    throws ServletException, IOException {
         
+        response.setContentType("text/html;charset=UTF-8");
+        
+        // form.jsp 인클루딩
+        RequestDispatcher rd = request.getRequestDispatcher(
+                "/teacher/form.jsp");
+        rd.include(request, response);
     }
     
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(
+            HttpServletRequest request, 
+            HttpServletResponse response) 
+            throws ServletException, IOException {
+        
+        request.setCharacterEncoding("UTF-8");
+        
         Teacher t = new Teacher();
         t.setName(request.getParameter("name"));
         t.setEmail(request.getParameter("email"));
@@ -42,23 +53,27 @@ public class TeacherAddServlet extends HttpServlet {
         TeacherService teacherService = (TeacherService)this.getServletContext()
                 .getAttribute("teacherService");
         
-        try {            
+        try {
+            // 사진 데이터 처리
             Part part = request.getPart("file1");
-            if(part.getSize()>0) { //만약 이걸 지정하지 않으면, 첨부하지 않은 파일도 0바이트로 파일이 생김
+            if (part.getSize() > 0) {
                 String filename = UUID.randomUUID().toString();
-                part.write(this.getServletContext().getRealPath("/upload/" + filename));
+                part.write(this.getServletContext()
+                           .getRealPath("/upload/" + filename));
                 t.setPhoto(filename);
             }
             
             teacherService.add(t);
             response.sendRedirect("list");
-        }catch(Exception e) {
+            
+        } catch(Exception e) {
             request.setAttribute("error", e);
-            request.setAttribute("message", "강사 등록 오류!!");
+            request.setAttribute("message", "강사 등록 오류!");
             request.setAttribute("refresh", "3;url=list");
             
             request.getRequestDispatcher("/error").forward(request, response);
         }
+        
     }
-    
+
 }

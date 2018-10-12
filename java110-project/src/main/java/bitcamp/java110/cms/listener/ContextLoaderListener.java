@@ -18,28 +18,30 @@ import bitcamp.java110.cms.util.TransactionManager;
 
 //@WebListener
 public class ContextLoaderListener implements ServletContextListener {
-
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         System.out.println("ContextLoaderListener.contextInitialized() 실행!");
-        ServletContext sc = sce.getServletContext();
         
+        ServletContext sc = sce.getServletContext();
+
+        // DAO가 사용할 DB 커넥션풀 객체 준비
+        // => DataSource 객체를 만들 때 컨텍스트 파라미터 값을 꺼내서 사용한다.
         try {
-            // DAO가 사용할 DB 커넥션 풀 객체 준비
             DataSource dataSource = new DataSource(
-                     sc.getInitParameter("jdbc.driver")
-                    ,sc.getInitParameter("jdbc.url")
-                    ,sc.getInitParameter("jdbc.username")
-                    ,sc.getInitParameter("jdbc.password"));
+                    sc.getInitParameter("jdbc.driver"),
+                    sc.getInitParameter("jdbc.url"),
+                    sc.getInitParameter("jdbc.username"),
+                    sc.getInitParameter("jdbc.password"));
             
             TransactionManager txManager = TransactionManager.getInstance();
-            txManager.setDataSource(dataSource);            
-            // DAO 객체 생성 및 DB 커넥션풀 주입하기
+            txManager.setDataSource(dataSource);
+            
+            // DAO 객체 생성 및 DB 커네션풀 주입하기
             MemberMysqlDao memberDao = new MemberMysqlDao();
             memberDao.setDataSource(dataSource);
             
-            ManagerMysqlDao managerDao= new ManagerMysqlDao();
-            managerDao.setDataSource(dataSource);    
+            ManagerMysqlDao managerDao = new ManagerMysqlDao();
+            managerDao.setDataSource(dataSource);
             
             StudentMysqlDao studentDao = new StudentMysqlDao();
             studentDao.setDataSource(dataSource);
@@ -50,9 +52,8 @@ public class ContextLoaderListener implements ServletContextListener {
             PhotoMysqlDao photoDao = new PhotoMysqlDao();
             photoDao.setDataSource(dataSource);
             
-            
-            //서비스 객체 준비하기
-            ManagerServiceImpl managerService=new ManagerServiceImpl();
+            // 서비스 객체 준비하기
+            ManagerServiceImpl managerService = new ManagerServiceImpl();
             managerService.setMemberDao(memberDao);
             managerService.setManagerDao(managerDao);
             managerService.setPhotoDao(photoDao);
@@ -72,15 +73,21 @@ public class ContextLoaderListener implements ServletContextListener {
             authService.setStudentDao(studentDao);
             authService.setTeacherDao(teacherDao);
             
-            // 서블릿에서 DAO를 이용할 수 있도록 ServletContext에 보관하기
+            // 서블릿에서 Service를 이용할 수 있도록 ServletContext 보관소에 저장하기
             sc.setAttribute("managerService", managerService);
             sc.setAttribute("studentService", studentService);
             sc.setAttribute("teacherService", teacherService);
             sc.setAttribute("authService", authService);
             
-        }catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 }
+
+
+
+
+
+
+

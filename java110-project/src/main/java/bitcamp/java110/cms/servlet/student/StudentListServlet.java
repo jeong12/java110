@@ -14,22 +14,25 @@ import bitcamp.java110.cms.domain.Student;
 import bitcamp.java110.cms.service.StudentService;
 
 @WebServlet("/student/list")
-public class StudentListServlet extends HttpServlet{
+public class StudentListServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-
+  
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
+    protected void doGet(
+            HttpServletRequest request, 
+            HttpServletResponse response) 
+            throws ServletException, IOException {
+        
         StudentService studentService = (StudentService)this.getServletContext()
                 .getAttribute("studentService");
-        List<Student> list = studentService.list();
         
+        List<Student> list = studentService.list();
         request.setAttribute("list", list);
         
-        response.setContentType("text/html;Charset=UTF-8");
-
-        RequestDispatcher rd = request.getRequestDispatcher("/student/list.jsp");
+        response.setContentType("text/html;charset=UTF-8");
+        
+        RequestDispatcher rd = request.getRequestDispatcher(
+                "/student/list.jsp");
         rd.include(request, response);
         
     }

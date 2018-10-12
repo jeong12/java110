@@ -15,55 +15,77 @@ import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.AuthService;
 
 @WebServlet("/auth/login")
-public class LoginServlet extends HttpServlet{
+public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Override
     protected void doGet(
-            HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {
+            HttpServletRequest request, 
+            HttpServletResponse response) 
+                    throws ServletException, IOException {
         
         response.setContentType("text/html;charset=UTF-8");
-        RequestDispatcher rd = request.getRequestDispatcher("/auth/login.jsp");
+        
+        // form.jsp 인클루딩
+        RequestDispatcher rd = request.getRequestDispatcher(
+                "/auth/form.jsp");
         rd.include(request, response);
     }
-    
     
     @Override
     protected void doPost(
             HttpServletRequest request, 
             HttpServletResponse response) 
                     throws ServletException, IOException {
-        
-        String type=request.getParameter("type");
-        String email=request.getParameter("email");
+
+        String type = request.getParameter("type");
+        String email = request.getParameter("email");
         String password = request.getParameter("password");
         String save = request.getParameter("save");
         
-        //이메일 저장하기를 체크했다면, on이 들어옴. 아니면, 아무 값도 넘어오지 않음.
-        if(save != null) {
+        
+        if (save != null) {// 이메일 저장하기를 체크했다면,
             Cookie cookie = new Cookie("email", email);
             cookie.setMaxAge(60 * 60 * 24 * 15);
             response.addCookie(cookie);
-        }else {
+        } else {// 이메일을 저장하고 싶지 않다면,
             Cookie cookie = new Cookie("email", "");
-            cookie.setMaxAge(0); //쿠키를 지움
+            cookie.setMaxAge(0);
             response.addCookie(cookie);
         }
         
-        AuthService authService = (AuthService)this.getServletContext().getAttribute("authService");
+        AuthService authService = 
+                (AuthService)this.getServletContext()
+                                 .getAttribute("authService");
         
-        Member loginUser = authService.getMember(email, password,type);
-    
+        Member loginUser = authService.getMember(email, password, type);
+        
         HttpSession session = request.getSession();
-        if(loginUser!=null) {
-            //회원 정보를 세션에 보관한다.
+        if (loginUser != null) {
+            // 회원 정보를 세션에 보관한다.
             session.setAttribute("loginUser", loginUser);
-            response.sendRedirect("../"+type+"/list");
-        }else {
-            //로그인 된 상태에서 다른 사용자로 로그인을 시도하다 실패한다면 무조건 세션을 무효화 시킨다.
+            
+            response.sendRedirect("../student/list");
+        } else {
+            // 로그인 된 상태에서 다른 사용자로 로그인을 시도하다가 
+            // 실패한다면 무조건 세션을 무효화시킨다.
             session.invalidate();
+
             response.sendRedirect("login");
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

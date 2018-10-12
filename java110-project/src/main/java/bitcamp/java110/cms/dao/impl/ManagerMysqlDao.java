@@ -1,8 +1,8 @@
 package bitcamp.java110.cms.dao.impl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,22 +20,22 @@ public class ManagerMysqlDao implements ManagerDao {
     }
 
     public int insert(Manager manager) throws DaoException {
-        Statement stmt = null;
+        PreparedStatement stmt = null;
         
         Connection con = null;
         
         try {
             con = dataSource.getConnection();
-            stmt = con.createStatement();
-                   
             String sql = "insert into p1_mgr(mrno,posi)"
-                    + " values(" + manager.getNo()
-                    + ",'" + manager.getPosition()
-                    + "')";
-           return stmt.executeUpdate(sql);
-                                 
+                    + " values(?,?)";
+            
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, manager.getNo());
+            stmt.setString(2, manager.getPosition());
+            
+            return stmt.executeUpdate();
+            
         } catch (Exception e) {
-
             throw new DaoException(e);
             
         } finally {
@@ -49,24 +49,22 @@ public class ManagerMysqlDao implements ManagerDao {
         ArrayList<Manager> list = new ArrayList<>();
         
         Connection con = null;
-        Statement stmt = null;
+        PreparedStatement stmt = null;
         ResultSet rs = null;
         
         try {
             con = dataSource.getConnection();
-/*            try {
-                Thread.currentThread().sleep(20000);
-            }catch(Exception e) {} 커넥션 관리 확인용으로 만듬 */
-            stmt = con.createStatement();
-            
-            rs = stmt.executeQuery(
-                    "select" + 
+
+            String sql=                    "select" + 
                     " m.mno," +
                     " m.name," + 
                     " m.email," + 
                     " mr.posi" + 
                     " from p1_mgr mr" + 
-                    " inner join p1_memb m on mr.mrno = m.mno");
+                    " inner join p1_memb m on mr.mrno = m.mno";
+            
+            stmt = con.prepareStatement(sql);
+            rs = stmt.executeQuery();
             
             while (rs.next()) {
                 Manager mgr = new Manager();
@@ -90,15 +88,13 @@ public class ManagerMysqlDao implements ManagerDao {
     
     public Manager findByEmail(String email) throws DaoException {
         Connection con = null;
-        Statement stmt = null;
+        PreparedStatement stmt = null;
         ResultSet rs = null;
         
         try {
             con = dataSource.getConnection();
             
-            stmt = con.createStatement();
-            rs = stmt.executeQuery(
-                    "select" + 
+            String sql=                    "select" + 
                     " m.mno," +
                     " m.name," + 
                     " m.email," + 
@@ -107,8 +103,12 @@ public class ManagerMysqlDao implements ManagerDao {
                     " mp.photo" +
                     " from p1_mgr mr" + 
                     " inner join p1_memb m on mr.mrno = m.mno" +
-                    " left outer join p1_memb_phot mp on mr.mrno=mp.mno"+
-                    " where m.email='" + email + "'");
+                    " left outer join p1_memb_phot mp on mr.mrno = mp.mno" +
+                    " where m.email=?";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, email);
+            rs = stmt.executeQuery();
+
             
             if (rs.next()) {
                 Manager mgr = new Manager();
@@ -135,15 +135,13 @@ public class ManagerMysqlDao implements ManagerDao {
     
     public Manager findByNo(int no) throws DaoException {
         Connection con = null;
-        Statement stmt = null;
+        PreparedStatement stmt = null;
         ResultSet rs = null;
         
         try {
             con = dataSource.getConnection();
             
-            stmt = con.createStatement();
-            rs = stmt.executeQuery(
-                    "select" + 
+            String sql=                    "select" + 
                     " m.mno," +
                     " m.name," + 
                     " m.email," + 
@@ -152,9 +150,13 @@ public class ManagerMysqlDao implements ManagerDao {
                     " mp.photo" +
                     " from p1_mgr mr" + 
                     " inner join p1_memb m on mr.mrno = m.mno" +
-                    " left outer join p1_memb_phot mp on mr.mrno=mp.mno"+
-                    " where m.mno=" + no);
+                    " left outer join p1_memb_phot mp on mr.mrno = mp.mno" +
+                    " where m.mno=?";
             
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, no);
+            rs = stmt.executeQuery();
+
             if (rs.next()) {
                 Manager mgr = new Manager();
                 mgr.setNo(rs.getInt("mno"));
@@ -180,17 +182,15 @@ public class ManagerMysqlDao implements ManagerDao {
     
     public int delete(int no) throws DaoException {
         Connection con = null;
-        Statement stmt = null;
+        PreparedStatement stmt = null;
         
         try {
             con = dataSource.getConnection();
+            String sql = "delete from p1_mgr where mrno=?" ;
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, no);
+            return stmt.executeUpdate();
             
- 
-            stmt = con.createStatement();
-            
-            String sql = "delete from p1_mgr where mrno=" + no ;
-           return stmt.executeUpdate(sql);
-
         } catch (Exception e) {
             throw new DaoException(e);
             
@@ -203,15 +203,13 @@ public class ManagerMysqlDao implements ManagerDao {
     @Override
     public Manager findByEmailPassword(String email, String password) throws DaoException {
         Connection con = null;
-        Statement stmt = null;
+        PreparedStatement stmt = null;
         ResultSet rs = null;
         
         try {
             con = dataSource.getConnection();
             
-            stmt = con.createStatement();
-            rs = stmt.executeQuery(
-                    "select" + 
+            String sql=                    "select" + 
                     " m.mno," +
                     " m.name," + 
                     " m.email," + 
@@ -219,9 +217,12 @@ public class ManagerMysqlDao implements ManagerDao {
                     " mr.posi" + 
                     " from p1_mgr mr" + 
                     " inner join p1_memb m on mr.mrno = m.mno" +
-                    " where m.email='" + email + 
-                    "' and m.pwd=password('"+password+
-                    "')");
+                    " where m.email=? and m.pwd=password(?)";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, email);
+            stmt.setString(2, password);
+            rs = stmt.executeQuery();
+
             
             if (rs.next()) {
                 Manager mgr = new Manager();
@@ -244,7 +245,22 @@ public class ManagerMysqlDao implements ManagerDao {
             dataSource.returnConnection(con);
         }
     }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

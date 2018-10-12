@@ -1,6 +1,7 @@
 package bitcamp.java110.cms.dao.impl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -21,19 +22,19 @@ public class TeacherMysqlDao implements TeacherDao {
 
     public int insert(Teacher teacher) throws DaoException {
         Connection con = null;
-        Statement stmt = null;
+        PreparedStatement stmt = null;
         
         try {
             con = dataSource.getConnection();
-            stmt = con.createStatement();
-                      
+            
             String sql = "insert into p1_tchr(tno,hrpay,subj)"
-                    + " values(" + teacher.getNo()
-                    + "," + teacher.getPay()
-                    + ",'" + teacher.getSubjects()
-                    + "')";
+                    + " values(?,?,?)";
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, teacher.getNo());
+            stmt.setInt(2, teacher.getPay());
+            stmt.setString(3, teacher.getSubjects());
             return stmt.executeUpdate(sql);
-
+            
         } catch (Exception e) {
             throw new DaoException(e);
             
@@ -101,11 +102,10 @@ public class TeacherMysqlDao implements TeacherDao {
                     " m.name," + 
                     " m.email," + 
                     " t.hrpay," +
-                    " t.subj," +
                     " mp.photo" +
                     " from p1_tchr t" + 
                     " inner join p1_memb m on t.tno = m.mno" +
-                    " left outer join p1_memb_phot mp on t.tno=mp.mno"+
+                    " left outer join p1_memb_phot mp on t.tno = mp.mno" +
                     " where m.email='" + email + "'");
             
             if (rs.next()) {
@@ -152,7 +152,7 @@ public class TeacherMysqlDao implements TeacherDao {
                     " mp.photo" +
                     " from p1_tchr t" + 
                     " inner join p1_memb m on t.tno = m.mno" +
-                    " left outer join p1_memb_phot mp on t.tno=mp.mno"+
+                    " left outer join p1_memb_phot mp on t.tno = mp.mno" +
                     " where m.mno=" + no);
             
             if (rs.next()) {
@@ -185,12 +185,11 @@ public class TeacherMysqlDao implements TeacherDao {
         
         try {
             con = dataSource.getConnection();
-            
             stmt = con.createStatement();
             
-            String sql = "delete from p1_tchr where tno=" + no;
+            String sql = "delete from p1_tchr where tno=" + no ;
             return stmt.executeUpdate(sql);
-
+            
         } catch (Exception e) {
             throw new DaoException(e);
             
@@ -214,15 +213,16 @@ public class TeacherMysqlDao implements TeacherDao {
                     "select" + 
                     " m.mno," +
                     " m.name," + 
-                    " m.email," +
-                    " m.tel," +
+                    " m.email," + 
+                    " m.tel," + 
                     " t.hrpay," +
                     " t.subj" +
                     " from p1_tchr t" + 
                     " inner join p1_memb m on t.tno = m.mno" +
                     " where m.email='" + email + 
-                    "' and m.pwd=password('"+password+
+                    "' and m.pwd=password('" + password +
                     "')");
+            
             if (rs.next()) {
                 Teacher t = new Teacher();
                 t.setNo(rs.getInt("mno"));
