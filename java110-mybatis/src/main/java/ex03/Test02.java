@@ -1,4 +1,4 @@
-// MyBatis 적용 - 입력
+// MyBatis 적용 - insert
 package ex03;
 
 import java.io.InputStream;

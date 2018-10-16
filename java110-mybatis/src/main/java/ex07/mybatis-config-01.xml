@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+       
+<properties resource="ex07/jdbc.properties"></properties>
+
+<typeAliases>
+    <typeAlias type="ex07.Member" alias="member"/>
+    <typeAlias type="ex07.Board" alias="board"/>
+</typeAliases>
+
+  <environments default="development">
+  <!--  default 부분에 enviromentID를 쓰면 해당 enviroment의 property를 사용한다. 
+    property : getter and setter 에서 get/set을 지우고 첫글자를 소문자로-->
+  
+  <!-- 개발용, 테스트용, 운영용으로 여러개의 연결 정보를 정의한 후 실행할 때 사용할 DB를 선택한다. 
+       어떻게 위의 태그에서 default 속성에 사용할 DB를 지정한다.-->
+       
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
+      </dataSource>
+    </environment>
+  </environments>
+  
+  <!--  SQL 코드가 들어있는 파일 정보 -->
+  <mappers>
+    <mapper resource="ex07/BoardDao-01.xml"/>
+  </mappers>
+</configuration>

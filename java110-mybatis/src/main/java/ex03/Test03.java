@@ -1,4 +1,4 @@
-// MyBatis 적용 - 삭제
+// MyBatis 적용 - delete
 package ex03;
 
 import java.io.InputStream;

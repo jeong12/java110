@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberdao">
+
+<!-- SQL을 작성할 떄 SQL의 id는 가능한 DAO의 메서드명과 같게 하라! 나중에 유지보수 할 때 찾기 쉽다. -->
+
+  <select id="findAll" resultType="member">
+    select m.mno as no,m.name,m.email,m.tel
+    from p1_memb m
+  </select>
+  
+  <select id="findByNo" resultType="member" parameterType="int">
+    select m.mno as no,m.name,m.email,m.tel
+    from p1_memb m
+    where mno=#{no}
+  </select>
+
+<insert id="insert" parameterType="member" useGeneratedKeys="true" keyColumn="mno" keyProperty="no">
+    insert into p1_memb(name,email,pwd,tel,cdt)
+    values(#{name},#{email},password(#{password}),#{tel},now())   
+</insert>
+  
+  <!-- parameter type 이 primitive 타입인 경우 #{}을 마음대로 지정할 수 있음-->
+  <delete id="delete" parameterType="int">
+   delete 
+   from p1_memb 
+   where mno=#{no}
+  </delete>
+</mapper>

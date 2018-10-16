@@ -1,4 +1,4 @@
-// MyBatis 적용 - 한 개 조회
+// MyBatis 적용 - Find one
 package ex03;
 
 import java.io.InputStream;

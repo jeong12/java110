@@ -1,4 +1,4 @@
-// MyBatis 적용 - 리스트 확인
+// MyBatis 적용 - FindAll
 
 package ex03;
 
