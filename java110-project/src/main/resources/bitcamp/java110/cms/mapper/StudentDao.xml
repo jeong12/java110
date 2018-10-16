@@ -11,7 +11,7 @@
 <result column="tel" property="tel"/>
 <result column="schl" property="school"/>
 <result column="work" property="working"/>
- <result column="photo"  property="photo"/>
+<result column="photo"  property="photo"/>
 </resultMap>
 
 <sql id="select1">
@@ -21,7 +21,7 @@ select
   m.email,
   m.tel,
   s.schl,
-  (s.work = 'Y') working,
+ (s.work = 'Y') work,
   mp.photo
 from p1_stud s 
   inner join p1_memb m on s.sno = m.mno
@@ -36,7 +36,7 @@ select
     m.email,
     m.tel, 
     s.schl,
-   (s.work = 'Y') working
+   (s.work = 'Y') work
 from p1_stud s 
      inner join p1_memb m on s.sno = m.mno
   limit #{rowNo}, #{size}
