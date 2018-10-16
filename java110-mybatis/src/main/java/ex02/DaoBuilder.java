@@ -17,9 +17,7 @@ public class DaoBuilder {
         Properties props = new Properties();
         //아무것도 없으면 project에서 시작함
         props.load(new FileReader(settingFilename));
-        
-        
-        
+
         this.driver=props.getProperty("driver");
         this.url=props.getProperty("url");
         this.username=props.getProperty("username");
