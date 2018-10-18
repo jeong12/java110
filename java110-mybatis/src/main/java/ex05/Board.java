@@ -8,8 +8,9 @@ public class Board {
     protected String title;
     protected String content;
     protected int viewCount;
-    protected Date creadtedDate;
+    protected Date createdDate;
     protected int memberNo;
+    
     public int getNo() {
         return no;
     }
@@ -34,11 +35,11 @@ public class Board {
     public void setViewCount(int viewCount) {
         this.viewCount = viewCount;
     }
-    public Date getCreadtedDate() {
-        return creadtedDate;
+    public Date getCreatedDate() {
+        return createdDate;
     }
-    public void setCreadtedDate(Date creadtedDate) {
-        this.creadtedDate = creadtedDate;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
     public int getMemberNo() {
         return memberNo;
@@ -46,8 +47,6 @@ public class Board {
     public void setMemberNo(int memberNo) {
         this.memberNo = memberNo;
     }
-
-    
     
     
 }

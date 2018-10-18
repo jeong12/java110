@@ -1,76 +1,100 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- MemberDao 클래스가 사용할 SQL이 들어 있는 파일 -->
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="boarddao">
 
-  <resultMap type="board" id="boardMap"> 
-    <id column="bno" property="no"/> 
+  <resultMap type="board" id="boardMap">
+    <id column="bno" property="no"/>
     <result column="titl" property="title"/>
     <result column="cont" property="content"/>
     <result column="cnt" property="viewCount"/>
-    <result column="cdt" property="creadtedDate"/>
+    <result column="cdt" property="createdDate"/>
     <result column="mno" property="memberNo"/>
     <result column="name" property="writer"/>
   </resultMap>
-
-  <resultMap type="board" id="boardMap2"> 
-    <id column="bno" property="no"/> 
-<!--     <result column="titl" property="title"/> -->
+  
+  <resultMap type="board" id="boardMap2">
+    <id column="bno" property="no"/>
+    <result column="titl" property="title"/>
     <result column="cont" property="content"/>
     <result column="cnt" property="viewCount"/>
-    <result column="cdt" property="creadtedDate"/>
-    <result column="mno" property="memberNo"/>   <!-- 얘 추가 안해도 되나? mno랑 컬럼 명이 다르니까  ㅎㅅㅎ 음..mno를 select 객체에서 안쓰고 조건문에 써서 그런가? 아닌뎅... pk로 fk 되어서 그런가? 이거 살려도 실행이 됨 --> 
+    <result column="cdt" property="createdDate"/>
     <association property="member" javaType="member">
-    <id column="mno" property="no"/> <!--얘를 주석처리 해도 가능하네 -->
-    <result column="name" property="name"/>
-    <result column="email" property="email"/>
-    <result column="tel" property="tel"/>
+	    <id column="mno" property="no"/>
+	    <result column="name" property="name"/>
+	    <result column="email" property="email"/>
+	    <result column="tel" property="tel"/>
     </association>
     <collection property="attachFiles" ofType="attachfile">
         <id column="afno" property="no"/>
         <result column="fi_nm" property="filename"/>
     </collection>
   </resultMap>
-
-
-<!-- map은 builtIn 이라서 그냥 적으면 되ㅏㅁ -->
-  <select id="findAll" resultMap="boardMap" parameterType="map"> 
-    select b.bno, b.titl, b.cnt, b.cdt, b.mno, m.name
+  
+  <select id="findAll" resultMap="boardMap" parameterType="map">
+    select
+      b.bno,
+      b.titl, 
+      b.cnt, 
+      b.cdt,
+      b.mno,
+      m.name
     from p1_board b
-         inner join p1_memb m using(mno) <!-- coloumn 명이 다르면 on, 같으면 using(column명) -->
-    limit #{rowNo}, #{pageSize}
-    <!--  limit #{rowNo}, #{pageSize}-->
-     <!-- mysql은 limit. oracle은 rownum -->
+        inner join p1_memb m using (mno)
+    limit #{rowNo}, #{pageSize} 
   </select>
   
   <select id="findByNo" resultMap="boardMap2" parameterType="int">
-    select b.bno, b.titl, b.cont, b.cnt, b.cdt, b.mno, m.name, m.email, m.tel, af.afno, af.fi_nm
-    from p1_board b 
-         inner join p1_memb m using(mno)
-         left outer join p1_att_file af on af.bno = b.bno    
-    where b.bno=#{no}
+    select
+      b.bno,
+      b.titl, 
+      b.cont,
+      b.cnt, 
+      b.cdt,
+      b.mno,
+      m.name,
+      m.email,
+      m.tel,
+      af.afno,
+      af.fi_nm
+    from p1_board b
+        inner join p1_memb m using (mno)
+        left outer join p1_att_file af on af.bno=b.bno
+    where b.bno=#{value}
   </select>
-
-<insert id="insert" parameterType="board" useGeneratedKeys="true" keyColumn="bno" keyProperty="no">
-    insert into p1_board(titl,cont,cnt,cdt,mno)
-    values(#{title},#{content},0,now(),#{memberNo})   
-</insert>
   
-
+  <insert id="insert" parameterType="board"
+          useGeneratedKeys="true" keyColumn="bno" keyProperty="no">
+    insert into p1_board(titl,cont,cnt,cdt,mno)
+    values(#{title},#{content},0,now(),#{memberNo})
+  </insert>
+  
   <delete id="delete" parameterType="int">
-   delete 
-   from p1_board b
-   where bno=#{value}
+    delete from p1_board 
+    where bno=#{value}
   </delete>
   
-  <select id="findattachFiles" resultType="attachfile" parameterType="int">
+  <select id="findAttachFiles" 
+          resultType="attachfile" 
+          parameterType="int">
     select 
-        afno -- as no , 
-        fi_nm -- as filename, 
-        bno  -- as boardNo
+        afno no,
+        fi_nm filename,
+        bno boardNo
     from 
-        p1_att_file 
-    where bno=#{value}
+        p1_att_file
+    where
+        bno=#{value}
   </select>
 </mapper>
+
+
+
+
+
+
+
+
+

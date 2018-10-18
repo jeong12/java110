@@ -8,7 +8,7 @@ public class Board {
     protected String title;
     protected String content;
     protected int viewCount;
-    protected Date creadtedDate;
+    protected Date createdDate;
     protected int memberNo;
     protected String writer; // 목록에서 작성자의 이름을 출력하기 위해 필드 추가
     protected String email; // 상세조회에서 작성자의 정보를 출력하기 위해 필드 추가
@@ -38,11 +38,11 @@ public class Board {
     public void setViewCount(int viewCount) {
         this.viewCount = viewCount;
     }
-    public Date getCreadtedDate() {
-        return creadtedDate;
+    public Date getCreatedDate() {
+        return createdDate;
     }
-    public void setCreadtedDate(Date creadtedDate) {
-        this.creadtedDate = creadtedDate;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
     public int getMemberNo() {
         return memberNo;
@@ -68,5 +68,6 @@ public class Board {
     public void setTel(String tel) {
         this.tel = tel;
     }
-
+    
+    
 }

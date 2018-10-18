@@ -4,6 +4,7 @@ public class AttachFile {
     protected int no;
     protected String filename;
     protected int boardNo;
+    
     public int getNo() {
         return no;
     }

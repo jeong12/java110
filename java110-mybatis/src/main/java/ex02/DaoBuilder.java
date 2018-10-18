@@ -15,19 +15,18 @@ public class DaoBuilder {
     public DaoBuilder() throws Exception {
         
         Properties props = new Properties();
-        //아무것도 없으면 project에서 시작함
         props.load(new FileReader(settingFilename));
-
-        this.driver=props.getProperty("driver");
-        this.url=props.getProperty("url");
-        this.username=props.getProperty("username");
-        this.password=props.getProperty("password");
-                
+        
+        this.driver = props.getProperty("driver");
+        this.url = props.getProperty("url");
+        this.username = props.getProperty("username");
+        this.password = props.getProperty("password");
     }
     
-    public MemberDaoFactory build() throws Exception{
+    public MemberDaoFactory build() throws Exception {
         
-        DataSource dataSource = new DataSource(this.driver, this.url, this.username, this.password);
+        DataSource dataSource = new DataSource(
+                this.driver, this.url, this.username, this.password);
         
         MemberDaoFactory factory = new MemberDaoFactory();
         factory.setDataSource(dataSource);
@@ -35,3 +34,11 @@ public class DaoBuilder {
         return factory;
     }
 }
+
+
+
+
+
+
+
+

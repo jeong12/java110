@@ -9,14 +9,14 @@ public class Board {
     protected String title;
     protected String content;
     protected int viewCount;
-    protected Date creadtedDate;
+    protected Date createdDate;
     protected int memberNo;
     protected String writer; // 목록에서 작성자의 이름을 출력하기 위해 필드 추가
     
     // 이전의 ex06 패키지와 달리 작성자 정보는 Member 객체에 담는다.
-    protected Member member; 
+    protected Member member;
     
-    // 첨부 파일을 담을 목록 준비
+    // 첨부파일을 담을 목록 준비
     protected List<AttachFile> attachFiles;
     
     public int getNo() {
@@ -43,11 +43,11 @@ public class Board {
     public void setViewCount(int viewCount) {
         this.viewCount = viewCount;
     }
-    public Date getCreadtedDate() {
-        return creadtedDate;
+    public Date getCreatedDate() {
+        return createdDate;
     }
-    public void setCreadtedDate(Date creadtedDate) {
-        this.creadtedDate = creadtedDate;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
     public int getMemberNo() {
         return memberNo;
@@ -73,6 +73,4 @@ public class Board {
     public void setAttachFiles(List<AttachFile> attachFiles) {
         this.attachFiles = attachFiles;
     }
-    
-
 }

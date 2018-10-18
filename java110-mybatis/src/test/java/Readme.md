@@ -1,1 +1,1 @@
-Mybatis test
+# 자바 소스 폴더
