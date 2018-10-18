@@ -14,7 +14,7 @@
     <result column="mno" property="memberNo"/>
     <result column="name" property="writer"/>
   </resultMap>
-  
+
   <resultMap type="board" id="boardMap2">
     <id column="bno" property="no"/>
     <result column="titl" property="title"/>
