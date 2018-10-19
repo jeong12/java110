@@ -3,7 +3,7 @@ package ex10;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
-@ComponentScan("ex10")
+@ComponentScan(basePackages="ex10")
 public class AppConfig {
     
     public AppConfig() {
