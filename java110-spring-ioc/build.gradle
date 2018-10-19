@@ -7,8 +7,13 @@ dependencies {
     // Spring IoC 컨테이너
     compile group: 'org.springframework', name: 'spring-context', version: '5.1.1.RELEASE'
 
+    // JSR-250 Injectrion 관련 annotation lib
+    compile group: 'javax.annotation', name: 'javax.annotation-api', version: '1.3.2'
+    
+
     compile 'com.google.guava:guava:23.0'
     testCompile 'junit:junit:4.12'
+    
 }
 
 repositories {

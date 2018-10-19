@@ -14,17 +14,14 @@
   &lt;c:out value="출력될 값" default="기본값">
   &lt;c:out value="출력될 값>기본값&lt;c:out>
 </pre>
-<%
+<%-- <%
 pageContext.setAttribute("name", "홍길동");
-%>
+%> --%>
 
 <c:out value="임꺽정"/><br>
-<c:out value="${null}" default="harry"/><br>
-<c:out value="${null}">harry</c:out><br>
-<c:out value="${'potter'}" default="harry"/><br>
-
-
-
+<c:out value="${null}" default="홍길동"/><br>
+<c:out value="${null}">홍길동</c:out><br>
+<c:out value="${'임꺽정'}" default="홍길동"/><br>
 
 </body>
 </html>

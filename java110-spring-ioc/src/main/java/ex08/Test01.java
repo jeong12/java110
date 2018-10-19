@@ -21,11 +21,6 @@
 //    BeanPostProcessor를 구현한 클래스이다.
 package ex08;
 
-import java.beans.PropertyEditor;
-import java.beans.PropertyEditorSupport;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
