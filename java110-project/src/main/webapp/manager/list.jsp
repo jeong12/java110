@@ -8,7 +8,7 @@
 <head>
 <meta charset='UTF-8'>
 <title>매니저 관리</title>
-<link rel='stylesheet' href='../css/common.css'>
+<link rel='stylesheet' href='/css/common.css'> <!-- 웹 브라우저 입장에서의 경로 -->
 <style>
 table, th, td {
     border: 1px solid gray;
@@ -17,7 +17,7 @@ table, th, td {
 </head>
 <body>
 
-<jsp:include page="../header.jsp"></jsp:include>
+<jsp:include page="../header.jsp"></jsp:include><!-- 서버 입장에서의 경로 -->
 
 <h1>매니저 목록(MVC)</h1>
 <p><a href='add'>추가</a></p>
