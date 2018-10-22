@@ -3,8 +3,8 @@ package bitcamp.java110.cms.web;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +16,16 @@ import bitcamp.java110.cms.service.TeacherService;
 
 @Component
 public class TeacherController {
-   @Autowired
+   
+    @Autowired
    TeacherService teacherService;
+   
+    @Autowired
+    ServletContext sc;
     
     @RequestMapping("/teacher/add")
     public String add(
-            HttpServletRequest request, 
-            HttpServletResponse response) throws Exception  {
+            HttpServletRequest request) throws Exception  {
         
         if(request.getMethod().equals("GET")) {
 
@@ -44,8 +47,7 @@ public class TeacherController {
             Part part = request.getPart("file1");
             if (part.getSize() > 0) {
                 String filename = UUID.randomUUID().toString();
-                part.write(request.getServletContext()
-                           .getRealPath("/upload/" + filename));
+                part.write(sc.getRealPath("/upload/" + filename));
                 t.setPhoto(filename);
             }
             
@@ -55,8 +57,7 @@ public class TeacherController {
     }
     @RequestMapping("/teacher/delete")
     public String delete(
-             HttpServletRequest request, 
-             HttpServletResponse response)  {
+             HttpServletRequest request)  {
 
          int no = Integer.parseInt(request.getParameter("no"));
          
@@ -67,8 +68,7 @@ public class TeacherController {
     
     @RequestMapping("/teacher/detail")
     public String detail(
-             HttpServletRequest request, 
-             HttpServletResponse response)  {
+             HttpServletRequest request)  {
 
          int no = Integer.parseInt(request.getParameter("no"));
          
@@ -81,8 +81,7 @@ public class TeacherController {
     
     @RequestMapping("/teacher/list")
     public String list(
-              HttpServletRequest request, 
-              HttpServletResponse response)  {
+              HttpServletRequest request)  {
 
           int pageNo = 1;
           int pageSize = 3;
