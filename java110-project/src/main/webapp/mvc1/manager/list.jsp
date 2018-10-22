@@ -30,7 +30,7 @@ table, th, td {
 </tr>
 </thead>
 <tbody>
-<%-- 주석한 이유! method가 바뀌어서<%
+<%
 ManagerDao managerDao = (ManagerDao)this.getServletContext()
 .getAttribute("managerDao");
 List<Manager> list = managerDao.findAll();
@@ -44,7 +44,7 @@ for (Manager m : list) {
 </tr>
 <%
 }
-%> --%>
+%>
 
 </tbody>
 </table>

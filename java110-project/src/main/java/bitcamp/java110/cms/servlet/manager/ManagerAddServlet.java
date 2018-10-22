@@ -54,10 +54,11 @@ public class ManagerAddServlet extends HttpServlet {
         m.setTel(request.getParameter("tel"));
         m.setPosition(request.getParameter("position"));
         
-        ApplicationContext iocContainer = (ApplicationContext)this.getServletContext().getAttribute("iocContainer");
-        
-        
-        ManagerService managerService = iocContainer.getBean(ManagerService.class);
+        ApplicationContext iocContainer = 
+                (ApplicationContext)this.getServletContext()
+                                        .getAttribute("iocContainer");
+        ManagerService managerService = 
+                iocContainer.getBean(ManagerService.class);
         
         try {
             // 사진 데이터 처리

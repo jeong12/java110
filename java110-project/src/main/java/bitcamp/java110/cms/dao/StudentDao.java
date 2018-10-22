@@ -7,7 +7,7 @@ import bitcamp.java110.cms.domain.Student;
 
 public interface StudentDao {
     int insert(Student student);
-    List<Student> findAll(Map<String,Object> parmas);
+    List<Student> findAll(Map<String,Object> params);
     Student findByEmail(String email);
     Student findByNo(int no);
     int delete(int no);

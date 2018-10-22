@@ -24,9 +24,11 @@ public class TeacherDeleteServlet extends HttpServlet {
 
         int no = Integer.parseInt(request.getParameter("no"));
         
-        ApplicationContext iocContainer = (ApplicationContext)this.getServletContext().getAttribute("iocContainer");        
-        TeacherService teacherService = iocContainer.getBean(TeacherService.class);
-
+        ApplicationContext iocContainer = 
+                (ApplicationContext)this.getServletContext()
+                                        .getAttribute("iocContainer");
+        TeacherService teacherService = 
+                iocContainer.getBean(TeacherService.class);
         
         try {
             teacherService.delete(no);

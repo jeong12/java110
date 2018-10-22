@@ -26,9 +26,11 @@ public class TeacherDetailServlet extends HttpServlet {
 
         int no = Integer.parseInt(request.getParameter("no"));
         
-        ApplicationContext iocContainer = (ApplicationContext)this.getServletContext().getAttribute("iocContainer");        
-        TeacherService teacherService = iocContainer.getBean(TeacherService.class);
-
+        ApplicationContext iocContainer = 
+                (ApplicationContext)this.getServletContext()
+                                        .getAttribute("iocContainer");
+        TeacherService teacherService = 
+                iocContainer.getBean(TeacherService.class);
         
         Teacher t = teacherService.get(no);
         request.setAttribute("teacher", t);
