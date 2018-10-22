@@ -40,8 +40,6 @@
         from 
             p1_stud s 
             inner join p1_memb m on s.sno = m.mno
-        order by 
-            m.name asc
         limit #{rowNo}, #{size} 
     </select>
 

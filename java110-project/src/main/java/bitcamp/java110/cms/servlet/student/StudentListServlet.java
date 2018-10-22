@@ -49,11 +49,8 @@ public class StudentListServlet extends HttpServlet {
         List<Student> list = studentService.list(pageNo, pageSize);
         request.setAttribute("list", list);
         
-        response.setContentType("text/html;charset=UTF-8");
-        
-        RequestDispatcher rd = request.getRequestDispatcher(
-                "/student/list.jsp");
-        rd.include(request, response);
+        request.setAttribute("viewUrl", "/student/list.jsp");
+
         
     }
 }

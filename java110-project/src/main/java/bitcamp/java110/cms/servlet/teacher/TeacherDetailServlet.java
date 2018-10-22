@@ -34,12 +34,8 @@ public class TeacherDetailServlet extends HttpServlet {
         
         Teacher t = teacherService.get(no);
         request.setAttribute("teacher", t);
-        
-        response.setContentType("text/html;charset=UTF-8");
-
-        RequestDispatcher rd = request.getRequestDispatcher(
-                "/teacher/detail.jsp");
-        rd.include(request, response);
+        request.setAttribute("viewUrl","/teacher/detail.jsp" );
+    
     }
 
 }

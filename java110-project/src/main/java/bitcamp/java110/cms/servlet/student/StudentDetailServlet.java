@@ -36,11 +36,7 @@ public class StudentDetailServlet extends HttpServlet {
         Student s = studentService.get(no);
         request.setAttribute("student", s);
         
-        response.setContentType("text/html;charset=UTF-8");
-        
-        RequestDispatcher rd = request.getRequestDispatcher(
-                "/student/detail.jsp");
-        rd.include(request, response);
+        request.setAttribute("viewUrl", "/student/detail.jsp");
     }
 
 }
