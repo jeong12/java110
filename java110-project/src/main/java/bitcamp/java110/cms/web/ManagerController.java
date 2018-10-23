@@ -1,6 +1,7 @@
 package bitcamp.java110.cms.web;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -34,7 +35,6 @@ public class ManagerController{
             return "/manager/form.jsp";
         }
     
-        request.setCharacterEncoding("UTF-8");
         
         // 사진 데이터 처리
         Part part = request.getPart("file1");
@@ -51,8 +51,8 @@ public class ManagerController{
     }
 
     @RequestMapping("/manager/delete")
-    public String delete(@RequestParam(value="no") int no,
-            HttpServletRequest request) throws Exception  {
+    public String delete(@RequestParam(value="no") int no
+          ) throws Exception  {
         
             managerService.delete(no);
             return "redirect:list";
@@ -61,18 +61,18 @@ public class ManagerController{
 
     @RequestMapping("/manager/detail")
     public String detail(@RequestParam("no") int no,
-            HttpServletRequest request){
+            Map<String,Object> map){
 
         Manager m = managerService.get(no);
         
-        request.setAttribute("manager", m);
+        map.put("manager", m);
         return "/manager/detail.jsp";
     
     }
 
     @RequestMapping("/manager/list")
     public String list(
-            HttpServletRequest request, 
+            Map<String,Object> map, 
             @RequestParam(value="pageNo",defaultValue="1")int pageNo, 
             @RequestParam(value="pageSize",defaultValue="3")int pageSize) {
         
@@ -82,7 +82,7 @@ public class ManagerController{
                 pageSize = 3;
          
         List<Manager> list = managerService.list(pageNo, pageSize);
-        request.setAttribute("list", list);
+        map.put("list", list);
         return "/manager/list.jsp";
     } 
 }

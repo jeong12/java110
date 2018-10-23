@@ -5,6 +5,10 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -44,9 +48,12 @@ public class DispatcherServlet extends HttpServlet{
             if(handler == null)
                 throw new Exception("해당 요청을 처리할 수 없습니다!");
 
+            // 정보를 담을 객체 준비
+            HashMap<String,Object> resultMap = new HashMap<>();
+            
             // 3) URL을 처리할 메서드를 호출한다.
             // => 메서드에 넘겨줄 파라미터 값을 준비한다.
-            Object[] paramValues = prepareParamValues(handler.method,request,response);
+            Object[] paramValues = prepareParamValues(handler.method,request,response, resultMap);
 
             // => 메서드를 호출한다.
             String viewUrl = (String)handler.method.invoke(handler.instance,paramValues);
@@ -54,7 +61,14 @@ public class DispatcherServlet extends HttpServlet{
 
             if(viewUrl.startsWith("redirect:")) {
                 response.sendRedirect(viewUrl.substring(9));                
-            }else {       
+            }else {
+                
+                //JSP를 실행하기 전에 페이지 컨트롤러가 작업한 결과물을 ServletRequest 보관소에 옮긴다.
+                    Set<Entry<String,Object>> entrySet = resultMap.entrySet();
+                for(Entry<String,Object> entry : entrySet) {
+                    request.setAttribute(entry.getKey(), entry.getValue());
+                }
+                    
                 // 페이지 컨트롤러가 지정한 URL을 실행
                 response.setContentType("text/html;charset=UTF-8");
                 RequestDispatcher rd = request.getRequestDispatcher(viewUrl);
@@ -70,7 +84,7 @@ public class DispatcherServlet extends HttpServlet{
 
     }
 
-    private Object[] prepareParamValues(Method method, HttpServletRequest request, HttpServletResponse response) {
+    private Object[] prepareParamValues(Method method, HttpServletRequest request, HttpServletResponse response, Map<String,Object> resultMap) {
 
         // 파라미터의 값을 저장할 리스트 준비
         ArrayList<Object> paramValues = new ArrayList<>();
@@ -85,7 +99,10 @@ public class DispatcherServlet extends HttpServlet{
                 paramValues.add(response);
             }else if(p.getType() == HttpSession.class) {
                 paramValues.add(request.getSession());
+            }else if(p.getType() == Map.class) {
+                paramValues.add(resultMap);
             }else if(p.getType() == byte.class || p.getType() == short.class || p.getType() == int.class||
+            
                     p.getType() == float.class || p.getType()==long.class || p.getType()== boolean.class||
                     p.getType() == double.class || p.getType()==char.class || p.getType() == String.class) {
 
@@ -143,7 +160,6 @@ public class DispatcherServlet extends HttpServlet{
                 value=anno.defaultValue();
             }    
         }
-
         return convertValue(value, p.getType());
     }
 

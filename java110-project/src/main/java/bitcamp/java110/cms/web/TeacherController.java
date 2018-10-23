@@ -1,6 +1,7 @@
 package bitcamp.java110.cms.web;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -49,8 +50,7 @@ public class TeacherController {
    
     }
     @RequestMapping("/teacher/delete")
-    public String delete(@RequestParam(value="no") int no,
-             HttpServletRequest request)  {
+    public String delete(@RequestParam(value="no") int no)  {
 
      
          
@@ -61,13 +61,13 @@ public class TeacherController {
     
     @RequestMapping("/teacher/detail")
     public String detail(@RequestParam(value="no") int no,
-             HttpServletRequest request)  {
+            Map<String,Object> map)  {
 
    
          
        
          Teacher t = teacherService.get(no);
-         request.setAttribute("teacher", t);
+         map.put("teacher", t);
          return "/teacher/detail.jsp";
      
      }
@@ -75,7 +75,7 @@ public class TeacherController {
     @RequestMapping("/teacher/list")
     public String list( @RequestParam(value="pageNo",defaultValue="1")int pageNo, 
             @RequestParam(value="pageSize",defaultValue="3")int pageSize,
-              HttpServletRequest request)  {
+            Map<String,Object> map)  {
 
         
               if (pageNo < 1)
@@ -87,7 +87,7 @@ public class TeacherController {
          
           
           List<Teacher> list = teacherService.list(pageNo, pageSize);
-          request.setAttribute("list", list);
+          map.put("list", list);
           return "/teacher/list.jsp";
       }
 }
