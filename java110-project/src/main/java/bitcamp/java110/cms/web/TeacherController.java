@@ -50,7 +50,7 @@ public class TeacherController {
    
     }
     @RequestMapping("/teacher/delete")
-    public String delete(@RequestParam(value="no") int no)  {
+    public String delete(int no)  {
 
      
          
@@ -60,7 +60,7 @@ public class TeacherController {
     }
     
     @RequestMapping("/teacher/detail")
-    public String detail(@RequestParam(value="no") int no,
+    public String detail(int no,
             Map<String,Object> map)  {
 
    

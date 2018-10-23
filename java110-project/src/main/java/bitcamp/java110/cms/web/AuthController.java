@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.AuthService;
@@ -22,16 +23,14 @@ public class AuthController {
     @RequestMapping("/auth/login")
     public String login(
             HttpServletRequest request, 
-            HttpServletResponse response, HttpSession session) {
+            HttpServletResponse response, HttpSession session,
+            String type,String email, String password, String save
+            ) {
         
         if(request.getMethod().equals("GET")){
             return "/auth/form.jsp";
         }
 
-        String type = request.getParameter("type");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String save = request.getParameter("save");
         
         if (save != null) {// 이메일 저장하기를 체크했다면,
             Cookie cookie = new Cookie("email", email);

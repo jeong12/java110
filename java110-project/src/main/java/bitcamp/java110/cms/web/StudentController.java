@@ -45,7 +45,7 @@ public class StudentController{
     }
     
     @RequestMapping("/student/delete")
-    public String delete(@RequestParam(value="no") int no) {
+    public String delete(int no) {
          
        
              studentService.delete(no);
@@ -55,7 +55,7 @@ public class StudentController{
      }
     
     @RequestMapping("/student/detail")
-    public String detail(@RequestParam(value="no") int no,
+    public String detail(int no,
             Map<String,Object> map)  {
 
         

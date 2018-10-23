@@ -51,7 +51,7 @@ public class ManagerController{
     }
 
     @RequestMapping("/manager/delete")
-    public String delete(@RequestParam(value="no") int no
+    public String delete(int no
           ) throws Exception  {
         
             managerService.delete(no);
@@ -60,7 +60,7 @@ public class ManagerController{
     }
 
     @RequestMapping("/manager/detail")
-    public String detail(@RequestParam("no") int no,
+    public String detail(int no,
             Map<String,Object> map){
 
         Manager m = managerService.get(no);
