@@ -27,6 +27,7 @@ public class AuthFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse)response;
         
         String servletPath = httpRequest.getServletPath();
+        System.out.println(servletPath);
         
         if (servletPath.endsWith("add") ||
             servletPath.endsWith("delete")) {
