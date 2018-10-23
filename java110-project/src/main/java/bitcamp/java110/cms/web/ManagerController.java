@@ -9,15 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import bitcamp.java110.cms.domain.Manager;
-import bitcamp.java110.cms.mvc.RequestMapping;
-import bitcamp.java110.cms.mvc.RequestParam;
 import bitcamp.java110.cms.service.ManagerService;
 
 
-@Component //managerListContoller 라고 Spring이 자동으로 이름 지어줌
+@Controller //managerListContoller 라고 Spring이 자동으로 이름 지어줌
 public class ManagerController{ 
 
     @Autowired
