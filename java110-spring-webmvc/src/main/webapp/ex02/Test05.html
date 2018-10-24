@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Test05 페이지 컨트롤러 테스트하기</h1>
+
+<button id="btn1">요청 : name 헤더 추가</button><br>
+<button id="btn2">요청 : age 헤더 추가</button><br>
+<button id="btn3">요청 : name과 age 헤더 추가</button><br>
+<button id="btn4">요청</button><br>
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+function plus(a,b){
+    var sum = a+b;
+    return sum;
+}
+plus.v1="홍길동"
+plus.print = function(){
+    console.log(this.v1);
+}
+console.log(plus(10,20));
+console.log(plus.v1);
+plus.print();
+
+function Member(){
+    console.log("member()...");
+    this.name="홍길동";
+    this.print = function(){
+        console.log(this.name);
+    }
+}
+
+var o = new Member();
+o.print();
+
+function plus(a,b){
+    var sum = 0;
+    for(var i in arguments){
+        sum += arguments[i];
+    }
+    return sum;
+}
+
+console.log(plus(10,20,30,40));
+
+var $ = jQuery;
+
+
+$("#btn1").click(()=> {
+    $.ajax("http://localhost:8888/app/ex02/test05", {
+        method: 'GET',
+        headers: {
+            name:encodeURIComponent("홍길동")
+        },
+        success: (result)=>{
+            alert(result);
+        },
+        error: (xhr,status,msg)=>{
+            console.log(status);
+            console.log(msg);
+        }
+    });
+}); 
+
+$("#btn2").click(()=> {
+    $.ajax("http://localhost:8888/app/ex02/test05", {
+        method: 'GET',
+        headers: {
+            age:26
+        },
+        success: (result)=>{
+            alert(result);
+        },
+        error: (xhr,status,msg)=>{
+            console.log(status);
+            console.log(msg);
+        }
+    });
+}); 
+
+$("#btn3").click(()=> {
+    $.ajax("http://localhost:8888/app/ex02/test05", {
+        method: 'GET',
+        headers: {
+            name:encodeURIComponent("홍길동"),
+            age:26
+        },
+        success: (result)=>{
+            alert(result);
+        },
+        error: (xhr,status,msg)=>{
+            console.log(status);
+            console.log(msg);
+        }
+    });
+}); 
+
+$("#btn3").click(()=> {
+    $.ajax("http://localhost:8888/app/ex02/test05", {
+        method: 'GET',
+        success: (result)=>{
+            alert(result);
+        },
+        error: (xhr,status,msg)=>{
+            console.log(status);
+            console.log(msg);
+        }
+    });
+}); 
+
+</script>
+</body>
+</html>
