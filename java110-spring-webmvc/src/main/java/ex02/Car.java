@@ -1,14 +1,27 @@
 package ex02;
 
 import java.sql.Date;
+import java.util.Arrays;
 
 public class Car {
+    
+    int no;
     String model;
     String maker;
     boolean auto;
     Engine engine;
     Date createdDate;
+    String[] musics;
+    Tire[] tires;
     
+    
+    
+    public int getNo() {
+        return no;
+    }
+    public void setNo(int no) {
+        this.no = no;
+    }
     public String getModel() {
         return model;
     }
@@ -39,6 +52,29 @@ public class Car {
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
+    public String[] getMusics() {
+        return musics;
+    }
+    public void setMusics(String[] musics) {
+        this.musics = musics;
+    }
+    public Tire[] getTires() {
+        return tires;
+    }
+    public void setTires(Tire[] tires) {
+        this.tires = tires;
+    }
+    
+    @Override
+    public String toString() {
+        return "Car [no=" + no + ", model=" + model + ", maker=" + maker + ", auto=" + auto + ", engine=" + engine
+                + ", createdDate=" + createdDate + ", musics=" + Arrays.toString(musics) + ", tires="
+                + Arrays.toString(tires) + "]";
+    }
+
+    
+ 
+    
     
     
 }
