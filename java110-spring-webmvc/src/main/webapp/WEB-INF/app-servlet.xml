@@ -12,7 +12,10 @@
 
     <context:component-scan base-package="ex03"/>
 
-    <mvc:annotation-driven/>
+
+
+    <!--  @MatirxVariable 을 사용하기 위해 enable 속성 값을 true로 설정해야 함! -->
+    <mvc:annotation-driven enable-matrix-variables="true"/>
     
      <!-- servlet3.0에서  제공하는 multipart/form-data 처리기를 사용하지 않고, Spring 프레임워크에서 직접 처리하고 싶다면, 다음 객체를 등록하라! -->
 
@@ -39,10 +42,30 @@
     </mvc:content-negotiation>
     <mvc:jsp/>
 </mvc:view-resolvers> -->
-    
-    
 
-</beans>
+<!-- interceptor 등록 -->
+    <mvc:interceptors>
+    
+    <!-- 이 프론트 컨트롤러가 취급하는 모든  요청(/app/*)에 대해 인터셉터 적용하기 -->
+    <bean class="ex03.Interceptor1"/>
+    
+    <!-- 특정 URL을 요청했을 때 인터셉터 적용하기 -->
+    <mvc:interceptor>
+        <mvc:mapping path="/ex03/test29/ok/*"/>
+        <bean class="ex03.Interceptor2"/>
+    </mvc:interceptor>
+    
+     <!-- 특정 URL을 제외하기 -->
+    <mvc:interceptor>
+        <mvc:mapping path="/ex03/test29/**"/>
+        <mvc:exclude-mapping path="/ex03/test29/ok/*"/>
+        <bean class="ex03.Interceptor3"/>
+    </mvc:interceptor>
+    
+    </mvc:interceptors>
+    </beans>
+    
+      
 
 
 
