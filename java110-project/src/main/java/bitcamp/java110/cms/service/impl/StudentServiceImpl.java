@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import bitcamp.java110.cms.dao.MemberDao;
 import bitcamp.java110.cms.dao.PhotoDao;
@@ -19,6 +21,9 @@ public class StudentServiceImpl implements StudentService {
     @Autowired PhotoDao photoDao;
     @Autowired StudentDao studentDao;
     
+    @Transactional(
+            propagation=Propagation.REQUIRED, 
+            rollbackFor=Exception.class)
     @Override
     public void add(Student student) {
         memberDao.insert(student);
@@ -48,6 +53,9 @@ public class StudentServiceImpl implements StudentService {
         return studentDao.findByNo(no);
     }
     
+    @Transactional(
+            propagation=Propagation.REQUIRED, 
+            rollbackFor=Exception.class)
     @Override
     public void delete(int no) {
         if (studentDao.delete(no) == 0) {
