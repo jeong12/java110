@@ -20,7 +20,7 @@ table, th, td {
 <jsp:include page="../header.jsp"></jsp:include><!-- 서버 입장에서의 경로 -->
 
 <h1>매니저 목록(MVC)</h1>
-<p><a href='add'>추가</a></p>
+<p><a href='form'>추가</a></p>
 <table>
 <thead>
 <tr>

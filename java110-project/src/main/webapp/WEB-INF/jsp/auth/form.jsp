@@ -20,7 +20,7 @@ th {
 
 <h1>로그인</h1>
 
-<form action='login' method='post'>
+<form action='login' method="Post">
 <table>
 <tr>
     <th></th>

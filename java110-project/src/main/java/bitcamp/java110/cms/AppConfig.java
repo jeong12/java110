@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.ComponentScan.Filter;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -17,7 +20,9 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
-@ComponentScan(basePackages="bitcamp.java110.cms")
+/*@ComponentScan(basePackages="bitcamp.java110.cms", 
+               excludeFilters=@Filter(type=FilterType.REGEX, pattern="bitcamp.java110.cms.web.*"))*/
+@Configuration //스프링 IoC 컨테이너에게 이 클래스가 컨테이너를 위한 설정 정보를 담고 있는 클래스라는 것을 알려주기 위해 추가한 애노테이션
 @PropertySource("classpath:/bitcamp/java110/cms/conf/jdbc.properties")
 @MapperScan("bitcamp.java110.cms.dao")
 @EnableTransactionManagement
