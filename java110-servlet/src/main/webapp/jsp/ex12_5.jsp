@@ -29,7 +29,7 @@ list1.add("유관순");
 request.setAttribute("name",list1);
 %>
 
-<jsp:useBean scope="request" id="name" class="java.util.ArrayList" 
+<jsp:useBean scope="request" id="name"  class="java.util.ArrayList"
              type="java.util.ArrayList"/>
 
 <%--

@@ -52,6 +52,8 @@ pageContext.setAttribute("name","안중근");
 
 <jsp:useBean scope="application" id="name" class="java.lang.String"/>
 
+<p>이름: <%=name%></p>
+
 <%--
 위 태그는 다음과 같이 동작하는 자바 코드로 변환된다.
 자바 코드:
@@ -63,7 +65,6 @@ if(name == null){
  --%>
 
 
-<p>이름: <%=name%></p>
 
 </body>
 </html>

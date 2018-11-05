@@ -4,5 +4,8 @@ bin/
 build/
 .classpath
 .project
+*.war
+**/sec.properties
 
+!build.gradle
 gradle는 넣어야함! 

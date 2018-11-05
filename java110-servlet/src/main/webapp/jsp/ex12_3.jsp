@@ -11,7 +11,7 @@
 <title>JSP 액션 태그</title>
 </head>
 <body>
-<h1>JSP:useBean - 보관소게 객체가 없을 떄?</h1>
+<h1>JSP:useBean - 보관소에 객체가 없을 떄?</h1>
 <pre>
 - 보관소에 객체가 없으면 class 속성에 지정된 타입으로 객체를 만든다.
         &lt;jsp:useBean

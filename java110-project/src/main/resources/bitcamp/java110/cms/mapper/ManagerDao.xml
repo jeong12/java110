@@ -56,13 +56,13 @@
     </select>
     
     <select id="findByEmailPassword" 
-            resultMap="managerMap" parameterType="map">
+            resultMap="managerMap" parameterType="Manager">
         <include refid="select1"></include>
         where
             m.email=#{email} and m.pwd=password(#{password})
     </select> 
     
-    <insert id="insert" parameterType="manager">
+    <insert id="insert" parameterType="map">
         insert into p1_mgr(mrno,posi) 
         values(#{no},#{position})
     </insert> 

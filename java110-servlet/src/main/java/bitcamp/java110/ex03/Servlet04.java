@@ -30,7 +30,7 @@ public class Servlet04 extends GenericServlet{
 
         // ServletContext 객체를 통해 현재 웹 애플리케이션의 실제 경로를 알아낸다.
         String filepath = ctx.getRealPath("/WEB-INF/pic2.jpeg");
-
+        System.out.println(filepath);
         res.setContentType("image/jpeg");
 
         try(BufferedInputStream in = 
@@ -39,7 +39,6 @@ public class Servlet04 extends GenericServlet{
                 new BufferedOutputStream(res.getOutputStream());
            ){
             int b;
-
             while((b=in.read()) !=-1) {
                 out.write(b);
             }
