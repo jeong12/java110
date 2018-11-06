@@ -8,6 +8,7 @@ public class Manager extends Member {
     public String getPosition() {
         return position;
     }
+    
     public void setPosition(String position) {
         this.position = position;
     }
